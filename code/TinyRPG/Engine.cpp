@@ -27,6 +27,7 @@ void Engine::Close() noexcept
 //-----------------------------------------------------------------------------
 void Engine::Update() noexcept
 {
+	m_windowSystem.Update();
 }
 //-----------------------------------------------------------------------------
 void Engine::BeginFrame() noexcept
