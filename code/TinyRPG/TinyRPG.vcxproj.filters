@@ -15,6 +15,18 @@
     <ClCompile Include="WindowSystem.cpp">
       <Filter>Engine\Core\Window</Filter>
     </ClCompile>
+    <ClCompile Include="InputSystem.cpp">
+      <Filter>Engine\Core\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformSystem.cpp">
+      <Filter>Engine\Core\Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="RendererSystem.cpp">
+      <Filter>Engine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Engine\Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -50,6 +62,12 @@
     <Filter Include="Engine\Core\Window">
       <UniqueIdentifier>{cdaf7479-eff9-4279-8677-b42196b3ab84}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Core\Input">
+      <UniqueIdentifier>{5b9bbaa6-b82b-47f3-b145-d7b23f80a7d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Core\Platform">
+      <UniqueIdentifier>{7714c115-8e76-4089-8c3f-f6e4567d43e6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -70,6 +88,18 @@
     </ClInclude>
     <ClInclude Include="WindowSystem.h">
       <Filter>Engine\Core\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="InputSystem.h">
+      <Filter>Engine\Core\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformSystem.h">
+      <Filter>Engine\Core\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="RendererSystem.h">
+      <Filter>Engine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>Engine\Engine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

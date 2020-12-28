@@ -25,6 +25,6 @@ private:
 	Application& operator=(Application&&) = delete;
 
 	Configuration m_config;
-
+	Engine &m_engine;
 	bool isQuit = false;
 };

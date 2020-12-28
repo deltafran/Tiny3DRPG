@@ -1,9 +1,9 @@
 #include "stdafx.h"
-#include "WindowSystem.h"
+#include "RendererSystem.h"
 //-----------------------------------------------------------------------------
-::WindowSystem& Globals::WindowSystem() noexcept
+::RendererSystem& Globals::RendererSystem() noexcept
 {
-	static ::WindowSystem system;
+	static ::RendererSystem system;
 	return system;
 }
 //-----------------------------------------------------------------------------

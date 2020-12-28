@@ -1,9 +1,9 @@
 #include "stdafx.h"
-#include "WindowSystem.h"
+#include "InputSystem.h"
 //-----------------------------------------------------------------------------
-::WindowSystem& Globals::WindowSystem() noexcept
+::InputSystem& Globals::InputSystem() noexcept
 {
-	static ::WindowSystem system;
+	static ::InputSystem system;
 	return system;
 }
 //-----------------------------------------------------------------------------
