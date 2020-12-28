@@ -187,6 +187,7 @@
     <ClInclude Include="Globals.h" />
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="PlatformSystem.h" />
+    <ClInclude Include="RendererConfiguration.h" />
     <ClInclude Include="RendererSystem.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="WindowConfiguration.h" />

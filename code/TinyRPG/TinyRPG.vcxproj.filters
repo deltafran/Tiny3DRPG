@@ -104,5 +104,8 @@
     <ClInclude Include="WindowConfiguration.h">
       <Filter>Engine\Core\Window</Filter>
     </ClInclude>
+    <ClInclude Include="RendererConfiguration.h">
+      <Filter>Engine\Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
