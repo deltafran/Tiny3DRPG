@@ -13,7 +13,6 @@ public:
 	ID3D11DeviceContext* GetDeviceContext() noexcept;
 
 	void GetProjectionMatrix(XMMATRIX&) noexcept;
-	void GetWorldMatrix(XMMATRIX&) noexcept;
 	void GetOrthoMatrix(XMMATRIX&) noexcept;
 
 	void GetVideoCardInfo(char*, int&) noexcept;
@@ -28,7 +27,6 @@ private:
 	ID3D11DepthStencilView* m_depthStencilView;
 	ID3D11RasterizerState* m_rasterState;
 	XMMATRIX m_projectionMatrix;
-	XMMATRIX m_worldMatrix;
 	XMMATRIX m_orthoMatrix;
 
 	int m_videoCardMemory;
