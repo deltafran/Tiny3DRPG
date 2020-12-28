@@ -3,6 +3,18 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Globals.cpp">
+      <Filter>Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Engine\Core\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowSystem.cpp">
+      <Filter>Engine\Core\Window</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -35,11 +47,29 @@
     <Filter Include="LessonAndExample">
       <UniqueIdentifier>{83960a1b-110a-477e-ac5e-3a2a47cdc312}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Core\Window">
+      <UniqueIdentifier>{cdaf7479-eff9-4279-8677-b42196b3ab84}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="ConfigExample.h">
       <Filter>LessonAndExample</Filter>
+    </ClInclude>
+    <ClInclude Include="Globals.h">
+      <Filter>Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Configuration.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Engine\Core\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowSystem.h">
+      <Filter>Engine\Core\Window</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
