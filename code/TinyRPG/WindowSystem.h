@@ -1,6 +1,6 @@
-#pragma once
+﻿#pragma once
 
-#include "Window.h"
+#include "WindowConfiguration.h"
 
 class WindowSystem final
 {
@@ -11,5 +11,5 @@ public:
 	LRESULT CALLBACK MessageHandler(HWND, UINT, WPARAM, LPARAM);
 
 private:
-	Window m_wnd;
+	// Window m_wnd; TODO: в будущем выделить в отдельный класс, сейчас же так
 };

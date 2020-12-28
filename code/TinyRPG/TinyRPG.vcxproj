@@ -177,7 +177,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Window.cpp" />
     <ClCompile Include="WindowSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -190,7 +189,7 @@
     <ClInclude Include="PlatformSystem.h" />
     <ClInclude Include="RendererSystem.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Window.h" />
+    <ClInclude Include="WindowConfiguration.h" />
     <ClInclude Include="WindowSystem.h" />
     <ClInclude Include="GameApp.h" />
   </ItemGroup>

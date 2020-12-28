@@ -9,9 +9,6 @@
     <ClCompile Include="Application.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Window.cpp">
-      <Filter>Engine\Core\Window</Filter>
-    </ClCompile>
     <ClCompile Include="WindowSystem.cpp">
       <Filter>Engine\Core\Window</Filter>
     </ClCompile>
@@ -86,9 +83,6 @@
     <ClInclude Include="Configuration.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Window.h">
-      <Filter>Engine\Core\Window</Filter>
-    </ClInclude>
     <ClInclude Include="WindowSystem.h">
       <Filter>Engine\Core\Window</Filter>
     </ClInclude>
@@ -106,6 +100,9 @@
     </ClInclude>
     <ClInclude Include="GameApp.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowConfiguration.h">
+      <Filter>Engine\Core\Window</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

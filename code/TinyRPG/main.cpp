@@ -6,10 +6,10 @@
 int main()
 {
 	Configuration config;
-	Application& app = Globals::Application(config);
+	Application& app = Globals::Application();
 	GameApp game;
 
-	if (app.Init() && game.Init())
+	if (app.Init(config) && game.Init())
 	{
 		while (!app.IsQuit())
 		{

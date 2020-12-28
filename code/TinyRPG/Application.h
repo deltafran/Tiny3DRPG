@@ -5,18 +5,19 @@
 class Application final
 {
 public:
-	Application(const Configuration& config) noexcept;
+	Application() noexcept;
 	~Application() noexcept;
 
-	bool Init() noexcept;
+	bool Init(const Configuration& config) noexcept;
 
 	void Update() noexcept;
 	void BeginFrame() noexcept;
 	void EndFrame() noexcept;
 
 	bool IsQuit() noexcept;
-
 	void Quit() noexcept;
+
+	Configuration& GetConfiguration() noexcept;
 
 private:
 	Application(const Application&) = delete;
