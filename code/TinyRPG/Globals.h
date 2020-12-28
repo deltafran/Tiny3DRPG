@@ -9,11 +9,9 @@ class RendererSystem;
 class Engine;
 class Application;
 
+// Данный код позволяет получать доступ к основным системам движка из любого места без цепочек передачи. По сути, это синглтоны.
 namespace Globals
 {
-	/*
-	* эти функции объявлены в месте описания класса
-	*/
 	extern [[nodiscard]] ::PlatformSystem& PlatformSystem() noexcept;                      // => PlatformSystem.cpp
 	extern [[nodiscard]] ::WindowSystem& WindowSystem() noexcept;                          // => WindowSystem.cpp
 	extern [[nodiscard]] ::InputSystem& InputSystem() noexcept;                            // => InputSystem.cpp

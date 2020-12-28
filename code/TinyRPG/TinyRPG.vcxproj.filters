@@ -27,6 +27,9 @@
     <ClCompile Include="Engine.cpp">
       <Filter>Engine\Engine</Filter>
     </ClCompile>
+    <ClCompile Include="GameApp.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -100,6 +103,9 @@
     </ClInclude>
     <ClInclude Include="Engine.h">
       <Filter>Engine\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="GameApp.h">
+      <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -8,6 +8,9 @@
 #define _STL_WARNING_LEVEL 3
 #pragma warning(push, 3)
 #include <iostream>
+
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
 #pragma warning(pop)
 
 //=============================================================================

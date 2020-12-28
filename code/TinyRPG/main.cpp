@@ -1,23 +1,27 @@
 ﻿#include "stdafx.h"
 #include "Application.h"
+#include "GameApp.h"
 
 #if !ENABLE_EXAMPLE
 int main()
 {
 	Configuration config;
 	Application& app = Globals::Application(config);
+	GameApp game;
 
-	if (app.Init())
+	if (app.Init() && game.Init())
 	{
-		// TODO: game init
 		while (!app.IsQuit())
 		{
 			app.Update();
-			// TODO: game update
+			game.Update();
 			app.BeginFrame();
-			// TODO: game frame
+			game.Draw();
 			app.EndFrame();
 		}
+		game.Close();
 	}
+
+	return 0;
 }
 #endif // ENABLE_EXAMPLE
