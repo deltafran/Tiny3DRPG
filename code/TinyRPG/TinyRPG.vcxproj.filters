@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{8a3b4d06-af47-42fc-838c-e63c1667562b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{4bd96221-a10d-4b8f-a1fb-a8d88e2273d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Core">
+      <UniqueIdentifier>{65b06ed3-f528-4521-9ecd-808312781d45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Engine">
+      <UniqueIdentifier>{46cc9986-8130-400d-9c68-82f21d8fdc16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Physics">
+      <UniqueIdentifier>{29bcc225-b776-4d0c-ab8f-34f4d499a64a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics">
+      <UniqueIdentifier>{58887865-d7c3-47d8-b79e-1616c56c65aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Renderer">
+      <UniqueIdentifier>{050ce06c-d9bb-44ed-ad25-ac94d4c313b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Audio">
+      <UniqueIdentifier>{9c89704f-8b1c-439f-a744-1ee151e55c7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene">
+      <UniqueIdentifier>{2a812129-8bd3-463d-aace-c29b30f7f76a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LessonAndExample">
+      <UniqueIdentifier>{83960a1b-110a-477e-ac5e-3a2a47cdc312}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="ConfigExample.h">
+      <Filter>LessonAndExample</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
