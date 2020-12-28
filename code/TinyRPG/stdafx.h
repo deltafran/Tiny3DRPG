@@ -9,11 +9,13 @@
 #pragma warning(push, 3)
 #pragma warning(disable : 5219)
 #include <iostream>
+#include <fstream>
 
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
 
 #include <d3d11.h>
+#include <d3dcompiler.h>
 #include <directxmath.h>
 using namespace DirectX;
 #pragma warning(pop)
