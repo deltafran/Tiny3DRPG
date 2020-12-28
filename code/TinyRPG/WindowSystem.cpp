@@ -72,15 +72,18 @@ bool WindowSystem::Init()
 		ChangeDisplaySettings(&dmScreenSettings, CDS_FULLSCREEN);
 
 		posX = posY = 0;
+
+		wndconfig.windowWidth = screenWidth;
+		wndconfig.windowHeight = screenHeight;
 	}
 	else
 	{
-		screenWidth = wndconfig.windowWidth;
-		screenHeight = wndconfig.windowHeight;
-
 		posX = (GetSystemMetrics(SM_CXSCREEN) - screenWidth) / 2;
 		posY = (GetSystemMetrics(SM_CYSCREEN) - screenHeight) / 2;
 	}
+
+	screenWidth = wndconfig.windowWidth;
+	screenHeight = wndconfig.windowHeight;
 
 	DWORD Style = (wndconfig.fullscreen ? WS_POPUP : WS_SYSMENU | WS_MINIMIZEBOX | WS_CAPTION);
 
@@ -144,5 +147,10 @@ LRESULT WindowSystem::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM
 	default:
 		return DefWindowProc(hwnd, umsg, wparam, lparam);
 	}
+}
+//-----------------------------------------------------------------------------
+HWND WindowSystem::GetHWND()
+{
+	return m_hwnd;
 }
 //-----------------------------------------------------------------------------

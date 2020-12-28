@@ -19,4 +19,5 @@ private:
 	Engine& operator=(Engine&&) = delete;
 
 	WindowSystem& m_windowSystem;
+	RendererSystem& m_renderer;
 };

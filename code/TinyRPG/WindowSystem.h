@@ -11,6 +11,8 @@ public:
 
 	LRESULT CALLBACK MessageHandler(HWND, UINT, WPARAM, LPARAM);
 
+	HWND GetHWND();
+
 private:
 	// Window m_wnd; TODO: в будущем выделить в отдельный класс, сейчас же так
 
