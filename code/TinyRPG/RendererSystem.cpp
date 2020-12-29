@@ -7,10 +7,10 @@
 #pragma comment(lib, "dxgi.lib")
 #pragma comment(lib, "d3dcompiler.lib")
 //-----------------------------------------------------------------------------
-// Prefer the high-performance GPU on switchable GPU systems
+// Indicates to hybrid graphics systems to prefer the discrete part by default
 extern "C"
 {
-	__declspec(dllexport) DWORD NvOptimusEnablement = 1;
+	__declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
 	__declspec(dllexport) int AmdPowerXpressRequestHighPerformance = 1;
 }
 //-----------------------------------------------------------------------------
@@ -25,6 +25,9 @@ bool RendererSystem::Init() noexcept
 	auto& wndconfig = Globals::Application().GetConfiguration().window;
 	auto& renderconfig = Globals::Application().GetConfiguration().renderer;
 	auto& windowSystem = Globals::WindowSystem();
+
+	if (!XMVerifyCPUSupport())
+		return false;
 
 	HRESULT result;
 	int error;

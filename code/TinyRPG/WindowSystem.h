@@ -16,7 +16,7 @@ public:
 private:
 	// Window m_wnd; TODO: в будущем выделить в отдельный класс, сейчас же так
 
-	LPCWSTR m_applicationName;
+	LPCWSTR m_applicationName = L"Tiny3DRPG";
 	HINSTANCE m_hinstance;
 	HWND m_hwnd;
 };

@@ -34,26 +34,28 @@ bool WindowSystem::Init()
 
 	//=========================================================================
 	// InitializeWindows
+	//=========================================================================
 
-	m_hinstance = GetModuleHandle(NULL);
+	//------------------------------------------------------------------------------
+	// Register class
+	m_hinstance = GetModuleHandle(nullptr);
 
-	m_applicationName = L"Tiny3DRPG";
-
-	WNDCLASSEX wc;	
-	wc.style         = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
+	WNDCLASSEX wc    = {};
+	wc.cbSize        = sizeof(WNDCLASSEX);
+	wc.style         = CS_HREDRAW | CS_VREDRAW;
 	wc.lpfnWndProc   = WndProc;
 	wc.cbClsExtra    = 0;
 	wc.cbWndExtra    = 0;
 	wc.hInstance     = m_hinstance;
-	wc.hIcon         = LoadIcon(NULL, IDI_WINLOGO);
+	wc.hIcon         = LoadIcon(nullptr, IDI_WINLOGO);
 	wc.hIconSm       = wc.hIcon;
-	wc.hCursor       = LoadCursor(NULL, IDC_ARROW);
-	wc.hbrBackground = (HBRUSH)GetStockObject(GRAY_BRUSH);
-	wc.lpszMenuName  = NULL;
+	wc.hCursor       = LoadCursor(nullptr, IDC_ARROW);
+	wc.hbrBackground = reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1);
+	wc.lpszMenuName  = nullptr;
 	wc.lpszClassName = m_applicationName;
-	wc.cbSize        = sizeof(WNDCLASSEX);
+	if (!RegisterClassEx(&wc))
+		return false;
 
-	RegisterClassEx(&wc);
 
 	int screenWidth = GetSystemMetrics(SM_CXSCREEN);
 	int screenHeight = GetSystemMetrics(SM_CYSCREEN);
@@ -89,6 +91,9 @@ bool WindowSystem::Init()
 
 	m_hwnd = CreateWindowEx(WS_EX_APPWINDOW, m_applicationName, m_applicationName, Style, posX, posY, screenWidth, screenHeight, NULL, NULL, m_hinstance, NULL);
 
+	if (!m_hwnd)
+		return false;
+
 	ShowWindow(m_hwnd, SW_SHOW);
 	SetForegroundWindow(m_hwnd);
 	SetFocus(m_hwnd);
@@ -112,13 +117,14 @@ void WindowSystem::Close()
 
 	UnregisterClass(m_applicationName, m_hinstance);
 	m_hinstance = NULL;
+
+	CoUninitialize();
 }
 //-----------------------------------------------------------------------------
 void WindowSystem::Update()
 {
-	MSG msg;
-	ZeroMemory(&msg, sizeof(MSG));
-	if (PeekMessage(&msg, 0, 0, 0, PM_REMOVE))
+	MSG msg = {};
+	if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
 	{
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);

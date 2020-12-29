@@ -22,6 +22,10 @@ bool Application::Init(const Configuration& config) noexcept
 {
 	m_config = config;
 
+	HRESULT hr = CoInitializeEx(nullptr, COINITBASE_MULTITHREADED);
+	if (FAILED(hr))
+		return false;
+
 	if (!m_engine.Init())
 		return false;
 

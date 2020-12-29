@@ -39,6 +39,9 @@
     <ClCompile Include="Model.cpp">
       <Filter>Engine\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Engine\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -79,6 +82,12 @@
     </Filter>
     <Filter Include="Engine\Core\Platform">
       <UniqueIdentifier>{7714c115-8e76-4089-8c3f-f6e4567d43e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Core\Debug">
+      <UniqueIdentifier>{88995bdb-7e06-4648-82bd-fcd29b24229e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Renderer\shader">
+      <UniqueIdentifier>{9e451c7e-2658-4427-a0ba-f422dcd2238b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -131,5 +140,20 @@
     <ClInclude Include="Model.h">
       <Filter>Engine\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="Exception.h">
+      <Filter>Engine\Core\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Engine\Graphics</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\bin\data\MainShaders.vs">
+      <Filter>Engine\Renderer\shader</Filter>
+    </None>
+    <None Include="..\..\bin\data\MainShaders.ps">
+      <Filter>Engine\Renderer\shader</Filter>
+    </None>
+    <None Include="ref.md" />
   </ItemGroup>
 </Project>

@@ -8,9 +8,18 @@ class Model
 	{
 		XMFLOAT3 position;
 		XMFLOAT2 texture;
+		XMFLOAT3 normal;
 	};
+
+	struct ModelType
+	{
+		float x, y, z;
+		float tu, tv;
+		float nx, ny, nz;
+	};
+
 public:
-	bool Init(const char*);
+	bool Init(const char* modelFilename, const char* textureFilename);
 	void Close();
 
 	void Render();
@@ -25,7 +34,11 @@ private:
 	bool loadTexture(const char*);
 	void releaseTexture();
 
+	bool loadModel(const char*);
+	void releaseModel();
+
 	ID3D11Buffer* m_vertexBuffer = nullptr, * m_indexBuffer = nullptr;
 	int m_vertexCount, m_indexCount;
 	Texture* m_Texture = nullptr;
+	ModelType* m_model = nullptr;
 };

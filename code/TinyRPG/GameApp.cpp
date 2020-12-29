@@ -7,8 +7,11 @@
 //-----------------------------------------------------------------------------
 bool GameApp::Init()
 {
-	m_camera.SetPosition(0.0f, 0.0f, -5.0f);
-	bool result = m_model.Init("data/paimon.tga");
+	m_camera.SetPosition(0.0f, 2.0f, -10.0f);
+	m_light.SetDiffuseColor(1.0f, 1.0f, 1.0f, 1.0f);
+	m_light.SetDirection(0.0f, 0.0f, 1.0f);
+
+	bool result = m_model.Init("data/cube.txt", "data/paimon.tga");
 	if (!result)
 	{
 		auto hwnd = Globals::WindowSystem().GetHWND();
@@ -38,15 +41,25 @@ void GameApp::Update()
 //-----------------------------------------------------------------------------
 void GameApp::Draw()
 {
-	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
+	static float rotation = 0.0f;
+	rotation += (float)3.14 * 0.01f;
+	if (rotation > 360.0f)
+	{
+		rotation -= 360.0f;
+	}
+
 	m_camera.Update();
-	worldMatrix = XMMatrixIdentity();
+
+	XMMATRIX viewMatrix, projectionMatrix;	
+	XMMATRIX worldMatrix = XMMatrixIdentity();
 	m_camera.GetViewMatrix(viewMatrix);
 	Globals::RendererSystem().GetProjectionMatrix(projectionMatrix);
 
+	worldMatrix = XMMatrixRotationY(45);
+
 	m_model.Render();
 
-	m_shaders.Render(m_model.GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix, m_model.GetTexture());
+	m_shaders.Render(m_model.GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix, m_model.GetTexture(), m_light.GetDirection(), m_light.GetDiffuseColor());
 }
 //-----------------------------------------------------------------------------
 void GameApp::Close()
