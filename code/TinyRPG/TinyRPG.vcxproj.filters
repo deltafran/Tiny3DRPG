@@ -42,6 +42,15 @@
     <ClCompile Include="Light.cpp">
       <Filter>Engine\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Log.cpp">
+      <Filter>Engine\Core\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Engine\Core\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="StringUtils.cpp">
+      <Filter>Engine\Core\Utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -88,6 +97,9 @@
     </Filter>
     <Filter Include="Engine\Renderer\shader">
       <UniqueIdentifier>{9e451c7e-2658-4427-a0ba-f422dcd2238b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Core\Utility">
+      <UniqueIdentifier>{101b1007-5903-4fea-a26d-5e4fd3df4151}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +157,15 @@
     </ClInclude>
     <ClInclude Include="Light.h">
       <Filter>Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Log.h">
+      <Filter>Engine\Core\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Engine\Core\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="StringUtils.h">
+      <Filter>Engine\Core\Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

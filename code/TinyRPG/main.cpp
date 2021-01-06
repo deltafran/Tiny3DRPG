@@ -6,6 +6,8 @@
 int main()
 {
 	Configuration config;
+	config.logFileName = "TinyRPG.log";
+
 	Application& app = Globals::Application();
 	GameApp game;
 

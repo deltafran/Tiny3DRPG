@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Application.h"
 #include "Engine.h"
+#include "Log.h"
 //-----------------------------------------------------------------------------
 ::Application& Globals::Application() noexcept
 {
@@ -16,6 +17,7 @@ Application::Application() noexcept
 Application::~Application() noexcept
 {
 	m_engine.Close();
+	Log::Close();
 }
 //-----------------------------------------------------------------------------
 bool Application::Init(const Configuration& config) noexcept
@@ -25,6 +27,12 @@ bool Application::Init(const Configuration& config) noexcept
 	HRESULT hr = CoInitializeEx(nullptr, COINITBASE_MULTITHREADED);
 	if (FAILED(hr))
 		return false;
+
+	if (!m_config.logFileName.empty())
+	{
+		if (!Log::Open(m_config.logFileName))
+			return false;
+	}	
 
 	if (!m_engine.Init())
 		return false;

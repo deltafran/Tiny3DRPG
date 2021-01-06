@@ -7,4 +7,6 @@ struct Configuration
 {
 	WindowConfiguration window;
 	RendererConfiguration renderer;
+
+	std::string logFileName;
 };
