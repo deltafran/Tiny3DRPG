@@ -32,7 +32,9 @@ bool Application::Init(const Configuration& config) noexcept
 	{
 		if (!Log::Open(m_config.logFileName))
 			return false;
-	}	
+	}
+
+	Log::Error("hello");
 
 	if (!m_engine.Init())
 		return false;
