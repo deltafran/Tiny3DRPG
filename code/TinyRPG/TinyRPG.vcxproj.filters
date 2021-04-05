@@ -15,6 +15,9 @@
     <ClCompile Include="03_Triangle2.cpp">
       <Filter>example</Filter>
     </ClCompile>
+    <ClCompile Include="09_LoadMesh.cpp">
+      <Filter>example</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">
@@ -48,6 +51,9 @@
       <Filter>example</Filter>
     </ClInclude>
     <ClInclude Include="03_Triangle2.h">
+      <Filter>example</Filter>
+    </ClInclude>
+    <ClInclude Include="09_LoadMesh.h">
       <Filter>example</Filter>
     </ClInclude>
   </ItemGroup>

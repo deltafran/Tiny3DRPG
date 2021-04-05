@@ -11,3 +11,5 @@
 #include "LiliEngine/VulkanSwapChain.h"
 #include "LiliEngine/FileManager.h"
 #include "LiliEngine/VKCamera.h"
+#include "LiliEngine/VKModel.h"
+#include "LiliEngine/VKUtils.h"

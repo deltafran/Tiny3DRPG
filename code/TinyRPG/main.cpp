@@ -2,6 +2,7 @@
 #include "GameApplication.h"
 #include "02_Triangle.h"
 #include "03_Triangle2.h"
+#include "09_LoadMesh.h"
 //-----------------------------------------------------------------------------
 #pragma comment(lib, "LiliEngine.lib")
 #pragma comment(lib, "3rdparty.lib")
@@ -15,7 +16,8 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv)
 	configuration.logFileName = "TinyRPG.log";
 
 	//Triangle game(configuration);
-	Triangle2 game(configuration);
+	//Triangle2 game(configuration);
+	LoadMesh game(configuration);
 	//GameApplication game(configuration);
 	game.StartGame();
 	return 0;
