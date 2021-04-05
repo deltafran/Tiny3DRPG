@@ -4,6 +4,7 @@
 #include "RendererConfiguration.h"
 #include "VulkanRHI.h"
 #include "VulkanContext.h"
+#include "DefaultVulkanContext.h"
 
 class RendererSystem final
 {
@@ -29,4 +30,5 @@ private:
 	RendererConfiguration& m_configuration;
 	VulkanRHI m_vulkanRHI;
 	VulkanContext m_vulkanContext;
+	DefaultVulkanContext m_defaultVulkanContext;
 };

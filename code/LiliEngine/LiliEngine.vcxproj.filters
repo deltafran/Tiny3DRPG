@@ -134,6 +134,21 @@
     <ClInclude Include="FileManager.h">
       <Filter>Core\IO</Filter>
     </ClInclude>
+    <ClInclude Include="DefaultVulkanContext.h">
+      <Filter>Renderer\VulkanContext</Filter>
+    </ClInclude>
+    <ClInclude Include="VKCommandBuffer.h">
+      <Filter>Renderer\VulkanObject</Filter>
+    </ClInclude>
+    <ClInclude Include="VKUtils.h">
+      <Filter>Renderer\VulkanObject</Filter>
+    </ClInclude>
+    <ClInclude Include="VKBuffer.h">
+      <Filter>Renderer\VulkanObject</Filter>
+    </ClInclude>
+    <ClInclude Include="VKTexture.h">
+      <Filter>Renderer\VulkanObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
@@ -212,6 +227,18 @@
     <ClCompile Include="FileManager.cpp">
       <Filter>Core\IO</Filter>
     </ClCompile>
+    <ClCompile Include="DefaultVulkanContext.cpp">
+      <Filter>Renderer\VulkanContext</Filter>
+    </ClCompile>
+    <ClCompile Include="VKCommandBuffer.cpp">
+      <Filter>Renderer\VulkanObject</Filter>
+    </ClCompile>
+    <ClCompile Include="VKBuffer.cpp">
+      <Filter>Renderer\VulkanObject</Filter>
+    </ClCompile>
+    <ClCompile Include="VKTexture.cpp">
+      <Filter>Renderer\VulkanObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Audio">
@@ -264,6 +291,9 @@
     </Filter>
     <Filter Include="Core\IO">
       <UniqueIdentifier>{f0339261-d7ab-42f5-994c-bfaa817e76b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\VulkanObject">
+      <UniqueIdentifier>{7cdaa22e-0fc3-4333-80a1-daeebf40cac0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

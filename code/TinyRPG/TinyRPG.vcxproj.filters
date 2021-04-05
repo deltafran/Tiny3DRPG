@@ -9,6 +9,9 @@
     <ClCompile Include="temp.c">
       <Filter>temp</Filter>
     </ClCompile>
+    <ClCompile Include="02_Triangle.cpp">
+      <Filter>example</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">
@@ -16,6 +19,9 @@
     </Filter>
     <Filter Include="temp">
       <UniqueIdentifier>{48ca318c-8431-4f20-9dd3-3758a9b182fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="example">
+      <UniqueIdentifier>{9e47e310-38b3-46f4-a69d-fec1833d1b25}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -34,6 +40,9 @@
     </ClInclude>
     <ClInclude Include="lunarg.ppm.h">
       <Filter>temp</Filter>
+    </ClInclude>
+    <ClInclude Include="02_Triangle.h">
+      <Filter>example</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

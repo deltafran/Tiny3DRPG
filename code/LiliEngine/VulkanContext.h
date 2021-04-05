@@ -12,14 +12,14 @@ public:
 	{
 	}
 
-	void InitDefaultContext() noexcept
+	void Init() noexcept
 	{
 		createDepthStencil();
 		createRenderPass();
 		createFrameBuffers();
 	}
 
-	void Release() noexcept
+	void Close() noexcept
 	{
 		destroyFrameBuffers();
 		destroyRenderPass();

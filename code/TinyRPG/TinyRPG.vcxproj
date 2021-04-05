@@ -177,6 +177,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="02_Triangle.cpp" />
     <ClCompile Include="GameApplication.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -193,6 +194,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="02_Triangle.h" />
     <ClInclude Include="GameApplication.h" />
     <ClInclude Include="gettime.h" />
     <ClInclude Include="linmath.h" />

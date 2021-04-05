@@ -11,6 +11,7 @@
 RendererSystem::RendererSystem(RendererConfiguration& configuration) noexcept
 	: m_configuration(configuration)
 	, m_vulkanContext(m_vulkanRHI)
+	, m_defaultVulkanContext(m_vulkanRHI)
 {
 }
 //-----------------------------------------------------------------------------
@@ -19,14 +20,16 @@ bool RendererSystem::Init(const WindowInfo& info, int32_t widthSwapChain, int32_
 	if (!m_vulkanRHI.Init(info, widthSwapChain, heightSwapChain))
 		return false;
 
-	m_vulkanContext.InitDefaultContext();
+	m_vulkanContext.Init();
+	m_defaultVulkanContext.Init();
 
 	return true;
 }
 //-----------------------------------------------------------------------------
 void RendererSystem::Close() noexcept
 {
-	m_vulkanContext.Release();
+	m_defaultVulkanContext.Close();
+	m_vulkanContext.Close();
 	m_vulkanRHI.Close();
 }
 //-----------------------------------------------------------------------------
