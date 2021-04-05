@@ -85,7 +85,7 @@ private:
 		VKCommandBuffer* cmdBuffer = VKCommandBuffer::Create(m_defContext->m_VulkanDevice, m_defContext->m_CommandPool);
 
 		m_Model = VKModel::LoadFromFile(
-			"data/models/suzanne.obj",
+			"data/models/model.obj",
 			m_defContext->m_VulkanDevice,
 			cmdBuffer,
 			{ VertexAttribute::VA_Position, VertexAttribute::VA_Normal }
@@ -383,7 +383,7 @@ private:
 		}
 
 		m_ViewCamera.Perspective(PI / 4, m_configuration.window.windowWidth, m_configuration.window.windowHeight, 0.1f, 1000.0f);
-		m_ViewCamera.SetPosition(boundCenter.x, boundCenter.y, boundCenter.z - 50.0f);
+		m_ViewCamera.SetPosition(boundCenter.x, boundCenter.y+20, boundCenter.z - 50.0f);
 		m_ViewCamera.LookAt(boundCenter);
 	}
 
@@ -415,7 +415,7 @@ private:
 	typedef std::vector<VKBuffer*>	DVKBuffers;
 	typedef std::vector<VkDescriptorSet>		VkDescriptorSets;
 
-	bool							m_AutoRotate = false;
+	bool							m_AutoRotate = true;
 	bool 							m_Ready = false;
 
 	std::vector<UBOData> 			m_MVPDatas;
