@@ -28,6 +28,7 @@ public:
 		destroyFences();
 		destroyCommandBuffers();
 		destroyPipelineCache();
+		m_SwapChain = nullptr;
 	}
 
 	void Present(int backBufferIndex);
@@ -48,7 +49,13 @@ public:
 		}
 	}
 
-private:
+	VkDevice& GetVkDevice() noexcept { return m_Device; }
+	std::vector<VkCommandBuffer>& GetCommandBuffers() noexcept { return m_CommandBuffers; }
+	int32_t GetFrameWidth() noexcept { return m_FrameWidth; }
+	int32_t GetFrameHeight() noexcept { return m_FrameHeight; }
+
+
+//private:
 	DefaultVulkanContext() = delete;
 	DefaultVulkanContext(const DefaultVulkanContext&) = delete;
 	DefaultVulkanContext(DefaultVulkanContext&&) = delete;

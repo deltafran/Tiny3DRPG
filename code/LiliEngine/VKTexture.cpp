@@ -7,12 +7,12 @@
 #include "VKUtils.h"
 #include "ImageLoader.h"
 
-DVKTexture* DVKTexture::Create2D(const uint8_t* rgbaData, uint32_t size, VkFormat format, int32_t width, int32_t height, std::shared_ptr<VulkanDevice> vulkanDevice, VKCommandBuffer* cmdBuffer, VkImageUsageFlags imageUsageFlags, ImageLayoutBarrier imageLayout)
+VKTexture* VKTexture::Create2D(const uint8_t* rgbaData, uint32_t size, VkFormat format, int32_t width, int32_t height, std::shared_ptr<VulkanDevice> vulkanDevice, VKCommandBuffer* cmdBuffer, VkImageUsageFlags imageUsageFlags, ImageLayoutBarrier imageLayout)
 {
 	int32_t mipLevels = math::FloorToInt(math::Log2(math::Max(width, height))) + 1;
 	VkDevice device = vulkanDevice->GetInstanceHandle();
 
-	DVKBuffer* stagingBuffer = DVKBuffer::CreateBuffer(vulkanDevice, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, size);
+	VKBuffer* stagingBuffer = VKBuffer::CreateBuffer(vulkanDevice, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, size);
 	stagingBuffer->Map();
 	stagingBuffer->CopyFrom((void*)rgbaData, size);
 	stagingBuffer->UnMap();
@@ -170,7 +170,7 @@ DVKTexture* DVKTexture::Create2D(const uint8_t* rgbaData, uint32_t size, VkForma
 	descriptorInfo.imageView = imageView;
 	descriptorInfo.imageLayout = vkutils::GetImageLayout(imageLayout);
 
-	DVKTexture* texture = new DVKTexture();
+	VKTexture* texture = new VKTexture();
 	texture->descriptorInfo = descriptorInfo;
 	texture->format = format;
 	texture->height = height;
@@ -187,7 +187,7 @@ DVKTexture* DVKTexture::Create2D(const uint8_t* rgbaData, uint32_t size, VkForma
 	return texture;
 }
 
-DVKTexture* DVKTexture::Create2D(const std::string& filename, std::shared_ptr<VulkanDevice> vulkanDevice, VKCommandBuffer* cmdBuffer, VkImageUsageFlags imageUsageFlags, ImageLayoutBarrier imageLayout)
+VKTexture* VKTexture::Create2D(const std::string& filename, std::shared_ptr<VulkanDevice> vulkanDevice, VKCommandBuffer* cmdBuffer, VkImageUsageFlags imageUsageFlags, ImageLayoutBarrier imageLayout)
 {
 	uint32_t dataSize = 0;
 	uint8_t* dataPtr = nullptr;
@@ -211,22 +211,22 @@ DVKTexture* DVKTexture::Create2D(const std::string& filename, std::shared_ptr<Vu
 		return nullptr;
 	}
 
-	DVKTexture* texture = Create2D(rgbaData, width * height * 4, VK_FORMAT_R8G8B8A8_UNORM, width, height, vulkanDevice, cmdBuffer, imageUsageFlags, imageLayout);
+	VKTexture* texture = Create2D(rgbaData, width * height * 4, VK_FORMAT_R8G8B8A8_UNORM, width, height, vulkanDevice, cmdBuffer, imageUsageFlags, imageLayout);
 
 	ImageLoader::Free(rgbaData);
 
 	return texture;
 }
 
-DVKTexture* DVKTexture::CreateCubeRenderTarget(std::shared_ptr<VulkanDevice> vulkanDevice, VkFormat format, VkImageAspectFlags aspect, int32_t width, int32_t height, VkImageUsageFlags usage, VkSampleCountFlagBits sampleCount)
+VKTexture* VKTexture::CreateCubeRenderTarget(std::shared_ptr<VulkanDevice> vulkanDevice, VkFormat format, VkImageAspectFlags aspect, int32_t width, int32_t height, VkImageUsageFlags usage, VkSampleCountFlagBits sampleCount)
 {
-	DVKTexture* texture = CreateCube(vulkanDevice, nullptr, format, aspect, width, height, false, usage, sampleCount);
+	VKTexture* texture = CreateCube(vulkanDevice, nullptr, format, aspect, width, height, false, usage, sampleCount);
 	texture->imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
 	texture->descriptorInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
 	return texture;
 }
 
-DVKTexture* DVKTexture::CreateCube(std::shared_ptr<VulkanDevice> vulkanDevice, VKCommandBuffer* cmdBuffer, VkFormat format, VkImageAspectFlags aspect, int32_t width, int32_t height, bool mipmaps, VkImageUsageFlags usage, VkSampleCountFlagBits sampleCount, ImageLayoutBarrier imageLayout)
+VKTexture* VKTexture::CreateCube(std::shared_ptr<VulkanDevice> vulkanDevice, VKCommandBuffer* cmdBuffer, VkFormat format, VkImageAspectFlags aspect, int32_t width, int32_t height, bool mipmaps, VkImageUsageFlags usage, VkSampleCountFlagBits sampleCount, ImageLayoutBarrier imageLayout)
 {
 	VkDevice device = vulkanDevice->GetInstanceHandle();
 	int32_t mipLevels = 1;
@@ -323,7 +323,7 @@ DVKTexture* DVKTexture::CreateCube(std::shared_ptr<VulkanDevice> vulkanDevice, V
 	descriptorInfo.imageView = imageView;
 	descriptorInfo.imageLayout = vkutils::GetImageLayout(imageLayout);
 
-	DVKTexture* texture = new DVKTexture();
+	VKTexture* texture = new VKTexture();
 	texture->descriptorInfo = descriptorInfo;
 	texture->format = format;
 	texture->width = width;
@@ -343,24 +343,24 @@ DVKTexture* DVKTexture::CreateCube(std::shared_ptr<VulkanDevice> vulkanDevice, V
 	return texture;
 }
 
-DVKTexture* DVKTexture::CreateAttachment(std::shared_ptr<VulkanDevice> vulkanDevice, VkFormat format, VkImageAspectFlags aspect, int32_t width, int32_t height, VkImageUsageFlags usage)
+VKTexture* VKTexture::CreateAttachment(std::shared_ptr<VulkanDevice> vulkanDevice, VkFormat format, VkImageAspectFlags aspect, int32_t width, int32_t height, VkImageUsageFlags usage)
 {
-	DVKTexture* texture = Create2D(vulkanDevice, nullptr, format, aspect, width, height, usage);
+	VKTexture* texture = Create2D(vulkanDevice, nullptr, format, aspect, width, height, usage);
 	texture->descriptorInfo.sampler = VK_NULL_HANDLE;
 	texture->descriptorInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
 	texture->imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
 	return texture;
 }
 
-DVKTexture* DVKTexture::CreateRenderTarget(std::shared_ptr<VulkanDevice> vulkanDevice, VkFormat format, VkImageAspectFlags aspect, int32_t width, int32_t height, VkImageUsageFlags usage, VkSampleCountFlagBits sampleCount)
+VKTexture* VKTexture::CreateRenderTarget(std::shared_ptr<VulkanDevice> vulkanDevice, VkFormat format, VkImageAspectFlags aspect, int32_t width, int32_t height, VkImageUsageFlags usage, VkSampleCountFlagBits sampleCount)
 {
-	DVKTexture* texture = Create2D(vulkanDevice, nullptr, format, aspect, width, height, usage, sampleCount);
+	VKTexture* texture = Create2D(vulkanDevice, nullptr, format, aspect, width, height, usage, sampleCount);
 	texture->descriptorInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
 	texture->imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
 	return texture;
 }
 
-DVKTexture* DVKTexture::Create2DArray(
+VKTexture* VKTexture::Create2DArray(
 	std::shared_ptr<VulkanDevice> vulkanDevice,
 	VKCommandBuffer* cmdBuffer,
 	VkFormat format,
@@ -465,7 +465,7 @@ DVKTexture* DVKTexture::Create2DArray(
 	descriptorInfo.imageView = imageView;
 	descriptorInfo.imageLayout = vkutils::GetImageLayout(imageLayout);
 
-	DVKTexture* texture = new DVKTexture();
+	VKTexture* texture = new VKTexture();
 	texture->descriptorInfo = descriptorInfo;
 	texture->format = format;
 	texture->width = width;
@@ -484,7 +484,7 @@ DVKTexture* DVKTexture::Create2DArray(
 	return texture;
 }
 
-DVKTexture* DVKTexture::Create2D(std::shared_ptr<VulkanDevice> vulkanDevice, VKCommandBuffer* cmdBuffer, VkFormat format, VkImageAspectFlags aspect, int32_t width, int32_t height, VkImageUsageFlags usage, VkSampleCountFlagBits sampleCount, ImageLayoutBarrier imageLayout)
+VKTexture* VKTexture::Create2D(std::shared_ptr<VulkanDevice> vulkanDevice, VKCommandBuffer* cmdBuffer, VkFormat format, VkImageAspectFlags aspect, int32_t width, int32_t height, VkImageUsageFlags usage, VkSampleCountFlagBits sampleCount, ImageLayoutBarrier imageLayout)
 {
 	VkDevice device = vulkanDevice->GetInstanceHandle();
 
@@ -578,7 +578,7 @@ DVKTexture* DVKTexture::Create2D(std::shared_ptr<VulkanDevice> vulkanDevice, VKC
 	descriptorInfo.imageView = imageView;
 	descriptorInfo.imageLayout = vkutils::GetImageLayout(imageLayout);
 
-	DVKTexture* texture = new DVKTexture();
+	VKTexture* texture = new VKTexture();
 	texture->descriptorInfo = descriptorInfo;
 	texture->format = format;
 	texture->width = width;
@@ -597,7 +597,7 @@ DVKTexture* DVKTexture::Create2D(std::shared_ptr<VulkanDevice> vulkanDevice, VKC
 	return texture;
 }
 
-void DVKTexture::UpdateSampler(
+void VKTexture::UpdateSampler(
 	VkFilter magFilter,
 	VkFilter minFilter,
 	VkSamplerMipmapMode mipmapMode,
@@ -627,7 +627,7 @@ void DVKTexture::UpdateSampler(
 	descriptorInfo.sampler = imageSampler;
 }
 
-DVKTexture* DVKTexture::CreateCube(const std::vector<std::string> filenames, std::shared_ptr<VulkanDevice> vulkanDevice, VKCommandBuffer* cmdBuffer, ImageLayoutBarrier imageLayout)
+VKTexture* VKTexture::CreateCube(const std::vector<std::string> filenames, std::shared_ptr<VulkanDevice> vulkanDevice, VKCommandBuffer* cmdBuffer, ImageLayoutBarrier imageLayout)
 {
 	struct ImageInfo
 	{
@@ -678,7 +678,7 @@ DVKTexture* DVKTexture::CreateCube(const std::vector<std::string> filenames, std
 	ZeroVulkanStruct(memAllocInfo, VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO);
 
 	// stagingBuffer
-	DVKBuffer* stagingBuffer = DVKBuffer::CreateBuffer(
+	VKBuffer* stagingBuffer = VKBuffer::CreateBuffer(
 		vulkanDevice,
 		VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
 		VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
@@ -834,7 +834,7 @@ DVKTexture* DVKTexture::CreateCube(const std::vector<std::string> filenames, std
 	descriptorInfo.imageView = imageView;
 	descriptorInfo.imageLayout = vkutils::GetImageLayout(imageLayout);
 
-	DVKTexture* texture = new DVKTexture();
+	VKTexture* texture = new VKTexture();
 	texture->descriptorInfo = descriptorInfo;
 	texture->format = format;
 	texture->height = height;
@@ -851,7 +851,7 @@ DVKTexture* DVKTexture::CreateCube(const std::vector<std::string> filenames, std
 	return texture;
 }
 
-DVKTexture* DVKTexture::Create2DArray(const std::vector<std::string> filenames, std::shared_ptr<VulkanDevice> vulkanDevice, VKCommandBuffer* cmdBuffer, ImageLayoutBarrier imageLayout)
+VKTexture* VKTexture::Create2DArray(const std::vector<std::string> filenames, std::shared_ptr<VulkanDevice> vulkanDevice, VKCommandBuffer* cmdBuffer, ImageLayoutBarrier imageLayout)
 {
 	struct ImageInfo
 	{
@@ -902,7 +902,7 @@ DVKTexture* DVKTexture::Create2DArray(const std::vector<std::string> filenames, 
 	ZeroVulkanStruct(memAllocInfo, VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO);
 
 	// stagingBuffer
-	DVKBuffer* stagingBuffer = DVKBuffer::CreateBuffer(
+	VKBuffer* stagingBuffer = VKBuffer::CreateBuffer(
 		vulkanDevice,
 		VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
 		VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
@@ -1057,7 +1057,7 @@ DVKTexture* DVKTexture::Create2DArray(const std::vector<std::string> filenames, 
 	descriptorInfo.imageView = imageView;
 	descriptorInfo.imageLayout = vkutils::GetImageLayout(imageLayout);
 
-	DVKTexture* texture = new DVKTexture();
+	VKTexture* texture = new VKTexture();
 	texture->descriptorInfo = descriptorInfo;
 	texture->format = format;
 	texture->height = height;
@@ -1074,11 +1074,11 @@ DVKTexture* DVKTexture::Create2DArray(const std::vector<std::string> filenames, 
 	return texture;
 }
 
-DVKTexture* DVKTexture::Create3D(VkFormat format, const uint8_t* rgbaData, int32_t size, int32_t width, int32_t height, int32_t depth, std::shared_ptr<VulkanDevice> vulkanDevice, VKCommandBuffer* cmdBuffer, ImageLayoutBarrier imageLayout)
+VKTexture* VKTexture::Create3D(VkFormat format, const uint8_t* rgbaData, int32_t size, int32_t width, int32_t height, int32_t depth, std::shared_ptr<VulkanDevice> vulkanDevice, VKCommandBuffer* cmdBuffer, ImageLayoutBarrier imageLayout)
 {
 	VkDevice device = vulkanDevice->GetInstanceHandle();
 
-	DVKBuffer* stagingBuffer = DVKBuffer::CreateBuffer(vulkanDevice, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, size);
+	VKBuffer* stagingBuffer = VKBuffer::CreateBuffer(vulkanDevice, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, size);
 	stagingBuffer->Map();
 	stagingBuffer->CopyFrom((void*)rgbaData, size);
 	stagingBuffer->UnMap();
@@ -1190,7 +1190,7 @@ DVKTexture* DVKTexture::Create3D(VkFormat format, const uint8_t* rgbaData, int32
 	descriptorInfo.imageView = imageView;
 	descriptorInfo.imageLayout = vkutils::GetImageLayout(imageLayout);
 
-	DVKTexture* texture = new DVKTexture();
+	VKTexture* texture = new VKTexture();
 	texture->descriptorInfo = descriptorInfo;
 	texture->format = format;
 	texture->width = width;

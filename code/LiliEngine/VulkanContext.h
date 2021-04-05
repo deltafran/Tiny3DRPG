@@ -30,7 +30,7 @@ public:
 	VkRenderPass GetRenderPass() const noexcept { return m_RenderPass; }
 
 	std::vector<VkFramebuffer>& GetFrameBuffers() noexcept { return m_FrameBuffers; }
-private:
+//private:
 	VulkanContext() = delete;
 	VulkanContext(const VulkanContext&) = delete;
 	VulkanContext(VulkanContext&&) = delete;

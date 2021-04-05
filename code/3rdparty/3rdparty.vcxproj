@@ -20,9 +20,45 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3rdpartyConfig.h" />
+    <ClInclude Include="AssimpConfiguration.h" />
+    <ClInclude Include="assimp\contrib\zlib\crc32.h" />
+    <ClInclude Include="assimp\contrib\zlib\deflate.h" />
+    <ClInclude Include="assimp\contrib\zlib\gzguts.h" />
+    <ClInclude Include="assimp\contrib\zlib\inffast.h" />
+    <ClInclude Include="assimp\contrib\zlib\inffixed.h" />
+    <ClInclude Include="assimp\contrib\zlib\inflate.h" />
+    <ClInclude Include="assimp\contrib\zlib\inftrees.h" />
+    <ClInclude Include="assimp\contrib\zlib\trees.h" />
+    <ClInclude Include="assimp\contrib\zlib\zconf.h" />
+    <ClInclude Include="assimp\contrib\zlib\zlib.h" />
+    <ClInclude Include="assimp\contrib\zlib\zutil.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="temp.cpp" />
+    <ClCompile Include="AssimpUnityBuild1.cpp" />
+    <ClCompile Include="AssimpUnityBuild2.cpp" />
+    <ClCompile Include="AssimpUnityBuild3.cpp" />
+    <ClCompile Include="AssimpUnityBuild4.cpp" />
+    <ClCompile Include="AssimpUnityBuild5.cpp" />
+    <ClCompile Include="assimp\contrib\unzip\ioapi.c" />
+    <ClCompile Include="assimp\contrib\unzip\unzip.c" />
+    <ClCompile Include="assimp\contrib\zlib\adler32.c" />
+    <ClCompile Include="assimp\contrib\zlib\compress.c" />
+    <ClCompile Include="assimp\contrib\zlib\crc32.c" />
+    <ClCompile Include="assimp\contrib\zlib\deflate.c" />
+    <ClCompile Include="assimp\contrib\zlib\gzclose.c" />
+    <ClCompile Include="assimp\contrib\zlib\gzlib.c" />
+    <ClCompile Include="assimp\contrib\zlib\gzread.c" />
+    <ClCompile Include="assimp\contrib\zlib\gzwrite.c" />
+    <ClCompile Include="assimp\contrib\zlib\infback.c" />
+    <ClCompile Include="assimp\contrib\zlib\inffast.c" />
+    <ClCompile Include="assimp\contrib\zlib\inflate.c" />
+    <ClCompile Include="assimp\contrib\zlib\inftrees.c" />
+    <ClCompile Include="assimp\contrib\zlib\trees.c" />
+    <ClCompile Include="assimp\contrib\zlib\uncompr.c" />
+    <ClCompile Include="assimp\contrib\zlib\zutil.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assimp\contrib\zlib\README" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1A874BB1-1C6F-4DF8-845F-05FFB35209E4}</ProjectGuid>
@@ -94,13 +130,13 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <WarningLevel>EnableAllWarnings</WarningLevel>
-      <SDLCheck>true</SDLCheck>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)assimp\;$(ProjectDir)assimp\code\;$(ProjectDir)assimp\include\;$(ProjectDir)assimp\contrib\irrXML\;$(ProjectDir)assimp\contrib\zlib\;$(ProjectDir)assimp\contrib\unzip\;$(ProjectDir)RapidJSON\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -112,15 +148,15 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)assimp\;$(ProjectDir)assimp\code\;$(ProjectDir)assimp\include\;$(ProjectDir)assimp\contrib\irrXML\;$(ProjectDir)assimp\contrib\zlib\;$(ProjectDir)assimp\contrib\unzip\;$(ProjectDir)RapidJSON\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
@@ -133,13 +169,13 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>EnableAllWarnings</WarningLevel>
-      <SDLCheck>true</SDLCheck>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)assimp\;$(ProjectDir)assimp\code\;$(ProjectDir)assimp\include\;$(ProjectDir)assimp\contrib\irrXML\;$(ProjectDir)assimp\contrib\zlib\;$(ProjectDir)assimp\contrib\unzip\;$(ProjectDir)RapidJSON\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -151,15 +187,15 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)assimp\;$(ProjectDir)assimp\code\;$(ProjectDir)assimp\include\;$(ProjectDir)assimp\contrib\irrXML\;$(ProjectDir)assimp\contrib\zlib\;$(ProjectDir)assimp\contrib\unzip\;$(ProjectDir)RapidJSON\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>

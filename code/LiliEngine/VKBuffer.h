@@ -2,14 +2,14 @@
 
 class VulkanDevice;
 
-class DVKBuffer
+class VKBuffer
 {
 private:
-	DVKBuffer()
+	VKBuffer()
 	{
 	}
 public:
-	~DVKBuffer()
+	~VKBuffer()
 	{
 		if (buffer != VK_NULL_HANDLE) {
 			vkDestroyBuffer(device, buffer, nullptr);
@@ -39,7 +39,7 @@ public:
 
 public:
 
-	static DVKBuffer* CreateBuffer(std::shared_ptr<VulkanDevice> device, VkBufferUsageFlags usageFlags, VkMemoryPropertyFlags memoryPropertyFlags, VkDeviceSize size, void* data = nullptr);
+	static VKBuffer* CreateBuffer(std::shared_ptr<VulkanDevice> device, VkBufferUsageFlags usageFlags, VkMemoryPropertyFlags memoryPropertyFlags, VkDeviceSize size, void* data = nullptr);
 
 	VkResult Map(VkDeviceSize size = VK_WHOLE_SIZE, VkDeviceSize offset = 0);
 

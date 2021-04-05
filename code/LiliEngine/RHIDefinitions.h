@@ -188,7 +188,7 @@ static inline VkFormat VEToVkFormat(VertexElementType Type)
 	return VK_FORMAT_UNDEFINED;
 }
 
-static inline uint32 ElementTypeToSize(VertexElementType type)
+static inline uint32_t ElementTypeToSize(VertexElementType type)
 {
 	switch (type)
 	{
@@ -235,7 +235,7 @@ static inline uint32 ElementTypeToSize(VertexElementType type)
 	};
 }
 
-static inline uint32 IndexTypeToSize(VkIndexType type)
+static inline uint32_t IndexTypeToSize(VkIndexType type)
 {
 	switch (type)
 	{

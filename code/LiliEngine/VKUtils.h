@@ -188,7 +188,7 @@ namespace vkutils
 
         default:
         {
-            Log::Error("Unknown ImageLayoutBarrier " + std::to_string((int32)target));
+            Log::Error("Unknown ImageLayoutBarrier " + std::to_string((int32_t)target));
         }
         break;
         }

@@ -99,7 +99,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)3rdparty\;$(VULKAN_SDK)\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)3rdparty\;$(SolutionDir)3rdparty\assimp\include\;$(SolutionDir)3rdparty\SPIRV-Cross\;$(VULKAN_SDK)\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -120,7 +120,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)3rdparty\;$(VULKAN_SDK)\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)3rdparty\;$(SolutionDir)3rdparty\assimp\include\;$(SolutionDir)3rdparty\SPIRV-Cross\;$(VULKAN_SDK)\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
@@ -140,7 +140,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)3rdparty\;$(VULKAN_SDK)\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)3rdparty\;$(SolutionDir)3rdparty\assimp\include\;$(SolutionDir)3rdparty\SPIRV-Cross\;$(VULKAN_SDK)\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -161,7 +161,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)3rdparty\;$(VULKAN_SDK)\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)3rdparty\;$(SolutionDir)3rdparty\assimp\include\;$(SolutionDir)3rdparty\SPIRV-Cross\;$(VULKAN_SDK)\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
@@ -209,9 +209,19 @@
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Vector4.h" />
     <ClInclude Include="VKBuffer.h" />
+    <ClInclude Include="VKCamera.h" />
     <ClInclude Include="VKCommandBuffer.h" />
+    <ClInclude Include="VKCompute.h" />
+    <ClInclude Include="VKDefaultRes.h" />
+    <ClInclude Include="VKIndexBuffer.h" />
+    <ClInclude Include="VKMaterial.h" />
+    <ClInclude Include="VKModel.h" />
+    <ClInclude Include="VKPipeline.h" />
+    <ClInclude Include="VKRenderTarget.h" />
+    <ClInclude Include="VKShader.h" />
     <ClInclude Include="VKTexture.h" />
     <ClInclude Include="VKUtils.h" />
+    <ClInclude Include="VKVertexBuffer.h" />
     <ClInclude Include="VulkanContext.h" />
     <ClInclude Include="VulkanDevice.h" />
     <ClInclude Include="VulkanFence.h" />
@@ -247,8 +257,18 @@
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="VKBuffer.cpp" />
+    <ClCompile Include="VKCamera.cpp" />
     <ClCompile Include="VKCommandBuffer.cpp" />
+    <ClCompile Include="VKCompute.cpp" />
+    <ClCompile Include="VKDefaultRes.cpp" />
+    <ClCompile Include="VKIndexBuffer.cpp" />
+    <ClCompile Include="VKMaterial.cpp" />
+    <ClCompile Include="VKModel.cpp" />
+    <ClCompile Include="VKPipeline.cpp" />
+    <ClCompile Include="VKRenderTarget.cpp" />
+    <ClCompile Include="VKShader.cpp" />
     <ClCompile Include="VKTexture.cpp" />
+    <ClCompile Include="VKVertexBuffer.cpp" />
     <ClCompile Include="VulkanContext.cpp" />
     <ClCompile Include="VulkanDebug.cpp" />
     <ClCompile Include="VulkanDevice.cpp" />

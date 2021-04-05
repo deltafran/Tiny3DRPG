@@ -12,6 +12,9 @@
     <ClCompile Include="02_Triangle.cpp">
       <Filter>example</Filter>
     </ClCompile>
+    <ClCompile Include="03_Triangle2.cpp">
+      <Filter>example</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">
@@ -42,6 +45,9 @@
       <Filter>temp</Filter>
     </ClInclude>
     <ClInclude Include="02_Triangle.h">
+      <Filter>example</Filter>
+    </ClInclude>
+    <ClInclude Include="03_Triangle2.h">
       <Filter>example</Filter>
     </ClInclude>
   </ItemGroup>

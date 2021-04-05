@@ -4,15 +4,15 @@
 #include "VulkanGlobals.h"
 #include "RHIDefinitions.h"
 
-class DVKTexture
+class VKTexture
 {
 public:
-	DVKTexture()
+	VKTexture()
 	{
 
 	}
 
-	~DVKTexture()
+	~VKTexture()
 	{
 		if (imageView != VK_NULL_HANDLE)
 		{
@@ -48,7 +48,7 @@ public:
 		VkSamplerAddressMode addressModeW = VK_SAMPLER_ADDRESS_MODE_REPEAT
 	);
 
-	static DVKTexture* Create2D(
+	static VKTexture* Create2D(
 		const uint8_t* rgbaData,
 		uint32_t size,
 		VkFormat format,
@@ -60,7 +60,7 @@ public:
 		ImageLayoutBarrier imageLayout = ImageLayoutBarrier::PixelShaderRead
 	);
 
-	static DVKTexture* Create2D(
+	static VKTexture* Create2D(
 		const std::string& filename,
 		std::shared_ptr<VulkanDevice> vulkanDevice,
 		VKCommandBuffer* cmdBuffer,
@@ -68,7 +68,7 @@ public:
 		ImageLayoutBarrier imageLayout = ImageLayoutBarrier::PixelShaderRead
 	);
 
-	static DVKTexture* CreateAttachment(
+	static VKTexture* CreateAttachment(
 		std::shared_ptr<VulkanDevice> vulkanDevice,
 		VkFormat format,
 		VkImageAspectFlags aspect,
@@ -77,7 +77,7 @@ public:
 		VkImageUsageFlags usage
 	);
 
-	static DVKTexture* CreateRenderTarget(
+	static VKTexture* CreateRenderTarget(
 		std::shared_ptr<VulkanDevice> vulkanDevice,
 		VkFormat format,
 		VkImageAspectFlags aspect,
@@ -87,7 +87,7 @@ public:
 		VkSampleCountFlagBits sampleCount = VK_SAMPLE_COUNT_1_BIT
 	);
 
-	static DVKTexture* Create2D(
+	static VKTexture* Create2D(
 		std::shared_ptr<VulkanDevice> vulkanDevice,
 		VKCommandBuffer* cmdBuffer,
 		VkFormat format,
@@ -99,7 +99,7 @@ public:
 		ImageLayoutBarrier imageLayout = ImageLayoutBarrier::Undefined
 	);
 
-	static DVKTexture* CreateCube(
+	static VKTexture* CreateCube(
 		std::shared_ptr<VulkanDevice> vulkanDevice,
 		VKCommandBuffer* cmdBuffer,
 		VkFormat format,
@@ -112,14 +112,14 @@ public:
 		ImageLayoutBarrier imageLayout = ImageLayoutBarrier::Undefined
 	);
 
-	static DVKTexture* CreateCube(
+	static VKTexture* CreateCube(
 		const std::vector<std::string> filenames,
 		std::shared_ptr<VulkanDevice> vulkanDevice,
 		VKCommandBuffer* cmdBuffer,
 		ImageLayoutBarrier imageLayout = ImageLayoutBarrier::PixelShaderRead
 	);
 
-	static DVKTexture* CreateCubeRenderTarget(
+	static VKTexture* CreateCubeRenderTarget(
 		std::shared_ptr<VulkanDevice> vulkanDevice,
 		VkFormat format,
 		VkImageAspectFlags aspect,
@@ -129,14 +129,14 @@ public:
 		VkSampleCountFlagBits sampleCount = VK_SAMPLE_COUNT_1_BIT
 	);
 
-	static DVKTexture* Create2DArray(
+	static VKTexture* Create2DArray(
 		const std::vector<std::string> filenames,
 		std::shared_ptr<VulkanDevice> vulkanDevice,
 		VKCommandBuffer* cmdBuffer,
 		ImageLayoutBarrier imageLayout = ImageLayoutBarrier::PixelShaderRead
 	);
 
-	static DVKTexture* Create2DArray(
+	static VKTexture* Create2DArray(
 		std::shared_ptr<VulkanDevice> vulkanDevice,
 		VKCommandBuffer* cmdBuffer,
 		VkFormat format,
@@ -149,7 +149,7 @@ public:
 		ImageLayoutBarrier imageLayout = ImageLayoutBarrier::Undefined
 	);
 
-	static DVKTexture* Create3D(
+	static VKTexture* Create3D(
 		VkFormat format,
 		const uint8_t* rgbaData,
 		int32_t size,

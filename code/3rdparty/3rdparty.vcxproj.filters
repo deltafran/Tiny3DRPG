@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="AssimpUnityBuild1.cpp">
+      <Filter>Assimp</Filter>
+    </ClCompile>
+    <ClCompile Include="AssimpUnityBuild2.cpp">
+      <Filter>Assimp</Filter>
+    </ClCompile>
+    <ClCompile Include="AssimpUnityBuild3.cpp">
+      <Filter>Assimp</Filter>
+    </ClCompile>
+    <ClCompile Include="AssimpUnityBuild4.cpp">
+      <Filter>Assimp</Filter>
+    </ClCompile>
+    <ClCompile Include="AssimpUnityBuild5.cpp">
+      <Filter>Assimp</Filter>
+    </ClCompile>
+    <ClCompile Include="assimp\contrib\zlib\adler32.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="assimp\contrib\zlib\compress.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="assimp\contrib\zlib\crc32.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="assimp\contrib\zlib\deflate.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="assimp\contrib\zlib\gzclose.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="assimp\contrib\zlib\gzlib.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="assimp\contrib\zlib\gzread.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="assimp\contrib\zlib\gzwrite.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="assimp\contrib\zlib\infback.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="assimp\contrib\zlib\inffast.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="assimp\contrib\zlib\inflate.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="assimp\contrib\zlib\inftrees.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="assimp\contrib\zlib\trees.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="assimp\contrib\zlib\uncompr.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="assimp\contrib\zlib\zutil.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="assimp\contrib\unzip\ioapi.c">
+      <Filter>unzip</Filter>
+    </ClCompile>
+    <ClCompile Include="assimp\contrib\unzip\unzip.c">
+      <Filter>unzip</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="3rdpartyConfig.h" />
+    <ClInclude Include="AssimpConfiguration.h">
+      <Filter>Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="assimp\contrib\zlib\zutil.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="assimp\contrib\zlib\crc32.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="assimp\contrib\zlib\deflate.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="assimp\contrib\zlib\gzguts.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="assimp\contrib\zlib\inffast.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="assimp\contrib\zlib\inffixed.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="assimp\contrib\zlib\inflate.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="assimp\contrib\zlib\inftrees.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="assimp\contrib\zlib\trees.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="assimp\contrib\zlib\zconf.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="assimp\contrib\zlib\zlib.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Assimp">
+      <UniqueIdentifier>{91647227-c927-490a-b546-5b0af4c7b089}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="zlib">
+      <UniqueIdentifier>{cbe5d4f7-da6d-48b7-88e9-c93fe0f5c022}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="unzip">
+      <UniqueIdentifier>{4f66bf04-66d6-4959-8825-836f9561ae21}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assimp\contrib\zlib\README">
+      <Filter>zlib</Filter>
+    </None>
+  </ItemGroup>
+</Project>

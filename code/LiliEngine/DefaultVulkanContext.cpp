@@ -5,6 +5,7 @@
 #include "VulkanDevice.h"
 #include "VulkanMemory.h"
 #include "VKCommandBuffer.h"
+#include "VKDefaultRes.h"
 
 void DefaultVulkanContext::Present(int backBufferIndex)
 {

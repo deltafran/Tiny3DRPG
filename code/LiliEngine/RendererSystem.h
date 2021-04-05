@@ -19,6 +19,7 @@ public:
 
 	VulkanRHI& GetVulkanRHI() noexcept { return m_vulkanRHI; }
 	VulkanContext& GetVulkanContext() noexcept { return m_vulkanContext; }
+	DefaultVulkanContext& GetDefaultVulkanContext() noexcept { return m_defaultVulkanContext; }
 
 private:
 	RendererSystem() = delete;
