@@ -1,5 +1,7 @@
 #pragma once
 
+#if PLATFORM_WINDOWS
+
 struct PlatformAtomics
 {
 	static_assert(sizeof(int8_t) == sizeof(char) && alignof(int8_t) == alignof(char), "int8_t must be compatible with char");
@@ -253,3 +255,5 @@ struct PlatformAtomics
 #endif
 	}
 };
+
+#endif // PLATFORM_WINDOWS

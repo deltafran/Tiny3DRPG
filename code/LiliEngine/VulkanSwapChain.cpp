@@ -2,7 +2,7 @@
 #include "VulkanSwapChain.h"
 #include "VulkanDevice.h"
 #include "VulkanGlobals.h"
-#include "CoreMath.h"
+#include "CoreMath2.h"
 
 void CreateVKSurfaceFromWindows(const WindowInfo& windowInfo, VkInstance instance, VkSurfaceKHR* outSurface); // ==> VulkanPlatform.cpp
 

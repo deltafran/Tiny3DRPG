@@ -20,6 +20,7 @@
 #pragma warning(disable : 5219)
 
 #include <cassert>
+#include <cmath>
 
 #include <iostream>
 #include <fstream>
@@ -28,6 +29,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <unordered_map>
 
 #pragma warning(pop)
 
@@ -50,6 +52,14 @@
 #define NOSERVICE
 #define NOHELP
 #include <Windows.h>
+#include <xmmintrin.h>
+
+#ifndef GET_X_LPARAM
+#	define GET_X_LPARAM(lp) ((int)(short)LOWORD(lp))
+#endif
+#ifndef GET_Y_LPARAM
+#	define GET_Y_LPARAM(lp) ((int)(short)HIWORD(lp))
+#endif
 
 #if LILI_DIRECT3D11
 #	include <wrl/client.h>

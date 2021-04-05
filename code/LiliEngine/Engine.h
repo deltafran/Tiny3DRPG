@@ -20,6 +20,11 @@ public:
 
 	bool IsEnd() const noexcept { return m_isEnd; }
 
+	double GetCurrTime() const noexcept { return m_currTime; }
+	double GetDeltaTime() const noexcept { return m_delta; }
+
+	RendererSystem& GetRendererSystem() noexcept { return m_renderer; }
+
 private:
 	Engine() = delete;
 	Engine(const Engine&) = delete;
@@ -31,5 +36,8 @@ private:
 	WindowSystem m_windowSystem;
 	RendererSystem m_renderer;
 
+	double m_lastTime = 0.0;
+	double m_currTime = 0.0;
+	double m_delta = 0.0;
 	bool m_isEnd = false;
 };

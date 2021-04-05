@@ -3,6 +3,7 @@
 #include "WindowInfo.h"
 #include "RendererConfiguration.h"
 #include "VulkanRHI.h"
+#include "VulkanContext.h"
 
 class RendererSystem final
 {
@@ -15,6 +16,9 @@ public:
 	void BeginFrame() noexcept;
 	void EndFrame() noexcept;
 
+	VulkanRHI& GetVulkanRHI() noexcept { return m_vulkanRHI; }
+	VulkanContext& GetVulkanContext() noexcept { return m_vulkanContext; }
+
 private:
 	RendererSystem() = delete;
 	RendererSystem(const RendererSystem&) = delete;
@@ -24,4 +28,5 @@ private:
 
 	RendererConfiguration& m_configuration;
 	VulkanRHI m_vulkanRHI;
+	VulkanContext m_vulkanContext;
 };

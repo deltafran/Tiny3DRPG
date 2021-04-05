@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "WindowSystem.h"
 #include "InputSystem.h"
+#include "Vector2.h"
 //-----------------------------------------------------------------------------
 static WindowSystem* currentWindowSystem = nullptr;
 //-----------------------------------------------------------------------------
@@ -48,7 +49,7 @@ bool WindowSystem::Init() noexcept
 	wc.hCursor       = LoadCursor(nullptr, IDC_ARROW);
 	wc.hbrBackground = reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1);
 	wc.lpszMenuName  = nullptr;
-	wc.lpszClassName = m_applicationName;
+	wc.lpszClassName = m_applicationClassName;
 	if (!RegisterClassEx(&wc))
 		return false;
 
@@ -84,7 +85,7 @@ bool WindowSystem::Init() noexcept
 
 	DWORD Style = (m_configuration.fullscreen ? WS_POPUP : WS_SYSMENU | WS_MINIMIZEBOX | WS_CAPTION);
 
-	m_hwnd = CreateWindowEx(WS_EX_APPWINDOW, m_applicationName, m_applicationName, Style, posX, posY, screenWidth, screenHeight, nullptr, nullptr, m_hinstance, nullptr);
+	m_hwnd = CreateWindowEx(WS_EX_APPWINDOW, m_applicationClassName, m_applicationClassName, Style, posX, posY, screenWidth, screenHeight, nullptr, nullptr, m_hinstance, nullptr);
 	if (!m_hwnd)
 		return false;
 
@@ -109,12 +110,13 @@ void WindowSystem::Close() noexcept
 	DestroyWindow(m_hwnd);
 	m_hwnd = nullptr;
 
-	UnregisterClass(m_applicationName, m_hinstance);
+	UnregisterClass(m_applicationClassName, m_hinstance);
 	m_hinstance = nullptr;
 }
 //-----------------------------------------------------------------------------
 bool WindowSystem::Update() noexcept
 {
+	isResize = false;
 	MSG msg = {};
 	if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
 	{
@@ -122,28 +124,108 @@ bool WindowSystem::Update() noexcept
 		DispatchMessage(&msg);
 	}
 	if (msg.message == WM_QUIT)
-	{
 		return false;
-	}
+
 	return true;
 }
 //-----------------------------------------------------------------------------
-LRESULT WindowSystem::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM lparam) noexcept
+LRESULT WindowSystem::MessageHandler(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam) noexcept
 {
-	switch (umsg)
+	switch (msg)
 	{
 	case WM_KEYDOWN:
 	{
-		m_inputSystem.KeyDown((unsigned int)wparam);
+		//m_inputSystem.KeyDown((unsigned int)wparam);
+		const int32_t keycode = HIWORD(lparam) & 0x1FF;
+		const KeyboardType key = InputSystem::GetKeyFromKeyCode(keycode);
+		InputSystem::onKeyDown(key);
 		return 0;
 	}
 	case WM_KEYUP:
 	{
-		m_inputSystem.KeyUp((unsigned int)wparam);
+		const int32_t keycode = HIWORD(lparam) & 0x1FF;
+		const KeyboardType key = InputSystem::GetKeyFromKeyCode(keycode);
+		InputSystem::onKeyUp(key);
+		//m_inputSystem.KeyUp((unsigned int)wparam);
 		return 0;
 	}
+	case WM_LBUTTONDOWN:
+	case WM_RBUTTONDOWN:
+	case WM_MBUTTONDOWN:
+	case WM_XBUTTONDOWN:
+	case WM_LBUTTONUP:
+	case WM_RBUTTONUP:
+	case WM_MBUTTONUP:
+	case WM_XBUTTONUP:
+	{
+		const int x = GET_X_LPARAM(lparam);
+		const int y = GET_Y_LPARAM(lparam);
+
+		Vector2 pos(x, y);
+
+		MouseType button = MouseType::MOUSE_BUTTON_LEFT;
+		if (msg == WM_LBUTTONDOWN || msg == WM_LBUTTONUP)
+			button = MouseType::MOUSE_BUTTON_LEFT;
+		else if (msg == WM_RBUTTONDOWN || msg == WM_RBUTTONUP)
+			button = MouseType::MOUSE_BUTTON_RIGHT;
+		else if (msg == WM_MBUTTONDOWN || msg == WM_MBUTTONUP)
+			button = MouseType::MOUSE_BUTTON_MIDDLE;
+		else if (GET_XBUTTON_WPARAM(wparam) == XBUTTON1)
+			button = MouseType::MOUSE_BUTTON_4;
+		else
+			button = MouseType::MOUSE_BUTTON_5;
+
+		int32_t action = 0;
+		if (msg == WM_LBUTTONDOWN || msg == WM_RBUTTONDOWN || msg == WM_MBUTTONDOWN || msg == WM_XBUTTONDOWN)
+		{
+			action = 1;
+			SetCapture(hwnd);
+		}
+		else
+		{
+			action = 0;
+			ReleaseCapture();
+		}
+
+		if (action == 1)
+			InputSystem::onMouseDown(button, pos);
+		else
+			InputSystem::onMouseUp(button, pos);
+
+		if (msg == WM_XBUTTONDOWN || msg == WM_XBUTTONUP)
+			return TRUE;
+
+		return 0;
+	}
+	case WM_MOUSEMOVE:
+	{
+		const int x = GET_X_LPARAM(lparam);
+		const int y = GET_Y_LPARAM(lparam);
+		const Vector2 pos(x, y);
+		InputSystem::onMouseMove(pos);
+		return 0;
+	}
+	case WM_MOUSEWHEEL:
+	{
+		const int x = GET_X_LPARAM(lparam);
+		const int y = GET_Y_LPARAM(lparam);
+		const Vector2 pos(x, y);
+		InputSystem::onMouseWheel((float)GET_WHEEL_DELTA_WPARAM(wparam) / (float)WHEEL_DELTA, pos);
+		return 0;
+	}
+	case WM_MOUSEHWHEEL:
+	{
+		const int x = GET_X_LPARAM(lparam);
+		const int y = GET_Y_LPARAM(lparam);
+		const Vector2 pos(x, y);
+		InputSystem::onMouseWheel((float)GET_WHEEL_DELTA_WPARAM(wparam) / (float)WHEEL_DELTA, pos);
+		return 0;
+	}
+	case WM_SIZE:
+		resize(LOWORD(lparam), HIWORD(lparam));
+		return 0;
 	default:
-		return DefWindowProc(hwnd, umsg, wparam, lparam);
+		return DefWindowProc(hwnd, msg, wparam, lparam);
 	}
 }
 //-----------------------------------------------------------------------------
@@ -152,5 +234,12 @@ WindowInfo WindowSystem::GetWindowInfo() noexcept
 	WindowInfo info;
 	info.hwnd = m_hwnd;
 	return info;
+}
+//-----------------------------------------------------------------------------
+void WindowSystem::resize(int width, int height)
+{
+	isResize = true;
+	m_configuration.windowWidth = width;
+	m_configuration.windowHeight = height;
 }
 //-----------------------------------------------------------------------------

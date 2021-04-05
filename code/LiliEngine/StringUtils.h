@@ -1,5 +1,64 @@
 #pragma once
 
+#define STARTING_BUFFER_SIZE 512
+
+static FORCEINLINE int32_t GetVarArgs(char* dest, SIZE_T destSize, int32_t count, const char*& fmt, va_list argPtr)
+{
+	int32_t Result = vsnprintf(dest, count, fmt, argPtr);
+	va_end(argPtr);
+	return Result;
+}
+
+#define GET_VARARGS(msg, msgsize, len, lastarg, fmt) \
+	{ \
+		va_list ap; \
+		va_start(ap, lastarg); \
+		GetVarArgs(msg, msgsize, len, fmt, ap); \
+	}
+#define GET_VARARGS_WIDE(msg, msgsize, len, lastarg, fmt) \
+	{ \
+		va_list ap; \
+		va_start(ap, lastarg); \
+		GetVarArgs(msg, msgsize, len, fmt, ap); \
+	}
+#define GET_VARARGS_ANSI(msg, msgsize, len, lastarg, fmt) \
+	{ \
+		va_list ap; \
+		va_start(ap, lastarg); \
+		GetVarArgs(msg, msgsize, len, fmt, ap); \
+	}
+#define GET_VARARGS_RESULT(msg, msgsize, len, lastarg, fmt, result) \
+	{ \
+		va_list ap; \
+		va_start(ap, lastarg); \
+		result = GetVarArgs(msg, msgsize, len, fmt, ap); \
+		if (result >= msgsize) \
+		{ \
+			result = -1; \
+		} \
+	}
+#define GET_VARARGS_RESULT_WIDE(msg, msgsize, len, lastarg, fmt, result) \
+	{ \
+		va_list ap; \
+		va_start(ap, lastarg); \
+		result = GetVarArgs(msg, msgsize, len, fmt, ap); \
+		if (result >= msgsize) \
+		{ \
+			result = -1; \
+		} \
+	}
+#define GET_VARARGS_RESULT_ANSI(msg, msgsize, len, lastarg, fmt, result) \
+	{ \
+		va_list ap; \
+		va_start(ap, lastarg); \
+		result = GetVarArgs(msg, msgsize, len, fmt, ap); \
+		if (result >= msgsize) \
+		{ \
+			result = -1; \
+		} \
+	}
+
+
 namespace Str
 {
 	static std::string Space(size_t Count, char Ascii = ' ')
@@ -30,7 +89,38 @@ namespace Str
 
 namespace StringUtils
 {
-	static void AddUnique(std::vector<std::string>& arr, const std::string& val) noexcept
+	inline std::string Printf(const char* fmt, ...)
+	{
+		int32_t bufferSize = STARTING_BUFFER_SIZE;
+		char  startingBuffer[STARTING_BUFFER_SIZE];
+		char* buffer = startingBuffer;
+		int32_t result = -1;
+
+		GET_VARARGS_RESULT(buffer, bufferSize, bufferSize - 1, fmt, fmt, result);
+
+		if (result == -1)
+		{
+			buffer = nullptr;
+			while (result == -1)
+			{
+				bufferSize *= 2;
+				buffer = (char*)realloc(buffer, bufferSize * sizeof(char));
+				GET_VARARGS_RESULT(buffer, bufferSize, bufferSize - 1, fmt, fmt, result);
+			};
+		}
+
+		buffer[result] = 0;
+		std::string resultString(buffer);
+
+		if (bufferSize != STARTING_BUFFER_SIZE)
+		{
+			free(buffer);
+		}
+
+		return resultString;
+	}
+
+	inline void AddUnique(std::vector<std::string>& arr, const std::string& val) noexcept
 	{
 		bool found = false;
 		for (size_t i = 0; i < arr.size(); ++i)
@@ -47,7 +137,7 @@ namespace StringUtils
 		}
 	}
 
-	static void AddUnique(std::vector<const char*>& arr, const char* val) noexcept
+	inline void AddUnique(std::vector<const char*>& arr, const char* val) noexcept
 	{
 		bool found = false;
 		for (size_t i = 0; i < arr.size(); ++i) 

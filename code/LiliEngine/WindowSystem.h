@@ -20,6 +20,8 @@ public:
 
 	const WindowConfiguration& GetConfiguration() const noexcept { return m_configuration; }
 
+	bool IsResize() const noexcept { return isResize; }
+
 private:
 	WindowSystem() = delete;
 	WindowSystem(const WindowSystem&) = delete;
@@ -27,9 +29,12 @@ private:
 	WindowSystem& operator=(const WindowSystem&) = delete;
 	WindowSystem& operator=(WindowSystem&&) = delete;
 
+	void resize(int width, int height);
+
 	WindowConfiguration& m_configuration;
 	InputSystem& m_inputSystem;
-	LPCWSTR m_applicationName = L"Tiny3DRPG";
-	HINSTANCE m_hinstance;
-	HWND m_hwnd;
+	LPCWSTR m_applicationClassName = L"Tiny3DRPG";
+	HINSTANCE m_hinstance = nullptr;
+	HWND m_hwnd = nullptr;
+	bool isResize = false;
 };

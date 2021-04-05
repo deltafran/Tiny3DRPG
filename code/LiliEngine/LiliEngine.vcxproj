@@ -174,24 +174,40 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Alignment.h" />
+    <ClInclude Include="Axis.h" />
     <ClInclude Include="BaseHeader.h" />
     <ClInclude Include="BaseMacros.h" />
+    <ClInclude Include="Color.h" />
     <ClInclude Include="Configuration.h" />
     <ClInclude Include="CoreMath.h" />
+    <ClInclude Include="CoreMath2.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="EngineConfig.h" />
+    <ClInclude Include="FileManager.h" />
+    <ClInclude Include="ImageLoader.h" />
     <ClInclude Include="InputSystem.h" />
+    <ClInclude Include="IntPoint.h" />
+    <ClInclude Include="IntVector.h" />
     <ClInclude Include="Log.h" />
+    <ClInclude Include="Matrix4x4.h" />
     <ClInclude Include="PixelFormat.h" />
+    <ClInclude Include="Plane.h" />
     <ClInclude Include="PlatformAtomics.h" />
     <ClInclude Include="PlatformSystem.h" />
+    <ClInclude Include="Quat.h" />
     <ClInclude Include="RendererConfiguration.h" />
     <ClInclude Include="RendererSystem.h" />
     <ClInclude Include="RHIDefinitions.h" />
+    <ClInclude Include="Rotator.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="StringUtils.h" />
     <ClInclude Include="ThreadSafeCounter.h" />
+    <ClInclude Include="Time.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="Vector2.h" />
+    <ClInclude Include="Vector3.h" />
+    <ClInclude Include="Vector4.h" />
+    <ClInclude Include="VulkanContext.h" />
     <ClInclude Include="VulkanDevice.h" />
     <ClInclude Include="VulkanFence.h" />
     <ClInclude Include="VulkanGlobals.h" />
@@ -204,7 +220,12 @@
     <ClInclude Include="WindowSystem.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Color.cpp" />
+    <ClCompile Include="CoreMath.cpp" />
+    <ClCompile Include="CoreMath2.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="FileManager.cpp" />
+    <ClCompile Include="ImageLoader.cpp" />
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="PixelFormat.cpp" />
@@ -217,7 +238,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="StringUtils.cpp" />
+    <ClCompile Include="Time.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="VulkanContext.cpp" />
     <ClCompile Include="VulkanDebug.cpp" />
     <ClCompile Include="VulkanDevice.cpp" />
     <ClCompile Include="VulkanFence.cpp" />
