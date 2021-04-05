@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="GameApplication.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="temp.c">
+      <Filter>temp</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Game">
+      <UniqueIdentifier>{4bd96221-a10d-4b8f-a1fb-a8d88e2273d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="temp">
+      <UniqueIdentifier>{48ca318c-8431-4f20-9dd3-3758a9b182fc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="GameApplication.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="linmath.h">
+      <Filter>temp</Filter>
+    </ClInclude>
+    <ClInclude Include="object_type_string_helper.h">
+      <Filter>temp</Filter>
+    </ClInclude>
+    <ClInclude Include="gettime.h">
+      <Filter>temp</Filter>
+    </ClInclude>
+    <ClInclude Include="lunarg.ppm.h">
+      <Filter>temp</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cube.vert.inc">
+      <Filter>temp</Filter>
+    </None>
+    <None Include="cube.frag.inc">
+      <Filter>temp</Filter>
+    </None>
+  </ItemGroup>
+</Project>

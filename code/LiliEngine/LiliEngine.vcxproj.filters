@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Log.h">
+      <Filter>Core\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="InputSystem.h">
+      <Filter>Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformSystem.h">
+      <Filter>Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="StringUtils.h">
+      <Filter>Core\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Core\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowConfiguration.h">
+      <Filter>Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowSystem.h">
+      <Filter>Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseHeader.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineConfig.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseMacros.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="RendererConfiguration.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="RendererSystem.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowInfo.h">
+      <Filter>Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="Configuration.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanRHI.h">
+      <Filter>Renderer\VulkanDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanDevice.h">
+      <Filter>Renderer\VulkanDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="PixelFormat.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanGlobals.h">
+      <Filter>Renderer\VulkanDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanQueue.h">
+      <Filter>Renderer\VulkanDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanFence.h">
+      <Filter>Renderer\VulkanDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanMemory.h">
+      <Filter>Renderer\VulkanDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformAtomics.h">
+      <Filter>Platform\Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadSafeCounter.h">
+      <Filter>Platform\Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Alignment.h">
+      <Filter>Core\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanSwapChain.h">
+      <Filter>Renderer\VulkanDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="RHIDefinitions.h">
+      <Filter>Renderer\VulkanDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreMath.h">
+      <Filter>Core\Math</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Log.cpp">
+      <Filter>Core\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="InputSystem.cpp">
+      <Filter>Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformSystem.cpp">
+      <Filter>Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="StringUtils.cpp">
+      <Filter>Core\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Core\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowSystem.cpp">
+      <Filter>Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="RendererSystem.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="VulkanRHI.cpp">
+      <Filter>Renderer\VulkanDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="VulkanDevice.cpp">
+      <Filter>Renderer\VulkanDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="PixelFormat.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="VulkanLayers.cpp">
+      <Filter>Renderer\VulkanDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="VulkanPlatform.cpp">
+      <Filter>Renderer\VulkanDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="VulkanDebug.cpp">
+      <Filter>Renderer\VulkanDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="VulkanQueue.cpp">
+      <Filter>Renderer\VulkanDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="VulkanFence.cpp">
+      <Filter>Renderer\VulkanDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="VulkanMemory.cpp">
+      <Filter>Renderer\VulkanDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="VulkanSwapChain.cpp">
+      <Filter>Renderer\VulkanDevice</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Audio">
+      <UniqueIdentifier>{06bb2c6c-86d6-4757-acb2-689f0c85b9b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{853577a3-5a19-4776-a9c1-c827e0fb821d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{62075c4e-a123-4a31-80a7-24fe99ebd8b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{7b26a239-247b-42cc-8735-edd762b921fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base">
+      <UniqueIdentifier>{f5c05a7a-4fd6-4e84-897a-f13d28c205ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics">
+      <UniqueIdentifier>{daa0e41a-a619-401c-a119-7c56b7f397b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{245dfc6a-5eab-4117-a112-0422ec43cc01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{abbc3b39-4562-445b-b564-494ba64d0e70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Debug">
+      <UniqueIdentifier>{61aecdc7-0809-411b-abdd-7a85125dbbcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Utility">
+      <UniqueIdentifier>{2b40dc77-76c2-4c25-aab7-66639c480589}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{2a159903-3ea0-46ca-9e8e-32385b8669a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Thread">
+      <UniqueIdentifier>{4c54130c-8e67-49d7-99e7-a2f8098c6125}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\VulkanDevice">
+      <UniqueIdentifier>{1efe98bd-4c67-482c-9814-44c84d308a93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Math">
+      <UniqueIdentifier>{60cabbb1-ce88-4f91-a19b-6ceceeba25f0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

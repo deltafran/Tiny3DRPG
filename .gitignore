@@ -1,0 +1,9 @@
+#Ignore project folders
+/_obj/
+/_lib/
+/*/.vs/
+/*/ipch/
+
+#Ignore bin file
+/bin/TinyRPG_*.*
+/bin/TinyRPG.log
