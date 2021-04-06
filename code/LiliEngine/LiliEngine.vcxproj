@@ -185,6 +185,7 @@
     <ClInclude Include="Engine.h" />
     <ClInclude Include="EngineConfig.h" />
     <ClInclude Include="FileManager.h" />
+    <ClInclude Include="ImageGUIContext.h" />
     <ClInclude Include="ImageLoader.h" />
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="IntPoint.h" />
@@ -241,6 +242,7 @@
     <ClCompile Include="DefaultVulkanContext.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="FileManager.cpp" />
+    <ClCompile Include="ImageGUIContext.cpp" />
     <ClCompile Include="ImageLoader.cpp" />
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="Log.cpp" />

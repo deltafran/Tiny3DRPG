@@ -32,6 +32,13 @@
     <ClInclude Include="assimp\contrib\zlib\zconf.h" />
     <ClInclude Include="assimp\contrib\zlib\zlib.h" />
     <ClInclude Include="assimp\contrib\zlib\zutil.h" />
+    <ClInclude Include="imgui\imconfig.h" />
+    <ClInclude Include="imgui\imgui.h" />
+    <ClInclude Include="imgui\imgui_impl_vulkan.h" />
+    <ClInclude Include="imgui\imgui_internal.h" />
+    <ClInclude Include="imgui\imstb_rectpack.h" />
+    <ClInclude Include="imgui\imstb_textedit.h" />
+    <ClInclude Include="imgui\imstb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssimpUnityBuild1.cpp" />
@@ -56,6 +63,11 @@
     <ClCompile Include="assimp\contrib\zlib\trees.c" />
     <ClCompile Include="assimp\contrib\zlib\uncompr.c" />
     <ClCompile Include="assimp\contrib\zlib\zutil.c" />
+    <ClCompile Include="imgui\imgui.cpp" />
+    <ClCompile Include="imgui\imgui_demo.cpp" />
+    <ClCompile Include="imgui\imgui_draw.cpp" />
+    <ClCompile Include="imgui\imgui_impl_vulkan.cpp" />
+    <ClCompile Include="imgui\imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assimp\contrib\zlib\README" />
@@ -136,7 +148,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)assimp\;$(ProjectDir)assimp\code\;$(ProjectDir)assimp\include\;$(ProjectDir)assimp\contrib\irrXML\;$(ProjectDir)assimp\contrib\zlib\;$(ProjectDir)assimp\contrib\unzip\;$(ProjectDir)RapidJSON\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)assimp\;$(ProjectDir)assimp\code\;$(ProjectDir)assimp\include\;$(ProjectDir)assimp\contrib\irrXML\;$(ProjectDir)assimp\contrib\zlib\;$(ProjectDir)assimp\contrib\unzip\;$(ProjectDir)RapidJSON\include\;$(VULKAN_SDK)\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -156,7 +168,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)assimp\;$(ProjectDir)assimp\code\;$(ProjectDir)assimp\include\;$(ProjectDir)assimp\contrib\irrXML\;$(ProjectDir)assimp\contrib\zlib\;$(ProjectDir)assimp\contrib\unzip\;$(ProjectDir)RapidJSON\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)assimp\;$(ProjectDir)assimp\code\;$(ProjectDir)assimp\include\;$(ProjectDir)assimp\contrib\irrXML\;$(ProjectDir)assimp\contrib\zlib\;$(ProjectDir)assimp\contrib\unzip\;$(ProjectDir)RapidJSON\include\;$(VULKAN_SDK)\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
@@ -175,7 +187,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)assimp\;$(ProjectDir)assimp\code\;$(ProjectDir)assimp\include\;$(ProjectDir)assimp\contrib\irrXML\;$(ProjectDir)assimp\contrib\zlib\;$(ProjectDir)assimp\contrib\unzip\;$(ProjectDir)RapidJSON\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)assimp\;$(ProjectDir)assimp\code\;$(ProjectDir)assimp\include\;$(ProjectDir)assimp\contrib\irrXML\;$(ProjectDir)assimp\contrib\zlib\;$(ProjectDir)assimp\contrib\unzip\;$(ProjectDir)RapidJSON\include\;$(VULKAN_SDK)\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -195,7 +207,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)assimp\;$(ProjectDir)assimp\code\;$(ProjectDir)assimp\include\;$(ProjectDir)assimp\contrib\irrXML\;$(ProjectDir)assimp\contrib\zlib\;$(ProjectDir)assimp\contrib\unzip\;$(ProjectDir)RapidJSON\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)assimp\;$(ProjectDir)assimp\code\;$(ProjectDir)assimp\include\;$(ProjectDir)assimp\contrib\irrXML\;$(ProjectDir)assimp\contrib\zlib\;$(ProjectDir)assimp\contrib\unzip\;$(ProjectDir)RapidJSON\include\;$(VULKAN_SDK)\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>

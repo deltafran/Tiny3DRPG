@@ -179,6 +179,9 @@
     <ClInclude Include="VKCompute.h">
       <Filter>Renderer\VulkanObject</Filter>
     </ClInclude>
+    <ClInclude Include="ImageGUIContext.h">
+      <Filter>Renderer\VulkanObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
@@ -297,6 +300,9 @@
       <Filter>Renderer\VulkanObject</Filter>
     </ClCompile>
     <ClCompile Include="VKCompute.cpp">
+      <Filter>Renderer\VulkanObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageGUIContext.cpp">
       <Filter>Renderer\VulkanObject</Filter>
     </ClCompile>
   </ItemGroup>

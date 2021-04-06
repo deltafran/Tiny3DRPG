@@ -86,6 +86,8 @@ using namespace DirectX;
 #	include <vulkan/vulkan.h>
 #endif
 
+#include <imgui/imgui.h>
+
 #pragma warning(pop)
 
 //=============================================================================

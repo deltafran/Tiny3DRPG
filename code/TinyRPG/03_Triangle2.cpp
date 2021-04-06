@@ -42,6 +42,7 @@ bool Triangle2::init() noexcept
 	m_defContext = &m_engine.GetRendererSystem().GetDefaultVulkanContext();
 	m_vkContext = &m_engine.GetRendererSystem().GetVulkanContext();
 
+	CreateGUI();
 	CreateMeshBuffers();
 	CreateUniformBuffers();
 	CreateDescriptorPool();
@@ -49,6 +50,7 @@ bool Triangle2::init() noexcept
 	CreateDescriptorSet();
 	CreatePipelines();
 	SetupCommandBuffers();
+
 	return true;
 }
 //-----------------------------------------------------------------------------
@@ -63,6 +65,7 @@ void Triangle2::draw() noexcept
 //-----------------------------------------------------------------------------
 void Triangle2::close() noexcept
 {
+	DestroyGUI();
 	DestroyDescriptorSetLayout();
 	DestroyDescriptorPool();
 	DestroyPipelines();

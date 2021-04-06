@@ -15,8 +15,8 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv)
 	Configuration configuration;
 	configuration.logFileName = "TinyRPG.log";
 
-	Triangle game(configuration);
-	//Triangle2 game(configuration);
+	//Triangle game(configuration);
+	Triangle2 game(configuration);
 	//LoadMesh game(configuration);
 	//GameApplication game(configuration);
 	game.StartGame();

@@ -13,3 +13,4 @@
 #include "LiliEngine/VKCamera.h"
 #include "LiliEngine/VKModel.h"
 #include "LiliEngine/VKUtils.h"
+#include "LiliEngine/ImageGUIContext.h"
