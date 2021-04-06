@@ -88,7 +88,7 @@ private:
 		VKCommandBuffer* cmdBuffer = VKCommandBuffer::Create(m_VulkanDevice, m_defContext->m_CommandPool);
 
 		m_Model = VKModel::LoadFromFile(
-			"assets/models/Room/miniHouse_FBX.FBX",
+			"data/models/Room/miniHouse_FBX.FBX",
 			m_VulkanDevice,
 			cmdBuffer,
 			{ VertexAttribute::VA_Position, VertexAttribute::VA_UV0, VertexAttribute::VA_Normal }

@@ -25,7 +25,8 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv)
 	//UniformBuffer game(configuration);
 	//LoadMesh game(configuration);
 	//Pipelines game(configuration);
-	Texture game(configuration);
+	//Texture game(configuration);
+	PushConstants game(configuration);
 	//GameApplication game(configuration);
 	game.StartGame();
 	return 0;
