@@ -6,6 +6,7 @@
 #include "05_LoadMesh.h"
 #include "06_Pipelines.h"
 #include "07_Texture.h"
+#include "08_PushConstants.h"
 
 //-----------------------------------------------------------------------------
 #pragma comment(lib, "LiliEngine.lib")

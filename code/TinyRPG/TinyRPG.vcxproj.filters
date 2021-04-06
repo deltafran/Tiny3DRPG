@@ -27,6 +27,9 @@
     <ClCompile Include="07_Texture.cpp">
       <Filter>example</Filter>
     </ClCompile>
+    <ClCompile Include="08_PushConstants.cpp">
+      <Filter>example</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">
@@ -72,6 +75,9 @@
       <Filter>example</Filter>
     </ClInclude>
     <ClInclude Include="07_Texture.h">
+      <Filter>example</Filter>
+    </ClInclude>
+    <ClInclude Include="08_PushConstants.h">
       <Filter>example</Filter>
     </ClInclude>
   </ItemGroup>
