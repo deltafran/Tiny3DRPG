@@ -13,6 +13,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LiliEngine", "LiliEngine\Li
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CAEA7CD9-C971-4B42-8F07-F09F298452A8}"
 	ProjectSection(SolutionItems) = preProject
+		other.md = other.md
 		ref.md = ref.md
 	EndProjectSection
 EndProject

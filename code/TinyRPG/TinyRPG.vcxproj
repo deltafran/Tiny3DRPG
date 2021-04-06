@@ -179,7 +179,8 @@
   <ItemGroup>
     <ClCompile Include="02_Triangle.cpp" />
     <ClCompile Include="03_Triangle2.cpp" />
-    <ClCompile Include="09_LoadMesh.cpp" />
+    <ClCompile Include="04_UniformBuffer.cpp" />
+    <ClCompile Include="05_LoadMesh.cpp" />
     <ClCompile Include="GameApplication.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -198,7 +199,8 @@
   <ItemGroup>
     <ClInclude Include="02_Triangle.h" />
     <ClInclude Include="03_Triangle2.h" />
-    <ClInclude Include="09_LoadMesh.h" />
+    <ClInclude Include="04_UniformBuffer.h" />
+    <ClInclude Include="05_LoadMesh.h" />
     <ClInclude Include="GameApplication.h" />
     <ClInclude Include="gettime.h" />
     <ClInclude Include="linmath.h" />

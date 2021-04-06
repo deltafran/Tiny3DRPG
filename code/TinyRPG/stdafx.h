@@ -14,3 +14,5 @@
 #include "LiliEngine/VKModel.h"
 #include "LiliEngine/VKUtils.h"
 #include "LiliEngine/ImageGUIContext.h"
+#include "LiliEngine/VKIndexBuffer.h"
+#include "LiliEngine/VKVertexBuffer.h"

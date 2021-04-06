@@ -1,13 +1,13 @@
 #include "stdafx.h"
-#include "09_LoadMesh.h"
+#include "04_UniformBuffer.h"
 //-----------------------------------------------------------------------------
-LoadMesh::LoadMesh(Configuration& configuration) noexcept
+UniformBuffer::UniformBuffer(Configuration& configuration) noexcept
 	: m_configuration(configuration)
 	, m_engine(configuration)
 {
 }
 //-----------------------------------------------------------------------------
-void LoadMesh::StartGame() noexcept
+void UniformBuffer::StartGame() noexcept
 {
 	if (init())
 	{
@@ -25,7 +25,7 @@ void LoadMesh::StartGame() noexcept
 	}
 }
 //-----------------------------------------------------------------------------
-bool LoadMesh::init() noexcept
+bool UniformBuffer::init() noexcept
 {
 	if (!m_configuration.logFileName.empty())
 	{
@@ -42,8 +42,8 @@ bool LoadMesh::init() noexcept
 	m_defContext = &m_engine.GetRendererSystem().GetDefaultVulkanContext();
 	m_vkContext = &m_engine.GetRendererSystem().GetVulkanContext();
 
-	LoadAssets();
 	CreateGUI();
+	CreateMeshBuffers();
 	CreateUniformBuffers();
 	CreateDescriptorPool();
 	CreateDescriptorSetLayout();
@@ -54,22 +54,22 @@ bool LoadMesh::init() noexcept
 	return true;
 }
 //-----------------------------------------------------------------------------
-void LoadMesh::update() noexcept
+void UniformBuffer::update() noexcept
 {
 }
 //-----------------------------------------------------------------------------
-void LoadMesh::draw() noexcept
+void UniformBuffer::draw() noexcept
 {
 	Draw(m_engine.GetCurrTime(), m_engine.GetDeltaTime());
 }
 //-----------------------------------------------------------------------------
-void LoadMesh::close() noexcept
+void UniformBuffer::close() noexcept
 {
-	DestroyAssets();
 	DestroyGUI();
 	DestroyDescriptorSetLayout();
 	DestroyDescriptorPool();
 	DestroyPipelines();
 	DestroyUniformBuffers();
+	DestroyMeshBuffers();
 }
 //-----------------------------------------------------------------------------

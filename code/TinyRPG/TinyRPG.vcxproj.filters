@@ -15,7 +15,10 @@
     <ClCompile Include="03_Triangle2.cpp">
       <Filter>example</Filter>
     </ClCompile>
-    <ClCompile Include="09_LoadMesh.cpp">
+    <ClCompile Include="05_LoadMesh.cpp">
+      <Filter>example</Filter>
+    </ClCompile>
+    <ClCompile Include="04_UniformBuffer.cpp">
       <Filter>example</Filter>
     </ClCompile>
   </ItemGroup>
@@ -53,7 +56,10 @@
     <ClInclude Include="03_Triangle2.h">
       <Filter>example</Filter>
     </ClInclude>
-    <ClInclude Include="09_LoadMesh.h">
+    <ClInclude Include="05_LoadMesh.h">
+      <Filter>example</Filter>
+    </ClInclude>
+    <ClInclude Include="04_UniformBuffer.h">
       <Filter>example</Filter>
     </ClInclude>
   </ItemGroup>
