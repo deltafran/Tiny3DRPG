@@ -181,6 +181,8 @@
     <ClCompile Include="03_Triangle2.cpp" />
     <ClCompile Include="04_UniformBuffer.cpp" />
     <ClCompile Include="05_LoadMesh.cpp" />
+    <ClCompile Include="06_Pipelines.cpp" />
+    <ClCompile Include="07_Texture.cpp" />
     <ClCompile Include="GameApplication.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -201,6 +203,8 @@
     <ClInclude Include="03_Triangle2.h" />
     <ClInclude Include="04_UniformBuffer.h" />
     <ClInclude Include="05_LoadMesh.h" />
+    <ClInclude Include="06_Pipelines.h" />
+    <ClInclude Include="07_Texture.h" />
     <ClInclude Include="GameApplication.h" />
     <ClInclude Include="gettime.h" />
     <ClInclude Include="linmath.h" />

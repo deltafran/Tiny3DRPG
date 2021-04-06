@@ -4,6 +4,8 @@
 #include "03_Triangle2.h"
 #include "04_UniformBuffer.h"
 #include "05_LoadMesh.h"
+#include "06_Pipelines.h"
+#include "07_Texture.h"
 
 //-----------------------------------------------------------------------------
 #pragma comment(lib, "LiliEngine.lib")
@@ -18,9 +20,11 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv)
 	configuration.logFileName = "TinyRPG.log";
 
 	//Triangle game(configuration);
-	Triangle2 game(configuration);
+	//Triangle2 game(configuration);
 	//UniformBuffer game(configuration);
 	//LoadMesh game(configuration);
+	//Pipelines game(configuration);
+	Texture game(configuration);
 	//GameApplication game(configuration);
 	game.StartGame();
 	return 0;

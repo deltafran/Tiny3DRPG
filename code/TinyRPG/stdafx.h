@@ -16,3 +16,5 @@
 #include "LiliEngine/ImageGUIContext.h"
 #include "LiliEngine/VKIndexBuffer.h"
 #include "LiliEngine/VKVertexBuffer.h"
+#include "LiliEngine/VKPipeline.h"
+#include "LiliEngine/VKTexture.h"

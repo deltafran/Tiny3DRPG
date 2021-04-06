@@ -21,6 +21,12 @@
     <ClCompile Include="04_UniformBuffer.cpp">
       <Filter>example</Filter>
     </ClCompile>
+    <ClCompile Include="06_Pipelines.cpp">
+      <Filter>example</Filter>
+    </ClCompile>
+    <ClCompile Include="07_Texture.cpp">
+      <Filter>example</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">
@@ -60,6 +66,12 @@
       <Filter>example</Filter>
     </ClInclude>
     <ClInclude Include="04_UniformBuffer.h">
+      <Filter>example</Filter>
+    </ClInclude>
+    <ClInclude Include="06_Pipelines.h">
+      <Filter>example</Filter>
+    </ClInclude>
+    <ClInclude Include="07_Texture.h">
       <Filter>example</Filter>
     </ClInclude>
   </ItemGroup>
