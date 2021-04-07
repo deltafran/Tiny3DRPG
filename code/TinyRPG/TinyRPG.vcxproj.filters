@@ -63,6 +63,18 @@
     <ClCompile Include="24_SkeletonQuat.cpp">
       <Filter>example</Filter>
     </ClCompile>
+    <ClCompile Include="25_SkinInTexture.cpp">
+      <Filter>example</Filter>
+    </ClCompile>
+    <ClCompile Include="26_SkinInstance.cpp">
+      <Filter>example</Filter>
+    </ClCompile>
+    <ClCompile Include="28_FXAA.cpp">
+      <Filter>example</Filter>
+    </ClCompile>
+    <ClCompile Include="40_QueryStatistics.cpp">
+      <Filter>example</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">
@@ -159,6 +171,21 @@
       <Filter>example</Filter>
     </ClInclude>
     <ClInclude Include="24_SkeletonQuat.h">
+      <Filter>example</Filter>
+    </ClInclude>
+    <ClInclude Include="25_SkinInTexture.h">
+      <Filter>example</Filter>
+    </ClInclude>
+    <ClInclude Include="26_SkinInstance.h">
+      <Filter>example</Filter>
+    </ClInclude>
+    <ClInclude Include="27_MSAA.h">
+      <Filter>example</Filter>
+    </ClInclude>
+    <ClInclude Include="28_FXAA.h">
+      <Filter>example</Filter>
+    </ClInclude>
+    <ClInclude Include="40_QueryStatistics.h">
       <Filter>example</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,23 +1,19 @@
-#pragma once
-
-#pragma once
-
-// кватернионы вместо матриц
+п»ї#pragma once
 
 #define NUM_LIGHTS 64
 
-class SkeletonQuat final
+class SkinInTexture final
 {
 public:
-	SkeletonQuat(Configuration& configuration) noexcept;
+	SkinInTexture(Configuration& configuration) noexcept;
 
 	void StartGame() noexcept;
 private:
-	SkeletonQuat() = delete;
-	SkeletonQuat(const SkeletonQuat&) = delete;
-	SkeletonQuat(SkeletonQuat&&) = delete;
-	SkeletonQuat operator=(const SkeletonQuat&) = delete;
-	SkeletonQuat operator=(SkeletonQuat&&) = delete;
+	SkinInTexture() = delete;
+	SkinInTexture(const SkinInTexture&) = delete;
+	SkinInTexture(SkinInTexture&&) = delete;
+	SkinInTexture operator=(const SkinInTexture&) = delete;
+	SkinInTexture operator=(SkinInTexture&&) = delete;
 
 	bool init() noexcept;
 	void update() noexcept;
@@ -38,19 +34,41 @@ private:
 	VkPipelineCache m_PipelineCache = VK_NULL_HANDLE;
 	VkRenderPass m_RenderPass = VK_NULL_HANDLE;
 
-	struct ModelViewProjectionBlock
+	struct ParamDataBlock
 	{
 		Matrix4x4 model;
 		Matrix4x4 view;
 		Matrix4x4 projection;
+		Vector4 animIndex;
 	};
 
-#define MAX_BONES 64
-	struct BonesTransformBlock
+	void UpdateAnimation(float time, float delta)
 	{
-		Vector4 dualQuats[MAX_BONES * 2];
-		Vector4 debugParam;
-	};
+		if (m_AutoAnimation) {
+			m_AnimTime += delta;
+		}
+
+		if (m_AnimTime > m_RoleModel->GetAnimation(0).duration) {
+			m_AnimTime = m_AnimTime - m_RoleModel->GetAnimation(0).duration;
+		}
+
+		int32_t index = 0;
+		for (int32_t i = 0; i < m_Keys.size(); ++i) {
+			if (m_AnimTime <= m_Keys[i]) {
+				index = i;
+				break;
+			}
+		}
+
+		m_RoleModel->GotoAnimation(m_Keys[index]);
+
+		VKMesh* mesh = m_RoleModel->meshes[0];
+
+		m_ParamData.animIndex.x = 64;
+		m_ParamData.animIndex.y = 32;
+		m_ParamData.animIndex.z = index * mesh->bones.size() * 2;
+		m_ParamData.animIndex.w = 0;
+	}
 
 	void Draw(float time, float delta)
 	{
@@ -60,8 +78,8 @@ private:
 		if (!hovered)
 			m_ViewCamera.Update(time, delta);
 
-		m_MVPData.view = m_ViewCamera.GetView();
-		m_MVPData.projection = m_ViewCamera.GetProjection();
+		m_ParamData.view = m_ViewCamera.GetView();
+		m_ParamData.projection = m_ViewCamera.GetProjection();
 
 		UpdateAnimation(time, delta);
 
@@ -71,40 +89,11 @@ private:
 		for (int32_t i = 0; i < m_RoleModel->meshes.size(); ++i)
 		{
 			VKMesh* mesh = m_RoleModel->meshes[i];
+			m_ParamData.animIndex.w = mesh->bones.size() == 0 ? 0 : 1;
 
-			// model data
-			m_MVPData.model = mesh->linkNode->GetGlobalMatrix();
-
-			// bones data
-			for (int32_t j = 0; j < mesh->bones.size(); ++j)
-			{
-				int32_t boneIndex = mesh->bones[j];
-				VKBone* bone = m_RoleModel->bones[boneIndex];
-
-				Matrix4x4 boneTransform = bone->finalTransform;
-				boneTransform.Append(mesh->linkNode->GetGlobalMatrix().Inverse());
-
-				Quat quat = boneTransform.ToQuat();
-				Vector3 pos = boneTransform.GetOrigin();
-
-				float dx = (+0.5) * (pos.x * quat.w + pos.y * quat.z - pos.z * quat.y);
-				float dy = (+0.5) * (-pos.x * quat.z + pos.y * quat.w + pos.z * quat.x);
-				float dz = (+0.5) * (pos.x * quat.y - pos.y * quat.x + pos.z * quat.w);
-				float dw = (-0.5) * (pos.x * quat.x + pos.y * quat.y + pos.z * quat.z);
-
-				m_BonesData.dualQuats[j * 2 + 0].Set(quat.x, quat.y, quat.z, quat.w);
-				m_BonesData.dualQuats[j * 2 + 1].Set(dx, dy, dz, dw);
-			}
-
-			if (mesh->bones.size() == 0)
-			{
-				m_BonesData.dualQuats[0].Set(0, 0, 0, 1);
-				m_BonesData.dualQuats[1].Set(0, 0, 0, 0);
-			}
-
+			m_ParamData.model = mesh->linkNode->GetGlobalMatrix();
 			m_RoleMaterial->BeginObject();
-			m_RoleMaterial->SetLocalUniform("bonesData", &m_BonesData, sizeof(BonesTransformBlock));
-			m_RoleMaterial->SetLocalUniform("uboMVP", &m_MVPData, sizeof(ModelViewProjectionBlock));
+			m_RoleMaterial->SetLocalUniform("paramData", &m_ParamData, sizeof(ParamDataBlock));
 			m_RoleMaterial->EndObject();
 		}
 		m_RoleMaterial->EndFrame();
@@ -114,16 +103,6 @@ private:
 		m_defContext->Present(bufferIndex);
 	}
 
-	void UpdateAnimation(float time, float delta)
-	{
-		if (m_AutoAnimation) {
-			m_RoleModel->Update(time, delta);
-		}
-		else {
-			m_RoleModel->GotoAnimation(m_AnimTime);
-		}
-	}
-
 	bool UpdateUI(float time, float delta)
 	{
 		m_GUI->StartFrame();
@@ -131,7 +110,7 @@ private:
 		{
 			ImGui::SetNextWindowPos(ImVec2(0, 0));
 			ImGui::SetNextWindowSize(ImVec2(0, 0), ImGuiSetCond_FirstUseEver);
-			ImGui::Begin("SkeletonQuatDemo", nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
+			ImGui::Begin("SkinInTextureDemo", nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
 
 			if (ImGui::SliderInt("Anim", &m_AnimIndex, 0, m_RoleModel->animations.size() - 1)) {
 				SetAnimation(m_AnimIndex);
@@ -165,6 +144,79 @@ private:
 		m_AnimIndex = index;
 	}
 
+	void CreateAnimTexture(VKCommandBuffer* cmdBuffer)
+	{
+		std::vector<float> animData(64 * 32 * 4);
+		VKAnimation& animation = m_RoleModel->GetAnimation();
+
+		m_Keys.push_back(0);
+		for (auto it = animation.clips.begin(); it != animation.clips.end(); ++it)
+		{
+			VKAnimationClip& clip = it->second;
+			for (int32_t i = 0; i < clip.positions.keys.size(); ++i) {
+				if (m_Keys.back() < clip.positions.keys[i]) {
+					m_Keys.push_back(clip.positions.keys[i]);
+				}
+			}
+			for (int32_t i = 0; i < clip.rotations.keys.size(); ++i) {
+				if (m_Keys.back() < clip.rotations.keys[i]) {
+					m_Keys.push_back(clip.rotations.keys[i]);
+				}
+			}
+			for (int32_t i = 0; i < clip.scales.keys.size(); ++i) {
+				if (m_Keys.back() < clip.scales.keys[i]) {
+					m_Keys.push_back(clip.scales.keys[i]);
+				}
+			}
+		}
+
+		VKMesh* mesh = m_RoleModel->meshes[0];
+
+		for (int32_t i = 0; i < m_Keys.size(); ++i)
+		{
+			m_RoleModel->GotoAnimation(m_Keys[i]);
+			int32_t step = i * mesh->bones.size() * 8;
+
+			for (int32_t j = 0; j < mesh->bones.size(); ++j)
+			{
+				int32_t boneIndex = mesh->bones[j];
+				VKBone* bone = m_RoleModel->bones[boneIndex];
+				Matrix4x4 boneTransform = bone->finalTransform;
+				boneTransform.Append(mesh->linkNode->GetGlobalMatrix().Inverse());
+				Quat quat = boneTransform.ToQuat();
+				Vector3 pos = boneTransform.GetOrigin();
+				float dx = (+0.5) * (pos.x * quat.w + pos.y * quat.z - pos.z * quat.y);
+				float dy = (+0.5) * (-pos.x * quat.z + pos.y * quat.w + pos.z * quat.x);
+				float dz = (+0.5) * (pos.x * quat.y - pos.y * quat.x + pos.z * quat.w);
+				float dw = (-0.5) * (pos.x * quat.x + pos.y * quat.y + pos.z * quat.z);
+				int32_t index = step + j * 8;
+				animData[index + 0] = quat.x;
+				animData[index + 1] = quat.y;
+				animData[index + 2] = quat.z;
+				animData[index + 3] = quat.w;
+				animData[index + 4] = dx;
+				animData[index + 5] = dy;
+				animData[index + 6] = dz;
+				animData[index + 7] = dw;
+			}
+		}
+
+		m_AnimTexture = VKTexture::Create2D(
+			(const uint8_t*)animData.data(), animData.size() * sizeof(float), VK_FORMAT_R32G32B32A32_SFLOAT,
+			64, 32,
+			m_VulkanDevice,
+			cmdBuffer
+		);
+		m_AnimTexture->UpdateSampler(
+			VK_FILTER_NEAREST,
+			VK_FILTER_NEAREST,
+			VK_SAMPLER_MIPMAP_MODE_NEAREST,
+			VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE,
+			VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE,
+			VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE
+		);
+	}
+
 	void LoadAssets()
 	{
 		VKCommandBuffer* cmdBuffer = VKCommandBuffer::Create(m_VulkanDevice, m_defContext->m_CommandPool);
@@ -182,15 +234,16 @@ private:
 			}
 		);
 		m_RoleModel->rootNode->localMatrix.AppendRotation(180, Vector3::UpVector);
-		
+
 		SetAnimation(0);
+		CreateAnimTexture(cmdBuffer);
 
 		// shader
 		m_RoleShader = VKShader::Create(
 			m_VulkanDevice,
 			true,
-			"data/shaders/24_SkeletonQuat/obj.vert.spv",
-			"data/shaders/24_SkeletonQuat/obj.frag.spv"
+			"data/shaders/25_SkinInTexture/obj.vert.spv",
+			"data/shaders/25_SkinInTexture/obj.frag.spv"
 		);
 
 		// texture
@@ -209,6 +262,7 @@ private:
 		);
 		m_RoleMaterial->PreparePipeline();
 		m_RoleMaterial->SetTexture("diffuseMap", m_RoleDiffuse);
+		m_RoleMaterial->SetTexture("animMap", m_AnimTexture);
 
 		delete cmdBuffer;
 	}
@@ -219,6 +273,7 @@ private:
 		delete m_RoleDiffuse;
 		delete m_RoleMaterial;
 		delete m_RoleModel;
+		delete m_AnimTexture;
 	}
 
 	void SetupCommandBuffers(int32_t backBufferIndex)
@@ -283,8 +338,6 @@ private:
 
 		m_ViewCamera.SetPosition(boundCenter.x, boundCenter.y, boundCenter.z - boundSize.Size() * 2.0);
 		m_ViewCamera.Perspective(PI / 4, m_configuration.window.windowWidth, m_configuration.window.windowHeight, 0.10f, 3000.0f);
-
-		m_BonesData.debugParam.Set(0, 0, 0, 0);
 	}
 
 	void CreateGUI()
@@ -304,8 +357,7 @@ private:
 
 	VKCamera						m_ViewCamera;
 
-	ModelViewProjectionBlock	m_MVPData;
-	BonesTransformBlock			m_BonesData;
+	ParamDataBlock				m_ParamData;
 
 	VKModel* m_RoleModel = nullptr;
 	VKShader* m_RoleShader = nullptr;
@@ -314,6 +366,8 @@ private:
 
 	ImageGUIContext* m_GUI = nullptr;
 
+	VKTexture* m_AnimTexture = nullptr;
+	std::vector<float>			m_Keys;
 	bool                        m_AutoAnimation = true;
 	float                       m_AnimDuration = 0.0f;
 	float                       m_AnimTime = 0.0f;

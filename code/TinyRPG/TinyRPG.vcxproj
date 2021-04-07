@@ -195,6 +195,10 @@
     <ClCompile Include="22_SkeletonMatrix4x4.cpp" />
     <ClCompile Include="23_SkeletonPackIndexWeight.cpp" />
     <ClCompile Include="24_SkeletonQuat.cpp" />
+    <ClCompile Include="25_SkinInTexture.cpp" />
+    <ClCompile Include="26_SkinInstance.cpp" />
+    <ClCompile Include="28_FXAA.cpp" />
+    <ClCompile Include="40_QueryStatistics.cpp" />
     <ClCompile Include="GameApplication.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -234,6 +238,11 @@
     <ClInclude Include="22_SkeletonMatrix4x4.h" />
     <ClInclude Include="23_SkeletonPackIndexWeight.h" />
     <ClInclude Include="24_SkeletonQuat.h" />
+    <ClInclude Include="25_SkinInTexture.h" />
+    <ClInclude Include="26_SkinInstance.h" />
+    <ClInclude Include="27_MSAA.h" />
+    <ClInclude Include="28_FXAA.h" />
+    <ClInclude Include="40_QueryStatistics.h" />
     <ClInclude Include="GameApplication.h" />
     <ClInclude Include="gettime.h" />
     <ClInclude Include="linmath.h" />

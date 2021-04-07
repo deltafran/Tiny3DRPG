@@ -15,6 +15,10 @@
 #include "22_SkeletonMatrix4x4.h"
 #include "23_SkeletonPackIndexWeight.h"
 #include "24_SkeletonQuat.h"
+#include "25_SkinInTexture.h"
+#include "26_SkinInstance.h"
+#include "28_FXAA.h"
+#include "40_QueryStatistics.h"
 //-----------------------------------------------------------------------------
 #pragma comment(lib, "LiliEngine.lib")
 #pragma comment(lib, "3rdparty.lib")
@@ -26,7 +30,8 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv)
 {
 	Configuration configuration;
 	configuration.logFileName = "TinyRPG.log";
-
+	configuration.window.windowWidth = 1024;
+	configuration.window.windowHeight = 768;
 	//Triangle game(configuration);
 	//Triangle2 game(configuration);
 	//UniformBuffer game(configuration);
@@ -41,7 +46,11 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv)
 	//Material game(configuration);
 	//SkeletonMatrix4x4 game(configuration);
 	//SkeletonPackIndexWeight game(configuration);
-	SkeletonQuat game(configuration);
+	//SkeletonQuat game(configuration);
+	//SkinInTexture game(configuration);
+	//SkinInstance game(configuration);
+	//FXAA game(configuration);
+	QueryStatistics game(configuration);
 	//GameApplication game(configuration);
 	game.StartGame();
 	return 0;
