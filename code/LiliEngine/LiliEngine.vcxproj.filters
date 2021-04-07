@@ -137,50 +137,50 @@
     <ClInclude Include="DefaultVulkanContext.h">
       <Filter>Renderer\VulkanContext</Filter>
     </ClInclude>
-    <ClInclude Include="VKCommandBuffer.h">
-      <Filter>Renderer\VulkanObject</Filter>
-    </ClInclude>
-    <ClInclude Include="VKUtils.h">
-      <Filter>Renderer\VulkanObject</Filter>
-    </ClInclude>
-    <ClInclude Include="VKBuffer.h">
-      <Filter>Renderer\VulkanObject</Filter>
-    </ClInclude>
-    <ClInclude Include="VKTexture.h">
-      <Filter>Renderer\VulkanObject</Filter>
-    </ClInclude>
-    <ClInclude Include="VKIndexBuffer.h">
-      <Filter>Renderer\VulkanObject</Filter>
-    </ClInclude>
     <ClInclude Include="VKVertexBuffer.h">
-      <Filter>Renderer\VulkanObject</Filter>
-    </ClInclude>
-    <ClInclude Include="VKShader.h">
-      <Filter>Renderer\VulkanObject</Filter>
-    </ClInclude>
-    <ClInclude Include="VKRenderTarget.h">
-      <Filter>Renderer\VulkanObject</Filter>
-    </ClInclude>
-    <ClInclude Include="VKPipeline.h">
-      <Filter>Renderer\VulkanObject</Filter>
-    </ClInclude>
-    <ClInclude Include="VKCamera.h">
-      <Filter>Renderer\VulkanObject</Filter>
-    </ClInclude>
-    <ClInclude Include="VKModel.h">
-      <Filter>Renderer\VulkanObject</Filter>
-    </ClInclude>
-    <ClInclude Include="VKMaterial.h">
-      <Filter>Renderer\VulkanObject</Filter>
-    </ClInclude>
-    <ClInclude Include="VKDefaultRes.h">
-      <Filter>Renderer\VulkanObject</Filter>
-    </ClInclude>
-    <ClInclude Include="VKCompute.h">
-      <Filter>Renderer\VulkanObject</Filter>
+      <Filter>Renderer\VulkanObject\Lesson</Filter>
     </ClInclude>
     <ClInclude Include="ImageGUIContext.h">
-      <Filter>Renderer\VulkanObject</Filter>
+      <Filter>Renderer\VulkanObject\Lesson</Filter>
+    </ClInclude>
+    <ClInclude Include="VKBuffer.h">
+      <Filter>Renderer\VulkanObject\Lesson</Filter>
+    </ClInclude>
+    <ClInclude Include="VKCamera.h">
+      <Filter>Renderer\VulkanObject\Lesson</Filter>
+    </ClInclude>
+    <ClInclude Include="VKCommandBuffer.h">
+      <Filter>Renderer\VulkanObject\Lesson</Filter>
+    </ClInclude>
+    <ClInclude Include="VKCompute.h">
+      <Filter>Renderer\VulkanObject\Lesson</Filter>
+    </ClInclude>
+    <ClInclude Include="VKDefaultRes.h">
+      <Filter>Renderer\VulkanObject\Lesson</Filter>
+    </ClInclude>
+    <ClInclude Include="VKIndexBuffer.h">
+      <Filter>Renderer\VulkanObject\Lesson</Filter>
+    </ClInclude>
+    <ClInclude Include="VKMaterial.h">
+      <Filter>Renderer\VulkanObject\Lesson</Filter>
+    </ClInclude>
+    <ClInclude Include="VKModel.h">
+      <Filter>Renderer\VulkanObject\Lesson</Filter>
+    </ClInclude>
+    <ClInclude Include="VKPipeline.h">
+      <Filter>Renderer\VulkanObject\Lesson</Filter>
+    </ClInclude>
+    <ClInclude Include="VKRenderTarget.h">
+      <Filter>Renderer\VulkanObject\Lesson</Filter>
+    </ClInclude>
+    <ClInclude Include="VKShader.h">
+      <Filter>Renderer\VulkanObject\Lesson</Filter>
+    </ClInclude>
+    <ClInclude Include="VKTexture.h">
+      <Filter>Renderer\VulkanObject\Lesson</Filter>
+    </ClInclude>
+    <ClInclude Include="VKUtils.h">
+      <Filter>Renderer\VulkanObject\Lesson</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -263,47 +263,47 @@
     <ClCompile Include="DefaultVulkanContext.cpp">
       <Filter>Renderer\VulkanContext</Filter>
     </ClCompile>
-    <ClCompile Include="VKCommandBuffer.cpp">
-      <Filter>Renderer\VulkanObject</Filter>
+    <ClCompile Include="ImageGUIContext.cpp">
+      <Filter>Renderer\VulkanObject\Lesson</Filter>
     </ClCompile>
     <ClCompile Include="VKBuffer.cpp">
-      <Filter>Renderer\VulkanObject</Filter>
-    </ClCompile>
-    <ClCompile Include="VKTexture.cpp">
-      <Filter>Renderer\VulkanObject</Filter>
-    </ClCompile>
-    <ClCompile Include="VKIndexBuffer.cpp">
-      <Filter>Renderer\VulkanObject</Filter>
-    </ClCompile>
-    <ClCompile Include="VKVertexBuffer.cpp">
-      <Filter>Renderer\VulkanObject</Filter>
-    </ClCompile>
-    <ClCompile Include="VKShader.cpp">
-      <Filter>Renderer\VulkanObject</Filter>
-    </ClCompile>
-    <ClCompile Include="VKRenderTarget.cpp">
-      <Filter>Renderer\VulkanObject</Filter>
-    </ClCompile>
-    <ClCompile Include="VKPipeline.cpp">
-      <Filter>Renderer\VulkanObject</Filter>
+      <Filter>Renderer\VulkanObject\Lesson</Filter>
     </ClCompile>
     <ClCompile Include="VKCamera.cpp">
-      <Filter>Renderer\VulkanObject</Filter>
+      <Filter>Renderer\VulkanObject\Lesson</Filter>
     </ClCompile>
-    <ClCompile Include="VKModel.cpp">
-      <Filter>Renderer\VulkanObject</Filter>
-    </ClCompile>
-    <ClCompile Include="VKMaterial.cpp">
-      <Filter>Renderer\VulkanObject</Filter>
-    </ClCompile>
-    <ClCompile Include="VKDefaultRes.cpp">
-      <Filter>Renderer\VulkanObject</Filter>
+    <ClCompile Include="VKCommandBuffer.cpp">
+      <Filter>Renderer\VulkanObject\Lesson</Filter>
     </ClCompile>
     <ClCompile Include="VKCompute.cpp">
-      <Filter>Renderer\VulkanObject</Filter>
+      <Filter>Renderer\VulkanObject\Lesson</Filter>
     </ClCompile>
-    <ClCompile Include="ImageGUIContext.cpp">
-      <Filter>Renderer\VulkanObject</Filter>
+    <ClCompile Include="VKDefaultRes.cpp">
+      <Filter>Renderer\VulkanObject\Lesson</Filter>
+    </ClCompile>
+    <ClCompile Include="VKIndexBuffer.cpp">
+      <Filter>Renderer\VulkanObject\Lesson</Filter>
+    </ClCompile>
+    <ClCompile Include="VKMaterial.cpp">
+      <Filter>Renderer\VulkanObject\Lesson</Filter>
+    </ClCompile>
+    <ClCompile Include="VKModel.cpp">
+      <Filter>Renderer\VulkanObject\Lesson</Filter>
+    </ClCompile>
+    <ClCompile Include="VKPipeline.cpp">
+      <Filter>Renderer\VulkanObject\Lesson</Filter>
+    </ClCompile>
+    <ClCompile Include="VKRenderTarget.cpp">
+      <Filter>Renderer\VulkanObject\Lesson</Filter>
+    </ClCompile>
+    <ClCompile Include="VKShader.cpp">
+      <Filter>Renderer\VulkanObject\Lesson</Filter>
+    </ClCompile>
+    <ClCompile Include="VKTexture.cpp">
+      <Filter>Renderer\VulkanObject\Lesson</Filter>
+    </ClCompile>
+    <ClCompile Include="VKVertexBuffer.cpp">
+      <Filter>Renderer\VulkanObject\Lesson</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -360,6 +360,9 @@
     </Filter>
     <Filter Include="Renderer\VulkanObject">
       <UniqueIdentifier>{7cdaa22e-0fc3-4333-80a1-daeebf40cac0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\VulkanObject\Lesson">
+      <UniqueIdentifier>{ded73e5e-090f-48c5-9252-c27b0eb3dd19}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
