@@ -1,6 +1,6 @@
 #pragma once
 
-#include "VKBuffer.h"
+#include "DVKBuffer.h"
 #include "VKCommandBuffer.h"
 
 class VKIndexBuffer
@@ -31,7 +31,7 @@ public:
 
 public:
 	VkDevice		device = VK_NULL_HANDLE;
-	VKBuffer* dvkBuffer = nullptr;
+	DVKBuffer* dvkBuffer = nullptr;
 	int32_t           instanceCount = 1;
 	int32_t			indexCount = 0;
 	VkIndexType		indexType = VK_INDEX_TYPE_UINT16;

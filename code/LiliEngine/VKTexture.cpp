@@ -1,6 +1,6 @@
 ﻿#include "stdafx.h"
 #include "VKTexture.h"
-#include "VKBuffer.h"
+#include "DVKBuffer.h"
 #include "CoreMath2.h"
 #include "VulkanDevice.h"
 #include "VulkanMemory.h"
@@ -12,7 +12,7 @@ VKTexture* VKTexture::Create2D(const uint8_t* rgbaData, uint32_t size, VkFormat 
 	int32_t mipLevels = math::FloorToInt(math::Log2(math::Max(width, height))) + 1;
 	VkDevice device = vulkanDevice->GetInstanceHandle();
 
-	VKBuffer* stagingBuffer = VKBuffer::CreateBuffer(vulkanDevice, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, size);
+	DVKBuffer* stagingBuffer = DVKBuffer::CreateBuffer(vulkanDevice, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, size);
 	stagingBuffer->Map();
 	stagingBuffer->CopyFrom((void*)rgbaData, size);
 	stagingBuffer->UnMap();
@@ -678,7 +678,7 @@ VKTexture* VKTexture::CreateCube(const std::vector<std::string> filenames, std::
 	ZeroVulkanStruct(memAllocInfo, VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO);
 
 	// stagingBuffer
-	VKBuffer* stagingBuffer = VKBuffer::CreateBuffer(
+	DVKBuffer* stagingBuffer = DVKBuffer::CreateBuffer(
 		vulkanDevice,
 		VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
 		VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
@@ -902,7 +902,7 @@ VKTexture* VKTexture::Create2DArray(const std::vector<std::string> filenames, st
 	ZeroVulkanStruct(memAllocInfo, VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO);
 
 	// stagingBuffer
-	VKBuffer* stagingBuffer = VKBuffer::CreateBuffer(
+	DVKBuffer* stagingBuffer = DVKBuffer::CreateBuffer(
 		vulkanDevice,
 		VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
 		VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
@@ -1078,7 +1078,7 @@ VKTexture* VKTexture::Create3D(VkFormat format, const uint8_t* rgbaData, int32_t
 {
 	VkDevice device = vulkanDevice->GetInstanceHandle();
 
-	VKBuffer* stagingBuffer = VKBuffer::CreateBuffer(vulkanDevice, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, size);
+	DVKBuffer* stagingBuffer = DVKBuffer::CreateBuffer(vulkanDevice, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, size);
 	stagingBuffer->Map();
 	stagingBuffer->CopyFrom((void*)rgbaData, size);
 	stagingBuffer->UnMap();

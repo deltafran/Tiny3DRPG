@@ -24,7 +24,7 @@ private:
 	bool m_isEnd = false;
 
 	VulkanRHI* m_vulkanRHI = nullptr;
-	DefaultVulkanContext* m_defContext = nullptr;
+
 	VulkanContext* m_vkContext = nullptr;
 
 	std::shared_ptr<VulkanDevice> m_VulkanDevice = nullptr;
@@ -57,7 +57,7 @@ private:
 
 	void Draw(float time, float delta)
 	{
-		int32_t bufferIndex = m_defContext->AcquireBackbufferIndex();
+		int32_t bufferIndex = m_vkContext->AcquireBackbufferIndex();
 
 		bool hovered = UpdateUI(time, delta);
 		if (!hovered)
@@ -65,7 +65,7 @@ private:
 
 		UpdateUniformBuffers(time, delta);
 
-		m_defContext->Present(bufferIndex);
+		m_vkContext->Present(bufferIndex);
 	}
 
 	bool UpdateUI(float time, float delta)
@@ -118,7 +118,7 @@ private:
 			"data/shaders/12_OptimizeShaderAndLayout/debug1.frag.spv"
 		);
 
-		VKCommandBuffer* cmdBuffer = VKCommandBuffer::Create(m_VulkanDevice, m_defContext->m_CommandPool);
+		VKCommandBuffer* cmdBuffer = VKCommandBuffer::Create(m_VulkanDevice, m_vkContext->m_CommandPool);
 
 		m_Model = VKModel::LoadFromFile(
 			"data/models/plane_z.obj",
@@ -188,11 +188,11 @@ private:
 		renderPassBeginInfo.pClearValues = clearValues;
 		renderPassBeginInfo.renderArea.offset.x = 0;
 		renderPassBeginInfo.renderArea.offset.y = 0;
-		renderPassBeginInfo.renderArea.extent.width = m_defContext->m_FrameWidth;
-		renderPassBeginInfo.renderArea.extent.height = m_defContext->m_FrameHeight;
+		renderPassBeginInfo.renderArea.extent.width = m_vkContext->m_FrameWidth;
+		renderPassBeginInfo.renderArea.extent.height = m_vkContext->m_FrameHeight;
 
-		int32_t ww = m_defContext->m_FrameWidth / 2.0f;
-		int32_t hh = m_defContext->m_FrameHeight / 2.0f;
+		int32_t ww = m_vkContext->m_FrameWidth / 2.0f;
+		int32_t hh = m_vkContext->m_FrameHeight / 2.0f;
 
 		VkViewport viewport = {};
 		viewport.x = 0;
@@ -208,24 +208,24 @@ private:
 		scissor.offset.x = 0;
 		scissor.offset.y = 0;
 		
-		for (int32_t i = 0; i < m_defContext->m_CommandBuffers.size(); ++i)
+		for (int32_t i = 0; i < m_vkContext->m_CommandBuffers.size(); ++i)
 		{
 			renderPassBeginInfo.framebuffer = m_vkContext->m_FrameBuffers[i];
 
-			VERIFYVULKANRESULT(vkBeginCommandBuffer(m_defContext->m_CommandBuffers[i], &cmdBeginInfo));
-			vkCmdBeginRenderPass(m_defContext->m_CommandBuffers[i], &renderPassBeginInfo, VK_SUBPASS_CONTENTS_INLINE);
+			VERIFYVULKANRESULT(vkBeginCommandBuffer(m_vkContext->m_CommandBuffers[i], &cmdBeginInfo));
+			vkCmdBeginRenderPass(m_vkContext->m_CommandBuffers[i], &renderPassBeginInfo, VK_SUBPASS_CONTENTS_INLINE);
 
 			// 0
 			viewport.x = 0;
 			viewport.y = hh;
 			scissor.offset.x = 0;
 			scissor.offset.y = 0;
-			vkCmdSetViewport(m_defContext->m_CommandBuffers[i], 0, 1, &viewport);
-			vkCmdSetScissor(m_defContext->m_CommandBuffers[i], 0, 1, &scissor);
-			vkCmdBindPipeline(m_defContext->m_CommandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, m_Pipeline0->pipeline);
-			vkCmdBindDescriptorSets(m_defContext->m_CommandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, m_Pipeline0->pipelineLayout, 0, m_DescriptorSet0->descriptorSets.size(), m_DescriptorSet0->descriptorSets.data(), 0, nullptr);
+			vkCmdSetViewport(m_vkContext->m_CommandBuffers[i], 0, 1, &viewport);
+			vkCmdSetScissor(m_vkContext->m_CommandBuffers[i], 0, 1, &scissor);
+			vkCmdBindPipeline(m_vkContext->m_CommandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, m_Pipeline0->pipeline);
+			vkCmdBindDescriptorSets(m_vkContext->m_CommandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, m_Pipeline0->pipelineLayout, 0, m_DescriptorSet0->descriptorSets.size(), m_DescriptorSet0->descriptorSets.data(), 0, nullptr);
 			for (int32_t meshIndex = 0; meshIndex < m_Model->meshes.size(); ++meshIndex) {
-				m_Model->meshes[meshIndex]->BindDrawCmd(m_defContext->m_CommandBuffers[i]);
+				m_Model->meshes[meshIndex]->BindDrawCmd(m_vkContext->m_CommandBuffers[i]);
 			}
 
 			// 1
@@ -233,12 +233,12 @@ private:
 			viewport.y = hh;
 			scissor.offset.x = ww;
 			scissor.offset.y = 0;
-			vkCmdSetViewport(m_defContext->m_CommandBuffers[i], 0, 1, &viewport);
-			vkCmdSetScissor(m_defContext->m_CommandBuffers[i], 0, 1, &scissor);
-			vkCmdBindPipeline(m_defContext->m_CommandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, m_Pipeline1->pipeline);
-			vkCmdBindDescriptorSets(m_defContext->m_CommandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, m_Pipeline1->pipelineLayout, 0, m_DescriptorSet1->descriptorSets.size(), m_DescriptorSet1->descriptorSets.data(), 0, nullptr);
+			vkCmdSetViewport(m_vkContext->m_CommandBuffers[i], 0, 1, &viewport);
+			vkCmdSetScissor(m_vkContext->m_CommandBuffers[i], 0, 1, &scissor);
+			vkCmdBindPipeline(m_vkContext->m_CommandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, m_Pipeline1->pipeline);
+			vkCmdBindDescriptorSets(m_vkContext->m_CommandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, m_Pipeline1->pipelineLayout, 0, m_DescriptorSet1->descriptorSets.size(), m_DescriptorSet1->descriptorSets.data(), 0, nullptr);
 			for (int32_t meshIndex = 0; meshIndex < m_Model->meshes.size(); ++meshIndex) {
-				m_Model->meshes[meshIndex]->BindDrawCmd(m_defContext->m_CommandBuffers[i]);
+				m_Model->meshes[meshIndex]->BindDrawCmd(m_vkContext->m_CommandBuffers[i]);
 			}
 
 			// 2
@@ -246,12 +246,12 @@ private:
 			viewport.y = hh * 2;
 			scissor.offset.x = 0;
 			scissor.offset.y = hh;
-			vkCmdSetViewport(m_defContext->m_CommandBuffers[i], 0, 1, &viewport);
-			vkCmdSetScissor(m_defContext->m_CommandBuffers[i], 0, 1, &scissor);
-			vkCmdBindPipeline(m_defContext->m_CommandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, m_Pipeline2->pipeline);
-			vkCmdBindDescriptorSets(m_defContext->m_CommandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, m_Pipeline2->pipelineLayout, 0, m_DescriptorSet2->descriptorSets.size(), m_DescriptorSet2->descriptorSets.data(), 0, nullptr);
+			vkCmdSetViewport(m_vkContext->m_CommandBuffers[i], 0, 1, &viewport);
+			vkCmdSetScissor(m_vkContext->m_CommandBuffers[i], 0, 1, &scissor);
+			vkCmdBindPipeline(m_vkContext->m_CommandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, m_Pipeline2->pipeline);
+			vkCmdBindDescriptorSets(m_vkContext->m_CommandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, m_Pipeline2->pipelineLayout, 0, m_DescriptorSet2->descriptorSets.size(), m_DescriptorSet2->descriptorSets.data(), 0, nullptr);
 			for (int32_t meshIndex = 0; meshIndex < m_Model->meshes.size(); ++meshIndex) {
-				m_Model->meshes[meshIndex]->BindDrawCmd(m_defContext->m_CommandBuffers[i]);
+				m_Model->meshes[meshIndex]->BindDrawCmd(m_vkContext->m_CommandBuffers[i]);
 			}
 
 			// 3
@@ -259,18 +259,18 @@ private:
 			viewport.y = hh * 2;
 			scissor.offset.x = ww;
 			scissor.offset.y = hh;
-			vkCmdSetViewport(m_defContext->m_CommandBuffers[i], 0, 1, &viewport);
-			vkCmdSetScissor(m_defContext->m_CommandBuffers[i], 0, 1, &scissor);
-			vkCmdBindPipeline(m_defContext->m_CommandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, m_Pipeline3->pipeline);
-			vkCmdBindDescriptorSets(m_defContext->m_CommandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, m_Pipeline3->pipelineLayout, 0, m_DescriptorSet3->descriptorSets.size(), m_DescriptorSet3->descriptorSets.data(), 0, nullptr);
+			vkCmdSetViewport(m_vkContext->m_CommandBuffers[i], 0, 1, &viewport);
+			vkCmdSetScissor(m_vkContext->m_CommandBuffers[i], 0, 1, &scissor);
+			vkCmdBindPipeline(m_vkContext->m_CommandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, m_Pipeline3->pipeline);
+			vkCmdBindDescriptorSets(m_vkContext->m_CommandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, m_Pipeline3->pipelineLayout, 0, m_DescriptorSet3->descriptorSets.size(), m_DescriptorSet3->descriptorSets.data(), 0, nullptr);
 			for (int32_t meshIndex = 0; meshIndex < m_Model->meshes.size(); ++meshIndex) {
-				m_Model->meshes[meshIndex]->BindDrawCmd(m_defContext->m_CommandBuffers[i]);
+				m_Model->meshes[meshIndex]->BindDrawCmd(m_vkContext->m_CommandBuffers[i]);
 			}
 
-			m_GUI->BindDrawCmd(m_defContext->m_CommandBuffers[i], m_RenderPass);
+			m_GUI->BindDrawCmd(m_vkContext->m_CommandBuffers[i], m_RenderPass);
 
-			vkCmdEndRenderPass(m_defContext->m_CommandBuffers[i]);
-			VERIFYVULKANRESULT(vkEndCommandBuffer(m_defContext->m_CommandBuffers[i]));
+			vkCmdEndRenderPass(m_vkContext->m_CommandBuffers[i]);
+			VERIFYVULKANRESULT(vkEndCommandBuffer(m_vkContext->m_CommandBuffers[i]));
 		}
 	}
 
@@ -355,7 +355,7 @@ private:
 		m_ViewCamera.Perspective(PI / 4, m_configuration.window.windowWidth, m_configuration.window.windowHeight, 0.1f, 1500.0f);
 		m_ViewCamera.SetPosition(boundCenter);
 
-		m_MVPBuffer = VKBuffer::CreateBuffer(
+		m_MVPBuffer = DVKBuffer::CreateBuffer(
 			m_VulkanDevice,
 			VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
 			VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
@@ -366,7 +366,7 @@ private:
 
 		// lut debug data
 		m_LutDebugData.bias = 0;
-		m_LutDebugBuffer = VKBuffer::CreateBuffer(
+		m_LutDebugBuffer = DVKBuffer::CreateBuffer(
 			m_VulkanDevice,
 			VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
 			VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
@@ -403,10 +403,10 @@ private:
 	VKCamera						m_ViewCamera;
 
 	MVPBlock 						m_MVPData;
-	VKBuffer* m_MVPBuffer;
+	DVKBuffer* m_MVPBuffer;
 
 	LutDebugBlock                   m_LutDebugData;
-	VKBuffer* m_LutDebugBuffer = nullptr;;
+	DVKBuffer* m_LutDebugBuffer = nullptr;;
 
 	VKTexture* m_TexOrigin = nullptr;
 	VKTexture* m_Tex3DLut = nullptr;

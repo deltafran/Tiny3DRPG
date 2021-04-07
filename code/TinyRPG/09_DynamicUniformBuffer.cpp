@@ -40,12 +40,12 @@ bool DynamicUniformBuffer::init() noexcept
 		return false;
 
 	m_vulkanRHI = &m_engine.GetRendererSystem().GetVulkanRHI();
-	m_defContext = &m_engine.GetRendererSystem().GetDefaultVulkanContext();
+
 	m_vkContext = &m_engine.GetRendererSystem().GetVulkanContext();
 
-	m_VulkanDevice = m_defContext->m_VulkanDevice;
-	m_Device = m_defContext->m_Device;
-	m_PipelineCache = m_defContext->m_PipelineCache;
+	m_VulkanDevice = m_vkContext->m_VulkanDevice;
+	m_Device = m_vkContext->m_Device;
+	m_PipelineCache = m_vkContext->m_PipelineCache;
 	m_RenderPass = m_vkContext->m_RenderPass;
 
 	LoadAssets();

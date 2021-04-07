@@ -24,7 +24,7 @@ private:
 	bool m_isEnd = false;
 
 	VulkanRHI* m_vulkanRHI = nullptr;
-	DefaultVulkanContext* m_defContext = nullptr;
+
 	VulkanContext* m_vkContext = nullptr;		
 
 	struct UBOData
@@ -42,8 +42,8 @@ private:
 
 		UpdateUniformBuffers(time, delta);
 
-		int32_t bufferIndex = m_defContext->AcquireBackbufferIndex();
-		m_defContext->Present(bufferIndex);
+		int32_t bufferIndex = m_vkContext->AcquireBackbufferIndex();
+		m_vkContext->Present(bufferIndex);
 	}
 
 	bool UpdateUI(float time, float delta)
@@ -86,44 +86,44 @@ private:
 		renderPassBeginInfo.pClearValues             = clearValues;
 		renderPassBeginInfo.renderArea.offset.x      = 0;
 		renderPassBeginInfo.renderArea.offset.y      = 0;
-		renderPassBeginInfo.renderArea.extent.width  = m_defContext->m_FrameWidth;
-		renderPassBeginInfo.renderArea.extent.height = m_defContext->m_FrameHeight;
+		renderPassBeginInfo.renderArea.extent.width  = m_vkContext->m_FrameWidth;
+		renderPassBeginInfo.renderArea.extent.height = m_vkContext->m_FrameHeight;
 
-		for (int32_t i = 0; i < m_defContext->m_CommandBuffers.size(); ++i)
+		for (int32_t i = 0; i < m_vkContext->m_CommandBuffers.size(); ++i)
 		{
 			renderPassBeginInfo.framebuffer = m_vkContext->m_FrameBuffers[i];
 
 			VkViewport viewport = {};
 			viewport.x        = 0;
-			viewport.y        = m_defContext->m_FrameHeight;
-			viewport.width    = (float)m_defContext->m_FrameWidth;
-			viewport.height   = -(float)m_defContext->m_FrameHeight;    // flip y axis
+			viewport.y        = m_vkContext->m_FrameHeight;
+			viewport.width    = (float)m_vkContext->m_FrameWidth;
+			viewport.height   = -(float)m_vkContext->m_FrameHeight;    // flip y axis
 			viewport.minDepth = 0.0f;
 			viewport.maxDepth = 1.0f;
 
 			VkRect2D scissor = {};
-			scissor.extent.width  = m_defContext->m_FrameWidth;
-			scissor.extent.height = m_defContext->m_FrameHeight;
+			scissor.extent.width  = m_vkContext->m_FrameWidth;
+			scissor.extent.height = m_vkContext->m_FrameHeight;
 			scissor.offset.x      = 0;
 			scissor.offset.y      = 0;
 
-			VERIFYVULKANRESULT(vkBeginCommandBuffer(m_defContext->m_CommandBuffers[i], &cmdBeginInfo));
+			VERIFYVULKANRESULT(vkBeginCommandBuffer(m_vkContext->m_CommandBuffers[i], &cmdBeginInfo));
 
-			vkCmdBeginRenderPass(m_defContext->m_CommandBuffers[i], &renderPassBeginInfo, VK_SUBPASS_CONTENTS_INLINE);
-			vkCmdSetViewport(m_defContext->m_CommandBuffers[i], 0, 1, &viewport);
-			vkCmdSetScissor(m_defContext->m_CommandBuffers[i], 0, 1, &scissor);
+			vkCmdBeginRenderPass(m_vkContext->m_CommandBuffers[i], &renderPassBeginInfo, VK_SUBPASS_CONTENTS_INLINE);
+			vkCmdSetViewport(m_vkContext->m_CommandBuffers[i], 0, 1, &viewport);
+			vkCmdSetScissor(m_vkContext->m_CommandBuffers[i], 0, 1, &scissor);
 
-			vkCmdBindDescriptorSets(m_defContext->m_CommandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, m_PipelineLayout, 0, 1, &m_DescriptorSet, 0, nullptr);
-			vkCmdBindPipeline(m_defContext->m_CommandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, m_Pipeline);
-			m_VertexBuffer->Bind(m_defContext->m_CommandBuffers[i]);
-			m_IndexBuffer->Bind(m_defContext->m_CommandBuffers[i]);
-			vkCmdDrawIndexed(m_defContext->m_CommandBuffers[i], m_IndexBuffer->indexCount, m_IndexBuffer->instanceCount, 0, 0, 0);
+			vkCmdBindDescriptorSets(m_vkContext->m_CommandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, m_PipelineLayout, 0, 1, &m_DescriptorSet, 0, nullptr);
+			vkCmdBindPipeline(m_vkContext->m_CommandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, m_Pipeline);
+			m_VertexBuffer->Bind(m_vkContext->m_CommandBuffers[i]);
+			m_IndexBuffer->Bind(m_vkContext->m_CommandBuffers[i]);
+			vkCmdDrawIndexed(m_vkContext->m_CommandBuffers[i], m_IndexBuffer->indexCount, m_IndexBuffer->instanceCount, 0, 0, 0);
 
-			m_GUI->BindDrawCmd(m_defContext->m_CommandBuffers[i], m_vkContext->GetRenderPass());
+			m_GUI->BindDrawCmd(m_vkContext->m_CommandBuffers[i], m_vkContext->GetRenderPass());
 
-			vkCmdEndRenderPass(m_defContext->m_CommandBuffers[i]);
+			vkCmdEndRenderPass(m_vkContext->m_CommandBuffers[i]);
 
-			VERIFYVULKANRESULT(vkEndCommandBuffer(m_defContext->m_CommandBuffers[i]));
+			VERIFYVULKANRESULT(vkEndCommandBuffer(m_vkContext->m_CommandBuffers[i]));
 		}
 	}
 
@@ -134,7 +134,7 @@ private:
 		allocInfo.descriptorPool     = m_DescriptorPool;
 		allocInfo.descriptorSetCount = 1;
 		allocInfo.pSetLayouts        = &m_DescriptorSetLayout;
-		VERIFYVULKANRESULT(vkAllocateDescriptorSets(m_defContext->m_Device, &allocInfo, &m_DescriptorSet));
+		VERIFYVULKANRESULT(vkAllocateDescriptorSets(m_vkContext->m_Device, &allocInfo, &m_DescriptorSet));
 
 		VkWriteDescriptorSet writeDescriptorSet;
 		ZeroVulkanStruct(writeDescriptorSet, VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET);
@@ -143,7 +143,7 @@ private:
 		writeDescriptorSet.descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
 		writeDescriptorSet.pBufferInfo     = &(m_MVPBuffer->descriptor);
 		writeDescriptorSet.dstBinding      = 0;
-		vkUpdateDescriptorSets(m_defContext->m_Device, 1, &writeDescriptorSet, 0, nullptr);
+		vkUpdateDescriptorSets(m_vkContext->m_Device, 1, &writeDescriptorSet, 0, nullptr);
 	}
 
 	void CreateDescriptorPool()
@@ -157,12 +157,12 @@ private:
 		descriptorPoolInfo.poolSizeCount = 1;
 		descriptorPoolInfo.pPoolSizes = &poolSize;
 		descriptorPoolInfo.maxSets = 1;
-		VERIFYVULKANRESULT(vkCreateDescriptorPool(m_defContext->m_Device, &descriptorPoolInfo, VULKAN_CPU_ALLOCATOR, &m_DescriptorPool));
+		VERIFYVULKANRESULT(vkCreateDescriptorPool(m_vkContext->m_Device, &descriptorPoolInfo, VULKAN_CPU_ALLOCATOR, &m_DescriptorPool));
 	}
 
 	void DestroyDescriptorPool()
 	{
-		vkDestroyDescriptorPool(m_defContext->m_Device, m_DescriptorPool, VULKAN_CPU_ALLOCATOR);
+		vkDestroyDescriptorPool(m_vkContext->m_Device, m_DescriptorPool, VULKAN_CPU_ALLOCATOR);
 	}
 
 	void CreatePipelines()
@@ -239,10 +239,10 @@ private:
 		ZeroVulkanStruct(shaderStages[0], VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO);
 		ZeroVulkanStruct(shaderStages[1], VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO);
 		shaderStages[0].stage = VK_SHADER_STAGE_VERTEX_BIT;
-		shaderStages[0].module = vkutils::LoadSPIPVShader(m_defContext->m_Device, "data/shaders/2_Triangle/triangle.vert.spv");
+		shaderStages[0].module = vkutils::LoadSPIPVShader(m_vkContext->m_Device, "data/shaders/2_Triangle/triangle.vert.spv");
 		shaderStages[0].pName = "main";
 		shaderStages[1].stage = VK_SHADER_STAGE_FRAGMENT_BIT;
-		shaderStages[1].module = vkutils::LoadSPIPVShader(m_defContext->m_Device, "data/shaders/2_Triangle/triangle.frag.spv");
+		shaderStages[1].module = vkutils::LoadSPIPVShader(m_vkContext->m_Device, "data/shaders/2_Triangle/triangle.frag.spv");
 		shaderStages[1].pName = "main";
 
 		VkGraphicsPipelineCreateInfo pipelineCreateInfo;
@@ -259,15 +259,15 @@ private:
 		pipelineCreateInfo.pViewportState = &viewportState;
 		pipelineCreateInfo.pDepthStencilState = &depthStencilState;
 		pipelineCreateInfo.pDynamicState = &dynamicState;
-		VERIFYVULKANRESULT(vkCreateGraphicsPipelines(m_defContext->m_Device, m_defContext->m_PipelineCache, 1, &pipelineCreateInfo, VULKAN_CPU_ALLOCATOR, &m_Pipeline));
+		VERIFYVULKANRESULT(vkCreateGraphicsPipelines(m_vkContext->m_Device, m_vkContext->m_PipelineCache, 1, &pipelineCreateInfo, VULKAN_CPU_ALLOCATOR, &m_Pipeline));
 
-		vkDestroyShaderModule(m_defContext->m_Device, shaderStages[0].module, VULKAN_CPU_ALLOCATOR);
-		vkDestroyShaderModule(m_defContext->m_Device, shaderStages[1].module, VULKAN_CPU_ALLOCATOR);
+		vkDestroyShaderModule(m_vkContext->m_Device, shaderStages[0].module, VULKAN_CPU_ALLOCATOR);
+		vkDestroyShaderModule(m_vkContext->m_Device, shaderStages[1].module, VULKAN_CPU_ALLOCATOR);
 	}
 
 	void DestroyPipelines()
 	{
-		vkDestroyPipeline(m_defContext->m_Device, m_Pipeline, VULKAN_CPU_ALLOCATOR);
+		vkDestroyPipeline(m_vkContext->m_Device, m_Pipeline, VULKAN_CPU_ALLOCATOR);
 	}
 
 	void CreateDescriptorSetLayout()
@@ -283,19 +283,19 @@ private:
 		ZeroVulkanStruct(descSetLayoutInfo, VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO);
 		descSetLayoutInfo.bindingCount = 1;
 		descSetLayoutInfo.pBindings = &layoutBinding;
-		VERIFYVULKANRESULT(vkCreateDescriptorSetLayout(m_defContext->m_Device, &descSetLayoutInfo, VULKAN_CPU_ALLOCATOR, &m_DescriptorSetLayout));
+		VERIFYVULKANRESULT(vkCreateDescriptorSetLayout(m_vkContext->m_Device, &descSetLayoutInfo, VULKAN_CPU_ALLOCATOR, &m_DescriptorSetLayout));
 
 		VkPipelineLayoutCreateInfo pipeLayoutInfo;
 		ZeroVulkanStruct(pipeLayoutInfo, VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO);
 		pipeLayoutInfo.setLayoutCount = 1;
 		pipeLayoutInfo.pSetLayouts = &m_DescriptorSetLayout;
-		VERIFYVULKANRESULT(vkCreatePipelineLayout(m_defContext->m_Device, &pipeLayoutInfo, VULKAN_CPU_ALLOCATOR, &m_PipelineLayout));
+		VERIFYVULKANRESULT(vkCreatePipelineLayout(m_vkContext->m_Device, &pipeLayoutInfo, VULKAN_CPU_ALLOCATOR, &m_PipelineLayout));
 	}
 
 	void DestroyDescriptorSetLayout()
 	{
-		vkDestroyDescriptorSetLayout(m_defContext->m_Device, m_DescriptorSetLayout, VULKAN_CPU_ALLOCATOR);
-		vkDestroyPipelineLayout(m_defContext->m_Device, m_PipelineLayout, VULKAN_CPU_ALLOCATOR);
+		vkDestroyDescriptorSetLayout(m_vkContext->m_Device, m_DescriptorSetLayout, VULKAN_CPU_ALLOCATOR);
+		vkDestroyPipelineLayout(m_vkContext->m_Device, m_PipelineLayout, VULKAN_CPU_ALLOCATOR);
 	}
 
 	void UpdateUniformBuffers(float time, float delta)
@@ -316,7 +316,7 @@ private:
 		m_ViewCamera.SetPosition(0, 0, -5.0f);
 		m_ViewCamera.LookAt(0, 0, 0);
 
-		m_MVPBuffer = VKBuffer::CreateBuffer(
+		m_MVPBuffer = DVKBuffer::CreateBuffer(
 			m_vulkanRHI->GetDevice(),
 			VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
 			VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
@@ -354,7 +354,7 @@ private:
 
 		std::vector<uint16_t> indices = { 0, 1, 2 };
 
-		VKCommandBuffer* cmdBuffer = VKCommandBuffer::Create(m_vulkanRHI->GetDevice(), m_defContext->m_CommandPool);
+		VKCommandBuffer* cmdBuffer = VKCommandBuffer::Create(m_vulkanRHI->GetDevice(), m_vkContext->m_CommandPool);
 		cmdBuffer->Begin();
 
 		m_VertexBuffer = VKVertexBuffer::Create(m_vulkanRHI->GetDevice(), cmdBuffer, vertices, { VertexAttribute::VA_Position, VertexAttribute::VA_Color });
@@ -378,7 +378,7 @@ private:
 
 	VKIndexBuffer* m_IndexBuffer = nullptr;
 	VKVertexBuffer* m_VertexBuffer = nullptr;
-	VKBuffer*						m_MVPBuffer = nullptr;
+	DVKBuffer*						m_MVPBuffer = nullptr;
 
 	VkDescriptorSetLayout 			m_DescriptorSetLayout = VK_NULL_HANDLE;
 	VkDescriptorSet 				m_DescriptorSet = VK_NULL_HANDLE;

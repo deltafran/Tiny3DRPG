@@ -1,7 +1,7 @@
 #pragma once
 
 #include "VKUtils.h"
-#include "VKBuffer.h"
+#include "DVKBuffer.h"
 #include "VKTexture.h"
 #include "VKShader.h"
 #include "VKPipeline.h"
@@ -70,7 +70,7 @@ public:
 	uint64_t			bufferSize = 0;
 	uint64_t			bufferOffset = 0;
 	uint32_t			minAlignment = 0;
-	VKBuffer* realBuffer = nullptr;
+	DVKBuffer* realBuffer = nullptr;
 };
 
 class VKMaterial
@@ -111,7 +111,7 @@ public:
 
 	void SetGlobalUniform(const std::string& name, void* dataPtr, uint32_t size);
 
-	void SetStorageBuffer(const std::string& name, VKBuffer* buffer);
+	void SetStorageBuffer(const std::string& name, DVKBuffer* buffer);
 
 	void SetInputAttachment(const std::string& name, VKTexture* texture);
 

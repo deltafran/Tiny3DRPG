@@ -181,7 +181,6 @@
     <ClInclude Include="Configuration.h" />
     <ClInclude Include="CoreMath.h" />
     <ClInclude Include="CoreMath2.h" />
-    <ClInclude Include="DefaultVulkanContext.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="EngineConfig.h" />
     <ClInclude Include="FileManager.h" />
@@ -209,7 +208,7 @@
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Vector4.h" />
-    <ClInclude Include="VKBuffer.h" />
+    <ClInclude Include="DVKBuffer.h" />
     <ClInclude Include="VKCamera.h" />
     <ClInclude Include="VKCommandBuffer.h" />
     <ClInclude Include="VKCompute.h" />
@@ -239,7 +238,6 @@
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="CoreMath.cpp" />
     <ClCompile Include="CoreMath2.cpp" />
-    <ClCompile Include="DefaultVulkanContext.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="ImageGUIContext.cpp" />
@@ -258,7 +256,7 @@
     <ClCompile Include="StringUtils.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Timer.cpp" />
-    <ClCompile Include="VKBuffer.cpp" />
+    <ClCompile Include="DVKBuffer.cpp" />
     <ClCompile Include="VKCamera.cpp" />
     <ClCompile Include="VKCommandBuffer.cpp" />
     <ClCompile Include="VKCompute.cpp" />

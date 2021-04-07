@@ -34,7 +34,7 @@ private:
 	bool m_isEnd = false;
 
 	VulkanRHI* m_vulkanRHI = nullptr;
-	DefaultVulkanContext* m_defContext = nullptr;
+
 	VulkanContext* m_vkContext = nullptr;
 
 	std::shared_ptr<VulkanDevice> m_VulkanDevice = nullptr;
@@ -57,7 +57,7 @@ private:
 		
 	void Draw(float time, float delta)
 	{
-		int32_t bufferIndex = m_defContext->AcquireBackbufferIndex();
+		int32_t bufferIndex = m_vkContext->AcquireBackbufferIndex();
 
 		bool hovered = UpdateUI(time, delta);
 		if (!hovered)
@@ -88,7 +88,7 @@ private:
 
 		SetupCommandBuffers(bufferIndex);
 
-		m_defContext->Present(bufferIndex);
+		m_vkContext->Present(bufferIndex);
 	}
 
 	bool UpdateUI(float time, float delta)
@@ -320,7 +320,7 @@ private:
 			m_VulkanDevice,
 			PixelFormatToVkFormat(m_vulkanRHI->GetPixelFormat(), false),
 			VK_IMAGE_ASPECT_COLOR_BIT,
-			m_defContext->m_FrameWidth, m_defContext->m_FrameHeight,
+			m_vkContext->m_FrameWidth, m_vkContext->m_FrameHeight,
 			VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT
 		);
 
@@ -328,7 +328,7 @@ private:
 			m_VulkanDevice,
 			PixelFormatToVkFormat(m_vkContext->m_DepthFormat, false),
 			VK_IMAGE_ASPECT_DEPTH_BIT,
-			m_defContext->m_FrameWidth, m_defContext->m_FrameHeight,
+			m_vkContext->m_FrameWidth, m_vkContext->m_FrameHeight,
 			VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT
 		);
 
@@ -346,7 +346,7 @@ private:
 
 	void LoadAssets()
 	{
-		VKCommandBuffer* cmdBuffer = VKCommandBuffer::Create(m_VulkanDevice, m_defContext->m_CommandPool);
+		VKCommandBuffer* cmdBuffer = VKCommandBuffer::Create(m_VulkanDevice, m_vkContext->m_CommandPool);
 
 		m_Quad = VKDefaultRes::fullQuad;
 
@@ -378,19 +378,19 @@ private:
 	{
 		VkViewport viewport = {};
 		viewport.x = 0;
-		viewport.y = m_defContext->m_FrameHeight;
-		viewport.width = m_defContext->m_FrameWidth;
-		viewport.height = -(float)m_defContext->m_FrameHeight;    // flip y axis
+		viewport.y = m_vkContext->m_FrameHeight;
+		viewport.width = m_vkContext->m_FrameWidth;
+		viewport.height = -(float)m_vkContext->m_FrameHeight;    // flip y axis
 		viewport.minDepth = 0.0f;
 		viewport.maxDepth = 1.0f;
 
 		VkRect2D scissor = {};
-		scissor.extent.width = m_defContext->m_FrameWidth;
-		scissor.extent.height = m_defContext->m_FrameHeight;
+		scissor.extent.width = m_vkContext->m_FrameWidth;
+		scissor.extent.height = m_vkContext->m_FrameHeight;
 		scissor.offset.x = 0;
 		scissor.offset.y = 0;
 
-		VkCommandBuffer commandBuffer = m_defContext->m_CommandBuffers[backBufferIndex];
+		VkCommandBuffer commandBuffer = m_vkContext->m_CommandBuffers[backBufferIndex];
 
 		VkCommandBufferBeginInfo cmdBeginInfo;
 		ZeroVulkanStruct(cmdBeginInfo, VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO);
@@ -424,8 +424,8 @@ private:
 			renderPassBeginInfo.pClearValues = clearValues.data();
 			renderPassBeginInfo.renderArea.offset.x = 0;
 			renderPassBeginInfo.renderArea.offset.y = 0;
-			renderPassBeginInfo.renderArea.extent.width = m_defContext->m_FrameWidth;
-			renderPassBeginInfo.renderArea.extent.height = m_defContext->m_FrameHeight;
+			renderPassBeginInfo.renderArea.extent.width = m_vkContext->m_FrameWidth;
+			renderPassBeginInfo.renderArea.extent.height = m_vkContext->m_FrameHeight;
 			vkCmdBeginRenderPass(commandBuffer, &renderPassBeginInfo, VK_SUBPASS_CONTENTS_INLINE);
 
 			vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
@@ -447,8 +447,8 @@ private:
 
 	void InitParmas()
 	{
-		m_FXAAParam.frame.x = 1.0f / m_defContext->m_FrameWidth;
-		m_FXAAParam.frame.y = 1.0f / m_defContext->m_FrameHeight;
+		m_FXAAParam.frame.x = 1.0f / m_vkContext->m_FrameWidth;
+		m_FXAAParam.frame.y = 1.0f / m_vkContext->m_FrameHeight;
 
 		m_ViewCamera.SetPosition(0, 0.0f, -3.0f);
 		m_ViewCamera.Perspective(PI / 4, m_configuration.window.windowWidth, m_configuration.window.windowHeight, 0.10f, 3000.0f);

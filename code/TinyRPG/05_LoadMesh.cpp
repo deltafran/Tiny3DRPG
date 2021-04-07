@@ -39,7 +39,7 @@ bool LoadMesh::init() noexcept
 		return false;
 
 	m_vulkanRHI = &m_engine.GetRendererSystem().GetVulkanRHI();
-	m_defContext = &m_engine.GetRendererSystem().GetDefaultVulkanContext();
+
 	m_vkContext = &m_engine.GetRendererSystem().GetVulkanContext();
 
 	LoadAssets();

@@ -1,12 +1,12 @@
 #include "stdafx.h"
-#include "VKBuffer.h"
+#include "DVKBuffer.h"
 #include "VKUtils.h"
 #include "VulkanDevice.h"
 #include "VulkanMemory.h"
 
-VKBuffer* VKBuffer::CreateBuffer(std::shared_ptr<VulkanDevice> vulkanDevice, VkBufferUsageFlags usageFlags, VkMemoryPropertyFlags memoryPropertyFlags, VkDeviceSize size, void* data)
+DVKBuffer* DVKBuffer::CreateBuffer(std::shared_ptr<VulkanDevice> vulkanDevice, VkBufferUsageFlags usageFlags, VkMemoryPropertyFlags memoryPropertyFlags, VkDeviceSize size, void* data)
 {
-	VKBuffer* dvkBuffer = new VKBuffer();
+	DVKBuffer* dvkBuffer = new DVKBuffer();
 	dvkBuffer->device = vulkanDevice->GetInstanceHandle();
 
 	VkDevice vkDevice = vulkanDevice->GetInstanceHandle();
@@ -50,7 +50,7 @@ VKBuffer* VKBuffer::CreateBuffer(std::shared_ptr<VulkanDevice> vulkanDevice, VkB
 	return dvkBuffer;
 }
 
-VkResult VKBuffer::Map(VkDeviceSize size, VkDeviceSize offset)
+VkResult DVKBuffer::Map(VkDeviceSize size, VkDeviceSize offset)
 {
 	if (mapped) {
 		return VK_SUCCESS;
@@ -58,7 +58,7 @@ VkResult VKBuffer::Map(VkDeviceSize size, VkDeviceSize offset)
 	return vkMapMemory(device, memory, offset, size, 0, &mapped);
 }
 
-void VKBuffer::UnMap()
+void DVKBuffer::UnMap()
 {
 	if (!mapped) {
 		return;
@@ -67,19 +67,19 @@ void VKBuffer::UnMap()
 	mapped = nullptr;
 }
 
-VkResult VKBuffer::Bind(VkDeviceSize offset)
+VkResult DVKBuffer::Bind(VkDeviceSize offset)
 {
 	return vkBindBufferMemory(device, buffer, memory, offset);
 }
 
-void VKBuffer::SetupDescriptor(VkDeviceSize size, VkDeviceSize offset)
+void DVKBuffer::SetupDescriptor(VkDeviceSize size, VkDeviceSize offset)
 {
 	descriptor.offset = offset;
 	descriptor.buffer = buffer;
 	descriptor.range = size;
 }
 
-void VKBuffer::CopyFrom(void* data, VkDeviceSize size)
+void DVKBuffer::CopyFrom(void* data, VkDeviceSize size)
 {
 	if (!mapped) {
 		return;
@@ -87,7 +87,7 @@ void VKBuffer::CopyFrom(void* data, VkDeviceSize size)
 	memcpy(mapped, data, size);
 }
 
-VkResult VKBuffer::Flush(VkDeviceSize size, VkDeviceSize offset)
+VkResult DVKBuffer::Flush(VkDeviceSize size, VkDeviceSize offset)
 {
 	VkMappedMemoryRange mappedRange = {};
 	mappedRange.sType = VK_STRUCTURE_TYPE_MAPPED_MEMORY_RANGE;
@@ -97,7 +97,7 @@ VkResult VKBuffer::Flush(VkDeviceSize size, VkDeviceSize offset)
 	return vkFlushMappedMemoryRanges(device, 1, &mappedRange);
 }
 
-VkResult VKBuffer::Invalidate(VkDeviceSize size, VkDeviceSize offset)
+VkResult DVKBuffer::Invalidate(VkDeviceSize size, VkDeviceSize offset)
 {
 	VkMappedMemoryRange mappedRange = {};
 	mappedRange.sType = VK_STRUCTURE_TYPE_MAPPED_MEMORY_RANGE;

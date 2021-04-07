@@ -1,6 +1,6 @@
 #pragma once
 
-#include "VKBuffer.h"
+#include "DVKBuffer.h"
 #include "VKCommandBuffer.h"
 #include "RHIDefinitions.h"
 
@@ -142,7 +142,7 @@ public:
 
 public:
 	VkDevice						device = VK_NULL_HANDLE;
-	VKBuffer* dvkBuffer = nullptr;
+	DVKBuffer* dvkBuffer = nullptr;
 	VkDeviceSize					offset = 0;
 	std::vector<VertexAttribute>	attributes;
 };

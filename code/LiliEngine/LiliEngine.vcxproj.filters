@@ -134,16 +134,13 @@
     <ClInclude Include="FileManager.h">
       <Filter>Core\IO</Filter>
     </ClInclude>
-    <ClInclude Include="DefaultVulkanContext.h">
-      <Filter>Renderer\VulkanContext</Filter>
-    </ClInclude>
     <ClInclude Include="VKVertexBuffer.h">
       <Filter>Renderer\VulkanObject\Lesson</Filter>
     </ClInclude>
     <ClInclude Include="ImageGUIContext.h">
       <Filter>Renderer\VulkanObject\Lesson</Filter>
     </ClInclude>
-    <ClInclude Include="VKBuffer.h">
+    <ClInclude Include="DVKBuffer.h">
       <Filter>Renderer\VulkanObject\Lesson</Filter>
     </ClInclude>
     <ClInclude Include="VKCamera.h">
@@ -260,13 +257,10 @@
     <ClCompile Include="FileManager.cpp">
       <Filter>Core\IO</Filter>
     </ClCompile>
-    <ClCompile Include="DefaultVulkanContext.cpp">
-      <Filter>Renderer\VulkanContext</Filter>
-    </ClCompile>
     <ClCompile Include="ImageGUIContext.cpp">
       <Filter>Renderer\VulkanObject\Lesson</Filter>
     </ClCompile>
-    <ClCompile Include="VKBuffer.cpp">
+    <ClCompile Include="DVKBuffer.cpp">
       <Filter>Renderer\VulkanObject\Lesson</Filter>
     </ClCompile>
     <ClCompile Include="VKCamera.cpp">

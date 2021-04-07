@@ -11,7 +11,7 @@ VKIndexBuffer* VKIndexBuffer::Create(std::shared_ptr<VulkanDevice> vulkanDevice,
 	indexBuffer->indexCount = indices.size();
 	indexBuffer->indexType = VK_INDEX_TYPE_UINT32;
 
-	VKBuffer* indexStaging = VKBuffer::CreateBuffer(
+	DVKBuffer* indexStaging = DVKBuffer::CreateBuffer(
 		vulkanDevice,
 		VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
 		VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
@@ -19,7 +19,7 @@ VKIndexBuffer* VKIndexBuffer::Create(std::shared_ptr<VulkanDevice> vulkanDevice,
 		indices.data()
 	);
 
-	indexBuffer->dvkBuffer = VKBuffer::CreateBuffer(
+	indexBuffer->dvkBuffer = DVKBuffer::CreateBuffer(
 		vulkanDevice,
 		VK_BUFFER_USAGE_INDEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT,
 		VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
@@ -50,7 +50,7 @@ VKIndexBuffer* VKIndexBuffer::Create(std::shared_ptr<VulkanDevice> vulkanDevice,
 	indexBuffer->indexCount = indices.size();
 	indexBuffer->indexType = VK_INDEX_TYPE_UINT16;
 
-	VKBuffer* indexStaging = VKBuffer::CreateBuffer(
+	DVKBuffer* indexStaging = DVKBuffer::CreateBuffer(
 		vulkanDevice,
 		VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
 		VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
@@ -58,7 +58,7 @@ VKIndexBuffer* VKIndexBuffer::Create(std::shared_ptr<VulkanDevice> vulkanDevice,
 		indices.data()
 	);
 
-	indexBuffer->dvkBuffer = VKBuffer::CreateBuffer(
+	indexBuffer->dvkBuffer = DVKBuffer::CreateBuffer(
 		vulkanDevice,
 		VK_BUFFER_USAGE_INDEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT,
 		VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,

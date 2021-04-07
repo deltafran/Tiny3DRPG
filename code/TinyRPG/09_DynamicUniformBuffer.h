@@ -25,7 +25,7 @@ private:
 	bool m_isEnd = false;
 
 	VulkanRHI* m_vulkanRHI = nullptr;
-	DefaultVulkanContext* m_defContext = nullptr;
+
 	VulkanContext* m_vkContext = nullptr;
 
 	std::shared_ptr<VulkanDevice> m_VulkanDevice = nullptr;
@@ -51,7 +51,7 @@ private:
 
 	void Draw(float time, float delta)
 	{
-		int32_t bufferIndex = m_defContext->AcquireBackbufferIndex();
+		int32_t bufferIndex = m_vkContext->AcquireBackbufferIndex();
 
 		bool hovered = UpdateUI(time, delta);
 		if (!hovered)
@@ -59,7 +59,7 @@ private:
 
 		UpdateUniformBuffers(time, delta);
 
-		m_defContext->Present(bufferIndex);
+		m_vkContext->Present(bufferIndex);
 	}
 
 	bool UpdateUI(float time, float delta)
@@ -106,7 +106,7 @@ private:
 
 	void LoadAssets()
 	{
-		VKCommandBuffer* cmdBuffer = VKCommandBuffer::Create(m_VulkanDevice, m_defContext->m_CommandPool);
+		VKCommandBuffer* cmdBuffer = VKCommandBuffer::Create(m_VulkanDevice, m_vkContext->m_CommandPool);
 
 		m_Model = VKModel::LoadFromFile(
 			"data/models/Room/miniHouse_FBX.FBX",
@@ -139,38 +139,38 @@ private:
 		renderPassBeginInfo.pClearValues = clearValues;
 		renderPassBeginInfo.renderArea.offset.x = 0;
 		renderPassBeginInfo.renderArea.offset.y = 0;
-		renderPassBeginInfo.renderArea.extent.width = m_defContext->m_FrameWidth;
-		renderPassBeginInfo.renderArea.extent.height = m_defContext->m_FrameHeight;
+		renderPassBeginInfo.renderArea.extent.width = m_vkContext->m_FrameWidth;
+		renderPassBeginInfo.renderArea.extent.height = m_vkContext->m_FrameHeight;
 
 		uint32_t alignment = m_VulkanDevice->GetLimits().minUniformBufferOffsetAlignment;
 		uint32_t modelAlign = Align(sizeof(ModelBlock), alignment);
 		uint32_t colorAlign = Align(sizeof(ColorBlock), alignment);
 
-		for (int32_t i = 0; i < m_defContext->m_CommandBuffers.size(); ++i)
+		for (int32_t i = 0; i < m_vkContext->m_CommandBuffers.size(); ++i)
 		{
 			renderPassBeginInfo.framebuffer = m_vkContext->m_FrameBuffers[i];
 
-			VERIFYVULKANRESULT(vkBeginCommandBuffer(m_defContext->m_CommandBuffers[i], &cmdBeginInfo));
-			vkCmdBeginRenderPass(m_defContext->m_CommandBuffers[i], &renderPassBeginInfo, VK_SUBPASS_CONTENTS_INLINE);
+			VERIFYVULKANRESULT(vkBeginCommandBuffer(m_vkContext->m_CommandBuffers[i], &cmdBeginInfo));
+			vkCmdBeginRenderPass(m_vkContext->m_CommandBuffers[i], &renderPassBeginInfo, VK_SUBPASS_CONTENTS_INLINE);
 
 			VkViewport viewport = {};
 			viewport.x = 0;
-			viewport.y = m_defContext->m_FrameHeight;
-			viewport.width = m_defContext->m_FrameWidth;
-			viewport.height = -(float)m_defContext->m_FrameHeight;    // flip y axis
+			viewport.y = m_vkContext->m_FrameHeight;
+			viewport.width = m_vkContext->m_FrameWidth;
+			viewport.height = -(float)m_vkContext->m_FrameHeight;    // flip y axis
 			viewport.minDepth = 0.0f;
 			viewport.maxDepth = 1.0f;
 
 			VkRect2D scissor = {};
-			scissor.extent.width = m_defContext->m_FrameWidth;
-			scissor.extent.height = m_defContext->m_FrameHeight;
+			scissor.extent.width = m_vkContext->m_FrameWidth;
+			scissor.extent.height = m_vkContext->m_FrameHeight;
 			scissor.offset.x = 0;
 			scissor.offset.y = 0;
 
-			vkCmdSetViewport(m_defContext->m_CommandBuffers[i], 0, 1, &viewport);
-			vkCmdSetScissor(m_defContext->m_CommandBuffers[i], 0, 1, &scissor);
+			vkCmdSetViewport(m_vkContext->m_CommandBuffers[i], 0, 1, &viewport);
+			vkCmdSetScissor(m_vkContext->m_CommandBuffers[i], 0, 1, &scissor);
 
-			vkCmdBindPipeline(m_defContext->m_CommandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, m_Pipeline->pipeline);
+			vkCmdBindPipeline(m_vkContext->m_CommandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, m_Pipeline->pipeline);
 
 			for (int32_t meshIndex = 0; meshIndex < m_Model->meshes.size(); ++meshIndex)
 			{
@@ -178,14 +178,14 @@ private:
 					meshIndex * modelAlign,
 					meshIndex * colorAlign
 				};
-				vkCmdBindDescriptorSets(m_defContext->m_CommandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, m_Pipeline->pipelineLayout, 0, 1, &m_DescriptorSet, 2, dynamicOffsets);
-				m_Model->meshes[meshIndex]->BindDrawCmd(m_defContext->m_CommandBuffers[i]);
+				vkCmdBindDescriptorSets(m_vkContext->m_CommandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, m_Pipeline->pipelineLayout, 0, 1, &m_DescriptorSet, 2, dynamicOffsets);
+				m_Model->meshes[meshIndex]->BindDrawCmd(m_vkContext->m_CommandBuffers[i]);
 			}
 
-			m_GUI->BindDrawCmd(m_defContext->m_CommandBuffers[i], m_RenderPass);
+			m_GUI->BindDrawCmd(m_vkContext->m_CommandBuffers[i], m_RenderPass);
 
-			vkCmdEndRenderPass(m_defContext->m_CommandBuffers[i]);
-			VERIFYVULKANRESULT(vkEndCommandBuffer(m_defContext->m_CommandBuffers[i]));
+			vkCmdEndRenderPass(m_vkContext->m_CommandBuffers[i]);
+			VERIFYVULKANRESULT(vkEndCommandBuffer(m_vkContext->m_CommandBuffers[i]));
 		}
 	}
 
@@ -359,7 +359,7 @@ private:
 			modelBlock->model = m_Model->meshes[i]->linkNode->GetGlobalMatrix();
 		}
 
-		m_ModelBuffer = VKBuffer::CreateBuffer(
+		m_ModelBuffer = DVKBuffer::CreateBuffer(
 			m_VulkanDevice,
 			VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
 			VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
@@ -368,7 +368,7 @@ private:
 		);
 		m_ModelBuffer->Map();
 
-		m_ViewProjBuffer = VKBuffer::CreateBuffer(
+		m_ViewProjBuffer = DVKBuffer::CreateBuffer(
 			m_VulkanDevice,
 			VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
 			VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
@@ -388,7 +388,7 @@ private:
 			ColorBlock* colorBlock = (ColorBlock*)(m_ColorDatas.data() + colorAlign * i);
 			colorBlock->color.Set(r, g, b, 1.0f);
 		}
-		m_ColorBuffer = VKBuffer::CreateBuffer(
+		m_ColorBuffer = DVKBuffer::CreateBuffer(
 			m_VulkanDevice,
 			VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
 			VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
@@ -435,13 +435,13 @@ private:
 	VKCamera						m_ViewCamera;
 
 	std::vector<uint8_t>              m_ModelDatas;
-	VKBuffer* m_ModelBuffer = nullptr;
+	DVKBuffer* m_ModelBuffer = nullptr;
 
-	VKBuffer* m_ViewProjBuffer = nullptr;
+	DVKBuffer* m_ViewProjBuffer = nullptr;
 	ViewProjectionBlock				m_ViewProjData;
 
 	std::vector<uint8_t>			    m_ColorDatas;
-	VKBuffer* m_ColorBuffer = nullptr;
+	DVKBuffer* m_ColorBuffer = nullptr;
 
 	std::vector<const char*>		m_MeshNames;
 	int32_t							m_Selected = 0;

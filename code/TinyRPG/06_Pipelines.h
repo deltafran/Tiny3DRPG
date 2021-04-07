@@ -24,7 +24,7 @@ private:
 	bool m_isEnd = false;
 
 	VulkanRHI* m_vulkanRHI = nullptr;
-	DefaultVulkanContext* m_defContext = nullptr;
+
 	VulkanContext* m_vkContext = nullptr;
 
 	struct MVPBlock
@@ -41,7 +41,7 @@ private:
 
 	void Draw(float time, float delta)
 	{
-		int32_t bufferIndex = m_defContext->AcquireBackbufferIndex();
+		int32_t bufferIndex = m_vkContext->AcquireBackbufferIndex();
 
 		bool hovered = UpdateUI(time, delta);
 		if (!hovered)
@@ -49,7 +49,7 @@ private:
 
 		UpdateUniformBuffers(time, delta);
 
-		m_defContext->Present(bufferIndex);
+		m_vkContext->Present(bufferIndex);
 	}
 
 	bool UpdateUI(float time, float delta)
@@ -81,11 +81,11 @@ private:
 
 	void LoadAssets()
 	{
-		VKCommandBuffer* cmdBuffer = VKCommandBuffer::Create(m_defContext->m_VulkanDevice, m_defContext->m_CommandPool);
+		VKCommandBuffer* cmdBuffer = VKCommandBuffer::Create(m_vkContext->m_VulkanDevice, m_vkContext->m_CommandPool);
 
 		m_Model = VKModel::LoadFromFile(
 			"data/models/suzanne.obj",
-			m_defContext->m_VulkanDevice,
+			m_vkContext->m_VulkanDevice,
 			cmdBuffer,
 			{ VertexAttribute::VA_Position, VertexAttribute::VA_Normal }
 		);
@@ -114,50 +114,50 @@ private:
 		renderPassBeginInfo.pClearValues = clearValues;
 		renderPassBeginInfo.renderArea.offset.x = 0;
 		renderPassBeginInfo.renderArea.offset.y = 0;
-		renderPassBeginInfo.renderArea.extent.width = m_defContext->m_FrameWidth;
-		renderPassBeginInfo.renderArea.extent.height = m_defContext->m_FrameHeight;
+		renderPassBeginInfo.renderArea.extent.width = m_vkContext->m_FrameWidth;
+		renderPassBeginInfo.renderArea.extent.height = m_vkContext->m_FrameHeight;
 
-		for (int32_t i = 0; i < m_defContext->m_CommandBuffers.size(); ++i)
+		for (int32_t i = 0; i < m_vkContext->m_CommandBuffers.size(); ++i)
 		{
 			renderPassBeginInfo.framebuffer = m_vkContext->m_FrameBuffers[i];
 
-			VERIFYVULKANRESULT(vkBeginCommandBuffer(m_defContext->m_CommandBuffers[i], &cmdBeginInfo));
-			vkCmdBeginRenderPass(m_defContext->m_CommandBuffers[i], &renderPassBeginInfo, VK_SUBPASS_CONTENTS_INLINE);
+			VERIFYVULKANRESULT(vkBeginCommandBuffer(m_vkContext->m_CommandBuffers[i], &cmdBeginInfo));
+			vkCmdBeginRenderPass(m_vkContext->m_CommandBuffers[i], &renderPassBeginInfo, VK_SUBPASS_CONTENTS_INLINE);
 
 			for (int32_t j = 0; j < 3; ++j)
 			{
-				int32_t ww = 1.0f / 3 * m_defContext->m_FrameWidth;
+				int32_t ww = 1.0f / 3 * m_vkContext->m_FrameWidth;
 				int32_t tx = j * ww;
 
 				VkViewport viewport = {};
 				viewport.x = tx;
-				viewport.y = m_defContext->m_FrameHeight;
+				viewport.y = m_vkContext->m_FrameHeight;
 				viewport.width = ww;
-				viewport.height = -(float)m_defContext->m_FrameHeight;    // flip y axis
+				viewport.height = -(float)m_vkContext->m_FrameHeight;    // flip y axis
 				viewport.minDepth = 0.0f;
 				viewport.maxDepth = 1.0f;
 
 				VkRect2D scissor = {};
 				scissor.extent.width = ww;
-				scissor.extent.height = m_defContext->m_FrameHeight;
+				scissor.extent.height = m_vkContext->m_FrameHeight;
 				scissor.offset.x = tx;
 				scissor.offset.y = 0;
 
-				vkCmdSetViewport(m_defContext->m_CommandBuffers[i], 0, 1, &viewport);
-				vkCmdSetScissor(m_defContext->m_CommandBuffers[i], 0, 1, &scissor);
+				vkCmdSetViewport(m_vkContext->m_CommandBuffers[i], 0, 1, &viewport);
+				vkCmdSetScissor(m_vkContext->m_CommandBuffers[i], 0, 1, &scissor);
 
-				vkCmdBindPipeline(m_defContext->m_CommandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, m_Pipelines[j]->pipeline);
-				vkCmdBindDescriptorSets(m_defContext->m_CommandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, m_Pipelines[j]->pipelineLayout, 0, 1, &m_DescriptorSet, 0, nullptr);
+				vkCmdBindPipeline(m_vkContext->m_CommandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, m_Pipelines[j]->pipeline);
+				vkCmdBindDescriptorSets(m_vkContext->m_CommandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, m_Pipelines[j]->pipelineLayout, 0, 1, &m_DescriptorSet, 0, nullptr);
 
 				for (int32_t meshIndex = 0; meshIndex < m_Model->meshes.size(); ++meshIndex) {
-					m_Model->meshes[meshIndex]->BindDrawCmd(m_defContext->m_CommandBuffers[i]);
+					m_Model->meshes[meshIndex]->BindDrawCmd(m_vkContext->m_CommandBuffers[i]);
 				}
 			}
 
-			m_GUI->BindDrawCmd(m_defContext->m_CommandBuffers[i], m_vkContext->m_RenderPass);
+			m_GUI->BindDrawCmd(m_vkContext->m_CommandBuffers[i], m_vkContext->m_RenderPass);
 
-			vkCmdEndRenderPass(m_defContext->m_CommandBuffers[i]);
-			VERIFYVULKANRESULT(vkEndCommandBuffer(m_defContext->m_CommandBuffers[i]));
+			vkCmdEndRenderPass(m_vkContext->m_CommandBuffers[i]);
+			VERIFYVULKANRESULT(vkEndCommandBuffer(m_vkContext->m_CommandBuffers[i]));
 		}
 	}
 
@@ -172,14 +172,14 @@ private:
 		descriptorPoolInfo.poolSizeCount = 1;
 		descriptorPoolInfo.pPoolSizes = &poolSize;
 		descriptorPoolInfo.maxSets = m_Model->meshes.size();
-		VERIFYVULKANRESULT(vkCreateDescriptorPool(m_defContext->m_Device, &descriptorPoolInfo, VULKAN_CPU_ALLOCATOR, &m_DescriptorPool));
+		VERIFYVULKANRESULT(vkCreateDescriptorPool(m_vkContext->m_Device, &descriptorPoolInfo, VULKAN_CPU_ALLOCATOR, &m_DescriptorPool));
 
 		VkDescriptorSetAllocateInfo allocInfo;
 		ZeroVulkanStruct(allocInfo, VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO);
 		allocInfo.descriptorPool = m_DescriptorPool;
 		allocInfo.descriptorSetCount = 1;
 		allocInfo.pSetLayouts = &m_DescriptorSetLayout;
-		VERIFYVULKANRESULT(vkAllocateDescriptorSets(m_defContext->m_Device, &allocInfo, &m_DescriptorSet));
+		VERIFYVULKANRESULT(vkAllocateDescriptorSets(m_vkContext->m_Device, &allocInfo, &m_DescriptorSet));
 
 		VkWriteDescriptorSet writeDescriptorSet;
 		ZeroVulkanStruct(writeDescriptorSet, VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET);
@@ -188,7 +188,7 @@ private:
 		writeDescriptorSet.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
 		writeDescriptorSet.pBufferInfo = &(m_MVPBuffer->descriptor);
 		writeDescriptorSet.dstBinding = 0;
-		vkUpdateDescriptorSets(m_defContext->m_Device, 1, &writeDescriptorSet, 0, nullptr);
+		vkUpdateDescriptorSets(m_vkContext->m_Device, 1, &writeDescriptorSet, 0, nullptr);
 
 		ZeroVulkanStruct(writeDescriptorSet, VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET);
 		writeDescriptorSet.dstSet = m_DescriptorSet;
@@ -196,7 +196,7 @@ private:
 		writeDescriptorSet.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
 		writeDescriptorSet.pBufferInfo = &(m_ParamBuffer->descriptor);
 		writeDescriptorSet.dstBinding = 1;
-		vkUpdateDescriptorSets(m_defContext->m_Device, 1, &writeDescriptorSet, 0, nullptr);
+		vkUpdateDescriptorSets(m_vkContext->m_Device, 1, &writeDescriptorSet, 0, nullptr);
 	}
 	
 	void CreatePipelines()
@@ -207,27 +207,27 @@ private:
 		std::vector<VkVertexInputAttributeDescription> vertexInputAttributs = m_Model->GetInputAttributes();
 
 		VKGfxPipelineInfo pipelineInfo0;
-		pipelineInfo0.vertShaderModule = vkutils::LoadSPIPVShader(m_defContext->m_Device, "data/shaders/6_Pipelines/pipeline0.vert.spv");
-		pipelineInfo0.fragShaderModule = vkutils::LoadSPIPVShader(m_defContext->m_Device, "data/shaders/6_Pipelines/pipeline0.frag.spv");
-		m_Pipelines[0] = VKGfxPipeline::Create(m_vulkanRHI->GetDevice(), m_defContext->m_PipelineCache, pipelineInfo0, { vertexInputBinding }, vertexInputAttributs, m_PipelineLayout, m_vkContext->m_RenderPass);
+		pipelineInfo0.vertShaderModule = vkutils::LoadSPIPVShader(m_vkContext->m_Device, "data/shaders/6_Pipelines/pipeline0.vert.spv");
+		pipelineInfo0.fragShaderModule = vkutils::LoadSPIPVShader(m_vkContext->m_Device, "data/shaders/6_Pipelines/pipeline0.frag.spv");
+		m_Pipelines[0] = VKGfxPipeline::Create(m_vulkanRHI->GetDevice(), m_vkContext->m_PipelineCache, pipelineInfo0, { vertexInputBinding }, vertexInputAttributs, m_PipelineLayout, m_vkContext->m_RenderPass);
 
 		VKGfxPipelineInfo pipelineInfo1;
-		pipelineInfo1.vertShaderModule = vkutils::LoadSPIPVShader(m_defContext->m_Device, "data/shaders/6_Pipelines/pipeline1.vert.spv");
-		pipelineInfo1.fragShaderModule = vkutils::LoadSPIPVShader(m_defContext->m_Device, "data/shaders/6_Pipelines/pipeline1.frag.spv");
-		m_Pipelines[1] = VKGfxPipeline::Create(m_vulkanRHI->GetDevice(), m_defContext->m_PipelineCache, pipelineInfo1, { vertexInputBinding }, vertexInputAttributs, m_PipelineLayout, m_vkContext->m_RenderPass);
+		pipelineInfo1.vertShaderModule = vkutils::LoadSPIPVShader(m_vkContext->m_Device, "data/shaders/6_Pipelines/pipeline1.vert.spv");
+		pipelineInfo1.fragShaderModule = vkutils::LoadSPIPVShader(m_vkContext->m_Device, "data/shaders/6_Pipelines/pipeline1.frag.spv");
+		m_Pipelines[1] = VKGfxPipeline::Create(m_vulkanRHI->GetDevice(), m_vkContext->m_PipelineCache, pipelineInfo1, { vertexInputBinding }, vertexInputAttributs, m_PipelineLayout, m_vkContext->m_RenderPass);
 
 		VKGfxPipelineInfo pipelineInfo2;
 		pipelineInfo2.rasterizationState.polygonMode = VkPolygonMode::VK_POLYGON_MODE_LINE;
-		pipelineInfo2.vertShaderModule = vkutils::LoadSPIPVShader(m_defContext->m_Device, "data/shaders/6_Pipelines/pipeline2.vert.spv");
-		pipelineInfo2.fragShaderModule = vkutils::LoadSPIPVShader(m_defContext->m_Device, "data/shaders/6_Pipelines/pipeline2.frag.spv");
-		m_Pipelines[2] = VKGfxPipeline::Create(m_vulkanRHI->GetDevice(), m_defContext->m_PipelineCache, pipelineInfo2, { vertexInputBinding }, vertexInputAttributs, m_PipelineLayout, m_vkContext->m_RenderPass);
+		pipelineInfo2.vertShaderModule = vkutils::LoadSPIPVShader(m_vkContext->m_Device, "data/shaders/6_Pipelines/pipeline2.vert.spv");
+		pipelineInfo2.fragShaderModule = vkutils::LoadSPIPVShader(m_vkContext->m_Device, "data/shaders/6_Pipelines/pipeline2.frag.spv");
+		m_Pipelines[2] = VKGfxPipeline::Create(m_vulkanRHI->GetDevice(), m_vkContext->m_PipelineCache, pipelineInfo2, { vertexInputBinding }, vertexInputAttributs, m_PipelineLayout, m_vkContext->m_RenderPass);
 
-		vkDestroyShaderModule(m_defContext->m_Device, pipelineInfo0.vertShaderModule, VULKAN_CPU_ALLOCATOR);
-		vkDestroyShaderModule(m_defContext->m_Device, pipelineInfo0.fragShaderModule, VULKAN_CPU_ALLOCATOR);
-		vkDestroyShaderModule(m_defContext->m_Device, pipelineInfo1.vertShaderModule, VULKAN_CPU_ALLOCATOR);
-		vkDestroyShaderModule(m_defContext->m_Device, pipelineInfo1.fragShaderModule, VULKAN_CPU_ALLOCATOR);
-		vkDestroyShaderModule(m_defContext->m_Device, pipelineInfo2.vertShaderModule, VULKAN_CPU_ALLOCATOR);
-		vkDestroyShaderModule(m_defContext->m_Device, pipelineInfo2.fragShaderModule, VULKAN_CPU_ALLOCATOR);
+		vkDestroyShaderModule(m_vkContext->m_Device, pipelineInfo0.vertShaderModule, VULKAN_CPU_ALLOCATOR);
+		vkDestroyShaderModule(m_vkContext->m_Device, pipelineInfo0.fragShaderModule, VULKAN_CPU_ALLOCATOR);
+		vkDestroyShaderModule(m_vkContext->m_Device, pipelineInfo1.vertShaderModule, VULKAN_CPU_ALLOCATOR);
+		vkDestroyShaderModule(m_vkContext->m_Device, pipelineInfo1.fragShaderModule, VULKAN_CPU_ALLOCATOR);
+		vkDestroyShaderModule(m_vkContext->m_Device, pipelineInfo2.vertShaderModule, VULKAN_CPU_ALLOCATOR);
+		vkDestroyShaderModule(m_vkContext->m_Device, pipelineInfo2.fragShaderModule, VULKAN_CPU_ALLOCATOR);
 	}
 
 	void DestroyPipelines()
@@ -256,20 +256,20 @@ private:
 		ZeroVulkanStruct(descSetLayoutInfo, VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO);
 		descSetLayoutInfo.bindingCount = 2;
 		descSetLayoutInfo.pBindings = layoutBindings;
-		VERIFYVULKANRESULT(vkCreateDescriptorSetLayout(m_defContext->m_Device, &descSetLayoutInfo, VULKAN_CPU_ALLOCATOR, &m_DescriptorSetLayout));
+		VERIFYVULKANRESULT(vkCreateDescriptorSetLayout(m_vkContext->m_Device, &descSetLayoutInfo, VULKAN_CPU_ALLOCATOR, &m_DescriptorSetLayout));
 
 		VkPipelineLayoutCreateInfo pipeLayoutInfo;
 		ZeroVulkanStruct(pipeLayoutInfo, VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO);
 		pipeLayoutInfo.setLayoutCount = 1;
 		pipeLayoutInfo.pSetLayouts = &m_DescriptorSetLayout;
-		VERIFYVULKANRESULT(vkCreatePipelineLayout(m_defContext->m_Device, &pipeLayoutInfo, VULKAN_CPU_ALLOCATOR, &m_PipelineLayout));
+		VERIFYVULKANRESULT(vkCreatePipelineLayout(m_vkContext->m_Device, &pipeLayoutInfo, VULKAN_CPU_ALLOCATOR, &m_PipelineLayout));
 	}
 
 	void DestroyDescriptorSetLayout()
 	{
-		vkDestroyDescriptorSetLayout(m_defContext->m_Device, m_DescriptorSetLayout, VULKAN_CPU_ALLOCATOR);
-		vkDestroyPipelineLayout(m_defContext->m_Device, m_PipelineLayout, VULKAN_CPU_ALLOCATOR);
-		vkDestroyDescriptorPool(m_defContext->m_Device, m_DescriptorPool, VULKAN_CPU_ALLOCATOR);
+		vkDestroyDescriptorSetLayout(m_vkContext->m_Device, m_DescriptorSetLayout, VULKAN_CPU_ALLOCATOR);
+		vkDestroyPipelineLayout(m_vkContext->m_Device, m_PipelineLayout, VULKAN_CPU_ALLOCATOR);
+		vkDestroyDescriptorPool(m_vkContext->m_Device, m_DescriptorPool, VULKAN_CPU_ALLOCATOR);
 	}
 
 	void UpdateUniformBuffers(float time, float delta)
@@ -296,8 +296,8 @@ private:
 		m_ViewCamera.SetPosition(boundCenter.x, boundCenter.y, boundCenter.z - boundSize.Size() * 2.0f);
 		m_ViewCamera.LookAt(boundCenter);
 
-		m_MVPBuffer = VKBuffer::CreateBuffer(
-			m_defContext->m_VulkanDevice,
+		m_MVPBuffer = DVKBuffer::CreateBuffer(
+			m_vkContext->m_VulkanDevice,
 			VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
 			VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
 			sizeof(MVPBlock),
@@ -306,8 +306,8 @@ private:
 		m_MVPBuffer->Map();
 
 		m_ParamData.intensity = 0.125f;
-		m_ParamBuffer = VKBuffer::CreateBuffer(
-			m_defContext->m_VulkanDevice,
+		m_ParamBuffer = DVKBuffer::CreateBuffer(
+			m_vkContext->m_VulkanDevice,
 			VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
 			VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
 			sizeof(ParamBlock),
@@ -345,10 +345,10 @@ private:
 	VKCamera						m_ViewCamera;
 
 	MVPBlock 						m_MVPData;
-	VKBuffer*						m_MVPBuffer;
+	DVKBuffer*						m_MVPBuffer;
 
 	ParamBlock						m_ParamData;
-	VKBuffer*						m_ParamBuffer = nullptr;
+	DVKBuffer*						m_ParamBuffer = nullptr;
 
 	DVKPipelines					m_Pipelines;
 	

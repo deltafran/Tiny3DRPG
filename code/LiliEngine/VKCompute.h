@@ -1,7 +1,7 @@
 #pragma once
 
 #include "VKUtils.h"
-#include "VKBuffer.h"
+#include "DVKBuffer.h"
 #include "VKTexture.h"
 #include "VKShader.h"
 #include "VKPipeline.h"
@@ -35,7 +35,7 @@ public:
 
     void SetStorageTexture(const std::string& name, VKTexture* texture);
 
-    void SetStorageBuffer(const std::string& name, VKBuffer* buffer);
+    void SetStorageBuffer(const std::string& name, DVKBuffer* buffer);
 
     inline VkPipeline GetPipeline() const
     {

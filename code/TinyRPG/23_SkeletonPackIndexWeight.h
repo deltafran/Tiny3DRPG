@@ -30,7 +30,7 @@ private:
 	bool m_isEnd = false;
 
 	VulkanRHI* m_vulkanRHI = nullptr;
-	DefaultVulkanContext* m_defContext = nullptr;
+
 	VulkanContext* m_vkContext = nullptr;
 
 	std::shared_ptr<VulkanDevice> m_VulkanDevice = nullptr;
@@ -53,7 +53,7 @@ private:
 
 	void Draw(float time, float delta)
 	{
-		int32_t bufferIndex = m_defContext->AcquireBackbufferIndex();
+		int32_t bufferIndex = m_vkContext->AcquireBackbufferIndex();
 
 		bool hovered = UpdateUI(time, delta);
 		if (!hovered)
@@ -96,7 +96,7 @@ private:
 
 		SetupCommandBuffers(bufferIndex);
 
-		m_defContext->Present(bufferIndex);
+		m_vkContext->Present(bufferIndex);
 	}
 
 	void UpdateAnimation(float time, float delta)
@@ -152,7 +152,7 @@ private:
 
 	void LoadAssets()
 	{
-		VKCommandBuffer* cmdBuffer = VKCommandBuffer::Create(m_VulkanDevice, m_defContext->m_CommandPool);
+		VKCommandBuffer* cmdBuffer = VKCommandBuffer::Create(m_VulkanDevice, m_vkContext->m_CommandPool);
 
 		// model
 		m_RoleModel = VKModel::LoadFromFile(
@@ -269,19 +269,19 @@ private:
 	{
 		VkViewport viewport = {};
 		viewport.x = 0;
-		viewport.y = m_defContext->m_FrameHeight;
-		viewport.width = m_defContext->m_FrameWidth;
-		viewport.height = -(float)m_defContext->m_FrameHeight;    // flip y axis
+		viewport.y = m_vkContext->m_FrameHeight;
+		viewport.width = m_vkContext->m_FrameWidth;
+		viewport.height = -(float)m_vkContext->m_FrameHeight;    // flip y axis
 		viewport.minDepth = 0.0f;
 		viewport.maxDepth = 1.0f;
 
 		VkRect2D scissor = {};
-		scissor.extent.width = m_defContext->m_FrameWidth;
-		scissor.extent.height = m_defContext->m_FrameHeight;
+		scissor.extent.width = m_vkContext->m_FrameWidth;
+		scissor.extent.height = m_vkContext->m_FrameHeight;
 		scissor.offset.x = 0;
 		scissor.offset.y = 0;
 
-		VkCommandBuffer commandBuffer = m_defContext->m_CommandBuffers[backBufferIndex];
+		VkCommandBuffer commandBuffer = m_vkContext->m_CommandBuffers[backBufferIndex];
 
 		VkCommandBufferBeginInfo cmdBeginInfo;
 		ZeroVulkanStruct(cmdBeginInfo, VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO);
@@ -299,8 +299,8 @@ private:
 		renderPassBeginInfo.pClearValues = clearValues;
 		renderPassBeginInfo.renderArea.offset.x = 0;
 		renderPassBeginInfo.renderArea.offset.y = 0;
-		renderPassBeginInfo.renderArea.extent.width = m_defContext->m_FrameWidth;
-		renderPassBeginInfo.renderArea.extent.height = m_defContext->m_FrameHeight;
+		renderPassBeginInfo.renderArea.extent.width = m_vkContext->m_FrameWidth;
+		renderPassBeginInfo.renderArea.extent.height = m_vkContext->m_FrameHeight;
 		vkCmdBeginRenderPass(commandBuffer, &renderPassBeginInfo, VK_SUBPASS_CONTENTS_INLINE);
 
 		vkCmdSetViewport(commandBuffer, 0, 1, &viewport);

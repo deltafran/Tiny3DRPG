@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "VKUtils.h"
-#include "VKBuffer.h"
+#include "DVKBuffer.h"
 #include "VKTexture.h"
 
 #include "FileManager.h"
@@ -178,7 +178,7 @@ public:
 		vkUpdateDescriptorSets(device, 1, &writeDescriptorSet, 0, nullptr);
 	}
 
-	void WriteBuffer(const std::string& name, VKBuffer* buffer)
+	void WriteBuffer(const std::string& name, DVKBuffer* buffer)
 	{
 		auto it = setLayoutsInfo.paramsMap.find(name);
 		if (it == setLayoutsInfo.paramsMap.end())
