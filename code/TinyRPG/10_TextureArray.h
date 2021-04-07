@@ -1,6 +1,4 @@
 #pragma once
-#pragma once
-#pragma once
 
 class TextureArray final
 {

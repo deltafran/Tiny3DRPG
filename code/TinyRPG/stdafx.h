@@ -19,3 +19,5 @@
 #include "LiliEngine/VKPipeline.h"
 #include "LiliEngine/VKTexture.h"
 #include "LiliEngine/Alignment.h"
+#include "LiliEngine/VKMaterial.h"
+#include "LiliEngine/VKDefaultRes.h"

@@ -85,6 +85,18 @@
     <ClCompile Include="AssimpUnityBuild6.cpp">
       <Filter>Assimp</Filter>
     </ClCompile>
+    <ClCompile Include="SPIRV-Cross\spirv_parser.cpp">
+      <Filter>SpirvCross\core</Filter>
+    </ClCompile>
+    <ClCompile Include="SPIRV-Cross\spirv_cfg.cpp">
+      <Filter>SpirvCross\core</Filter>
+    </ClCompile>
+    <ClCompile Include="SPIRV-Cross\spirv_cross.cpp">
+      <Filter>SpirvCross\core</Filter>
+    </ClCompile>
+    <ClCompile Include="SPIRV-Cross\spirv_cross_parsed_ir.cpp">
+      <Filter>SpirvCross\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3rdpartyConfig.h" />
@@ -158,6 +170,12 @@
     </Filter>
     <Filter Include="imgui">
       <UniqueIdentifier>{8c13f494-5731-48b8-8dd1-e126e3f97751}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SpirvCross">
+      <UniqueIdentifier>{f10d9c07-7ac4-44d5-afae-75d15726acec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SpirvCross\core">
+      <UniqueIdentifier>{dcd9fe7a-1eb1-4023-9474-f9d3eb07ef6d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
