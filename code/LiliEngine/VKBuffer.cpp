@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "VKBuffer.h"
 
+делать ассерты и проверки в инициализации (и ни одного в выполнении)
+
 VKBuffer::~VKBuffer()
 {
 	if (m_buffer != VK_NULL_HANDLE)
