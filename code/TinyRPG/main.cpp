@@ -25,6 +25,7 @@
 #if LILI_VULKAN
 #	pragma comment(lib, "vulkan-1.lib")
 #endif
+роглайк
 //-----------------------------------------------------------------------------
 int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv)
 {
