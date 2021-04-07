@@ -7,6 +7,8 @@
 #include "06_Pipelines.h"
 #include "07_Texture.h"
 #include "08_PushConstants.h"
+#include "09_DynamicUniformBuffer.h"
+#include "10_TextureArray.h"
 
 //-----------------------------------------------------------------------------
 #pragma comment(lib, "LiliEngine.lib")
@@ -26,7 +28,9 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv)
 	//LoadMesh game(configuration);
 	//Pipelines game(configuration);
 	//Texture game(configuration);
-	PushConstants game(configuration);
+	//PushConstants game(configuration);
+	//DynamicUniformBuffer game(configuration);
+	TextureArray game(configuration);
 	//GameApplication game(configuration);
 	game.StartGame();
 	return 0;

@@ -184,6 +184,8 @@
     <ClCompile Include="06_Pipelines.cpp" />
     <ClCompile Include="07_Texture.cpp" />
     <ClCompile Include="08_PushConstants.cpp" />
+    <ClCompile Include="09_DynamicUniformBuffer.cpp" />
+    <ClCompile Include="10_TextureArray.cpp" />
     <ClCompile Include="GameApplication.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -207,6 +209,8 @@
     <ClInclude Include="06_Pipelines.h" />
     <ClInclude Include="07_Texture.h" />
     <ClInclude Include="08_PushConstants.h" />
+    <ClInclude Include="09_DynamicUniformBuffer.h" />
+    <ClInclude Include="10_TextureArray.h" />
     <ClInclude Include="GameApplication.h" />
     <ClInclude Include="gettime.h" />
     <ClInclude Include="linmath.h" />

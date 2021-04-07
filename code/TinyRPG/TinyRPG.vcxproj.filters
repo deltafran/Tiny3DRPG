@@ -30,6 +30,12 @@
     <ClCompile Include="08_PushConstants.cpp">
       <Filter>example</Filter>
     </ClCompile>
+    <ClCompile Include="09_DynamicUniformBuffer.cpp">
+      <Filter>example</Filter>
+    </ClCompile>
+    <ClCompile Include="10_TextureArray.cpp">
+      <Filter>example</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">
@@ -78,6 +84,12 @@
       <Filter>example</Filter>
     </ClInclude>
     <ClInclude Include="08_PushConstants.h">
+      <Filter>example</Filter>
+    </ClInclude>
+    <ClInclude Include="09_DynamicUniformBuffer.h">
+      <Filter>example</Filter>
+    </ClInclude>
+    <ClInclude Include="10_TextureArray.h">
       <Filter>example</Filter>
     </ClInclude>
   </ItemGroup>
