@@ -191,6 +191,7 @@
     <ClInclude Include="IntVector.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="Matrix4x4.h" />
+    <ClInclude Include="NonCopyable.h" />
     <ClInclude Include="PixelFormat.h" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="PlatformAtomics.h" />
@@ -209,6 +210,7 @@
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Vector4.h" />
     <ClInclude Include="DVKBuffer.h" />
+    <ClInclude Include="VKBuffer.h" />
     <ClInclude Include="VKCamera.h" />
     <ClInclude Include="VKCommandBuffer.h" />
     <ClInclude Include="VKCompute.h" />
@@ -228,6 +230,7 @@
     <ClInclude Include="VulkanGlobals.h" />
     <ClInclude Include="VulkanMemory.h" />
     <ClInclude Include="VulkanQueue.h" />
+    <ClInclude Include="VulkanResource.h" />
     <ClInclude Include="VulkanRHI.h" />
     <ClInclude Include="VulkanSwapChain.h" />
     <ClInclude Include="WindowConfiguration.h" />
@@ -257,6 +260,7 @@
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="DVKBuffer.cpp" />
+    <ClCompile Include="VKBuffer.cpp" />
     <ClCompile Include="VKCamera.cpp" />
     <ClCompile Include="VKCommandBuffer.cpp" />
     <ClCompile Include="VKCompute.cpp" />
@@ -277,6 +281,7 @@
     <ClCompile Include="VulkanMemory.cpp" />
     <ClCompile Include="VulkanPlatform.cpp" />
     <ClCompile Include="VulkanQueue.cpp" />
+    <ClCompile Include="VulkanResource.cpp" />
     <ClCompile Include="VulkanRHI.cpp" />
     <ClCompile Include="VulkanSwapChain.cpp" />
     <ClCompile Include="WindowSystem.cpp" />

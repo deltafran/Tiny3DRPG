@@ -11,6 +11,7 @@
 RendererSystem::RendererSystem(RendererConfiguration& configuration) noexcept
 	: m_configuration(configuration)
 	, m_vulkanContext(m_vulkanRHI)
+	, m_vulkanResource(m_vulkanRHI.GetDevice())
 {
 }
 //-----------------------------------------------------------------------------

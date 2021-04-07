@@ -4,6 +4,7 @@
 #include "RendererConfiguration.h"
 #include "VulkanRHI.h"
 #include "VulkanContext.h"
+#include "VulkanResource.h"
 
 class RendererSystem final
 {
@@ -18,7 +19,7 @@ public:
 
 	VulkanRHI& GetVulkanRHI() noexcept { return m_vulkanRHI; }
 	VulkanContext& GetVulkanContext() noexcept { return m_vulkanContext; }
-
+	VulkanResource& GetVulkanResource() noexcept { return m_vulkanResource; }
 private:
 	RendererSystem() = delete;
 	RendererSystem(const RendererSystem&) = delete;
@@ -29,4 +30,5 @@ private:
 	RendererConfiguration& m_configuration;
 	VulkanRHI m_vulkanRHI;
 	VulkanContext m_vulkanContext;
+	VulkanResource m_vulkanResource;
 };

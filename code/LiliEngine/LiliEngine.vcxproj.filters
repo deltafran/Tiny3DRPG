@@ -179,6 +179,15 @@
     <ClInclude Include="VKUtils.h">
       <Filter>Renderer\VulkanObject\Lesson</Filter>
     </ClInclude>
+    <ClInclude Include="VulkanResource.h">
+      <Filter>Renderer\VulkanResource</Filter>
+    </ClInclude>
+    <ClInclude Include="VKBuffer.h">
+      <Filter>Renderer\VulkanObject</Filter>
+    </ClInclude>
+    <ClInclude Include="NonCopyable.h">
+      <Filter>Core\Pattern</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
@@ -299,6 +308,12 @@
     <ClCompile Include="VKVertexBuffer.cpp">
       <Filter>Renderer\VulkanObject\Lesson</Filter>
     </ClCompile>
+    <ClCompile Include="VulkanResource.cpp">
+      <Filter>Renderer\VulkanResource</Filter>
+    </ClCompile>
+    <ClCompile Include="VKBuffer.cpp">
+      <Filter>Renderer\VulkanObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Audio">
@@ -357,6 +372,12 @@
     </Filter>
     <Filter Include="Renderer\VulkanObject\Lesson">
       <UniqueIdentifier>{ded73e5e-090f-48c5-9252-c27b0eb3dd19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\VulkanResource">
+      <UniqueIdentifier>{0cc94fb1-ec80-4d73-ae3b-d9c72157ecb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Pattern">
+      <UniqueIdentifier>{729b2fb1-9f88-4c02-a538-934cc39a0b74}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
