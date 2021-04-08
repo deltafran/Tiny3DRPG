@@ -28,6 +28,7 @@ bool RendererSystem::Init(const WindowInfo& info, int32_t widthSwapChain, int32_
 void RendererSystem::Close() noexcept
 {
 	m_vulkanContext.Close();
+	m_vulkanResource.Close();
 	m_vulkanRHI.Close();
 }
 //-----------------------------------------------------------------------------

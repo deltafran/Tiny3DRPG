@@ -3,6 +3,7 @@ vulkan.hpp - для примера обертки
 
 визуал и мир
 	Drakan: Order of the Flame
+	https://ag.ru/games/florensia
 
 https://github.com/DragonJoker/Castor3D
 https://github.com/DragonJoker/Ashes

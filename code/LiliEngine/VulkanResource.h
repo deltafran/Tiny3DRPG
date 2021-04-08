@@ -1,10 +1,12 @@
 #pragma once
 
+#include "NonCopyable.h"
+
 class VulkanDevice;
 
 class VKBuffer;
 
-class VulkanResource final
+class VulkanResource final : NonCopyable
 {
 public:
 	VulkanResource(std::shared_ptr<VulkanDevice> device) noexcept
@@ -12,14 +14,12 @@ public:
 	{
 	}
 
+	void Close() noexcept;
+
 	VKBuffer* CreateBuffer(VkBufferUsageFlags usageFlags, VkMemoryPropertyFlags memoryPropertyFlags, VkDeviceSize size, void* data = nullptr) noexcept;
 
 private:
 	VulkanResource() = delete;
-	VulkanResource(const VulkanResource&) = delete;
-	VulkanResource(VulkanResource&&) = delete;
-	VulkanResource& operator=(const VulkanResource&) = delete;
-	VulkanResource& operator=(VulkanResource&&) = delete;
 
 	std::shared_ptr<VulkanDevice> m_device = nullptr;
 };

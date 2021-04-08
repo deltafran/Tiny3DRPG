@@ -2,363 +2,371 @@
 
 #include "IntPoint.h"
 #include "StringUtils.h"
+#include "FloatConversion.h"
+#include "MathPodTypes.h"
 
-struct Vector2
+class Vector2 final
 {
 public:
-	float x;
-	float y;
+	static const Vector2 Zero;
+	static const Vector2 Unit;
 
-	static const Vector2 ZeroVector;
-	static const Vector2 UnitVector;
+	FORCEINLINE Vector2() noexcept;
+	FORCEINLINE Vector2(float inX, float inY) noexcept;
+	FORCEINLINE Vector2(const Vector2& inV) noexcept;
+	FORCEINLINE Vector2(const IntPoint& inPos) noexcept;
+	FORCEINLINE Vector2(const v2& inV) noexcept;
 
-public:
+	FORCEINLINE Vector2& operator=(const Vector2&) noexcept;
 
-	Vector2();
+	FORCEINLINE Vector2 operator+(const Vector2& v) const noexcept;
+	FORCEINLINE Vector2 operator-(const Vector2& v) const noexcept;
+	FORCEINLINE Vector2 operator*(float scale) const noexcept;
+	FORCEINLINE Vector2 operator*(const Vector2& v) const noexcept;
+	FORCEINLINE Vector2 operator+(float a) const noexcept;
+	FORCEINLINE Vector2 operator-(float a) const noexcept;
+	FORCEINLINE Vector2 operator/(float scale) const noexcept;
+	FORCEINLINE Vector2 operator/(const Vector2& v) const noexcept;
 
-	Vector2(float inX, float inY);
+	FORCEINLINE float operator|(const Vector2& v) const noexcept;
+	FORCEINLINE float operator^(const Vector2& v) const noexcept;
 
-	Vector2(IntPoint inPos);
+	FORCEINLINE bool operator==(const Vector2& v) const noexcept;
+	FORCEINLINE bool operator!=(const Vector2& v) const noexcept;
+	FORCEINLINE bool operator<(const Vector2& other) const noexcept;
+	FORCEINLINE bool operator>(const Vector2& other) const noexcept;
+	FORCEINLINE bool operator<=(const Vector2& other) const noexcept;
+	FORCEINLINE bool operator>=(const Vector2& other) const noexcept;
 
-	FORCEINLINE Vector2 operator+(const Vector2& v) const;
+	FORCEINLINE Vector2 operator-() const noexcept;
 
-	FORCEINLINE Vector2 operator-(const Vector2& v) const;
+	FORCEINLINE Vector2 operator+=(const Vector2& v) noexcept;
+	FORCEINLINE Vector2 operator-=(const Vector2& v) noexcept;
+	FORCEINLINE Vector2 operator*=(float scale) noexcept;
+	FORCEINLINE Vector2 operator*=(const Vector2& v) noexcept;
+	FORCEINLINE Vector2 operator/=(float v) noexcept;
+	FORCEINLINE Vector2 operator/=(const Vector2& v) noexcept;
 
-	FORCEINLINE Vector2 operator*(float scale) const;
+	FORCEINLINE float& operator[](int32_t index) noexcept;
+	FORCEINLINE const float& operator[](int32_t index) const noexcept;
 
-	FORCEINLINE Vector2 operator+(float a) const;
+	FORCEINLINE static float DotProduct(const Vector2& a, const Vector2& b) noexcept;
 
-	FORCEINLINE Vector2 operator-(float a) const;
+	FORCEINLINE static float DistSquared(const Vector2& v1, const Vector2& v2) noexcept;
 
-	FORCEINLINE Vector2 operator*(const Vector2& v) const;
+	FORCEINLINE static float Distance(const Vector2& v1, const Vector2& v2) noexcept;
 
-	FORCEINLINE Vector2 operator/(float scale) const;
+	FORCEINLINE static float CrossProduct(const Vector2& a, const Vector2& b) noexcept;
 
-	FORCEINLINE Vector2 operator/(const Vector2& v) const;
+	FORCEINLINE bool Equals(const Vector2& v, float tolerance = KINDA_SMALL_NUMBER) const noexcept;
 
-	FORCEINLINE float operator|(const Vector2& v) const;
+	FORCEINLINE void Set(float inX, float inY) noexcept;
 
-	FORCEINLINE float operator^(const Vector2& v) const;
+	FORCEINLINE  Vector2& Scale(const Vector2& inV) noexcept;
 
-	FORCEINLINE bool operator==(const Vector2& v) const;
+	FORCEINLINE float GetMax() const noexcept;
 
-	FORCEINLINE bool operator!=(const Vector2& v) const;
+	FORCEINLINE float GetAbsMax() const noexcept;
 
-	FORCEINLINE bool operator<(const Vector2& other) const;
+	FORCEINLINE float GetMin() const noexcept;
 
-	FORCEINLINE bool operator>(const Vector2& other) const;
+	FORCEINLINE float Size() const noexcept;
 
-	FORCEINLINE bool operator<=(const Vector2& other) const;
+	FORCEINLINE float SizeSquared() const noexcept;
 
-	FORCEINLINE bool operator>=(const Vector2& other) const;
+	FORCEINLINE Vector2 GetRotated(float angleDeg) const noexcept;
 
-	FORCEINLINE Vector2 operator-() const;
+	FORCEINLINE Vector2 GetSafeNormal(float tolerance = SMALL_NUMBER) const noexcept;
 
-	FORCEINLINE Vector2 operator+=(const Vector2& v);
+	FORCEINLINE void Normalize(float tolerance = SMALL_NUMBER) noexcept;
 
-	FORCEINLINE Vector2 operator-=(const Vector2& v);
+	FORCEINLINE bool IsNearlyZero(float tolerance = KINDA_SMALL_NUMBER) const noexcept;
 
-	FORCEINLINE Vector2 operator*=(float scale);
+	FORCEINLINE void ToDirectionAndLength(Vector2& outDir, float& outLength) const noexcept;
 
-	FORCEINLINE Vector2 operator/=(float v);
+	FORCEINLINE bool IsZero() const noexcept;
 
-	FORCEINLINE Vector2 operator*=(const Vector2& v);
+	FORCEINLINE IntPoint GetIntPoint() const noexcept;
 
-	FORCEINLINE Vector2 operator/=(const Vector2& v);
+	FORCEINLINE Vector2 RoundToVector() const noexcept;
 
-	FORCEINLINE float& operator[](int32_t index);
+	FORCEINLINE Vector2 ClampAxes(float minAxisVal, float maxAxisVal) const noexcept;
 
-	FORCEINLINE float operator[](int32_t index) const;
+	FORCEINLINE Vector2 GetSignVector() const noexcept;
 
-	FORCEINLINE float& Component(int32_t index);
+	FORCEINLINE Vector2 GetAbs() const noexcept;
 
-	FORCEINLINE float Component(int32_t index) const;
+	FORCEINLINE std::string ToString() const noexcept;
 
-	FORCEINLINE static float DotProduct(const Vector2& a, const Vector2& b);
-
-	FORCEINLINE static float DistSquared(const Vector2& v1, const Vector2& v2);
-
-	FORCEINLINE static float Distance(const Vector2& v1, const Vector2& v2);
-
-	FORCEINLINE static float CrossProduct(const Vector2& a, const Vector2& b);
-
-	FORCEINLINE bool Equals(const Vector2& v, float tolerance = KINDA_SMALL_NUMBER) const;
-
-	FORCEINLINE void Set(float inX, float inY);
-
-	FORCEINLINE float GetMax() const;
-
-	FORCEINLINE float GetAbsMax() const;
-
-	FORCEINLINE float GetMin() const;
-
-	FORCEINLINE float Size() const;
-
-	FORCEINLINE float SizeSquared() const;
-
-	FORCEINLINE Vector2 GetRotated(float angleDeg) const;
-
-	FORCEINLINE Vector2 GetSafeNormal(float tolerance = SMALL_NUMBER) const;
-
-	FORCEINLINE void Normalize(float tolerance = SMALL_NUMBER);
-
-	FORCEINLINE bool IsNearlyZero(float tolerance = KINDA_SMALL_NUMBER) const;
-
-	FORCEINLINE void ToDirectionAndLength(Vector2& outDir, float& outLength) const;
-
-	FORCEINLINE bool IsZero() const;
-
-	FORCEINLINE IntPoint GetIntPoint() const;
-
-	FORCEINLINE Vector2 RoundToVector() const;
-
-	FORCEINLINE Vector2 ClampAxes(float minAxisVal, float maxAxisVal) const;
-
-	FORCEINLINE Vector2 GetSignVector() const;
-
-	FORCEINLINE Vector2 GetAbs() const;
-
-	FORCEINLINE std::string ToString() const;
-
-	FORCEINLINE void DiagnosticCheckNaN()
-	{
-	}
-
-	FORCEINLINE bool ContainsNaN() const
+	FORCEINLINE bool ContainsNaN() const noexcept
 	{
 		return (!math::IsFinite(x) || !math::IsFinite(y));
 	}
+
+	float x;
+	float y;
 };
 
-FORCEINLINE Vector2::Vector2()
-	: x(0)
-	, y(0)
+FORCEINLINE Vector2::Vector2() noexcept
+	: x(0.0f)
+	, y(0.0f)
 {
-
 }
 
-FORCEINLINE Vector2::Vector2(float inX, float inY)
+FORCEINLINE Vector2::Vector2(float inX, float inY) noexcept
 	: x(inX)
 	, y(inY)
 {
-
 }
 
-FORCEINLINE Vector2::Vector2(IntPoint inPos)
+FORCEINLINE Vector2::Vector2(const Vector2& inV) noexcept
+	: x(inV.x)
+	, y(inV.y)
+{
+}
+
+FORCEINLINE Vector2::Vector2(const IntPoint& inPos) noexcept
 	: x((float)inPos.x)
 	, y((float)inPos.y)
 {
-
 }
 
-FORCEINLINE Vector2 operator*(float scale, const Vector2& v)
+FORCEINLINE Vector2::Vector2(const v2& inV) noexcept
+	: x(inV.x)
+	, y(inV.y)
+{
+}
+
+FORCEINLINE Vector2& Vector2::operator=(const Vector2 &v) noexcept
+{
+	x = v.x;
+	y = v.y;
+	return *this;
+}
+
+FORCEINLINE Vector2 operator*(float scale, const Vector2& v) noexcept
 {
 	return v.operator*(scale);
 }
 
-FORCEINLINE Vector2 Vector2::operator+(const Vector2& v) const
+FORCEINLINE Vector2 Vector2::operator+(const Vector2& v) const noexcept
 {
 	return Vector2(x + v.x, y + v.y);
 }
 
-FORCEINLINE Vector2 Vector2::operator-(const Vector2& v) const
+FORCEINLINE Vector2 Vector2::operator-(const Vector2& v) const noexcept
 {
 	return Vector2(x - v.x, y - v.y);
 }
 
-FORCEINLINE Vector2 Vector2::operator*(float scale) const
+FORCEINLINE Vector2 Vector2::operator*(float scale) const noexcept
 {
 	return Vector2(x * scale, y * scale);
 }
 
-FORCEINLINE Vector2 Vector2::operator/(float scale) const
+FORCEINLINE Vector2 Vector2::operator/(float scale) const noexcept
 {
+	assert(math::CompareApproximately(scale, 0.0F));
 	const float invScale = 1.f / scale;
 	return Vector2(x * invScale, y * invScale);
 }
 
-FORCEINLINE Vector2 Vector2::operator+(float a) const
+FORCEINLINE Vector2 Vector2::operator+(float a) const noexcept
 {
 	return Vector2(x + a, y + a);
 }
 
-FORCEINLINE Vector2 Vector2::operator-(float a) const
+FORCEINLINE Vector2 Vector2::operator-(float a) const noexcept
 {
 	return Vector2(x - a, y - a);
 }
 
-FORCEINLINE Vector2 Vector2::operator*(const Vector2& v) const
+FORCEINLINE Vector2 Vector2::operator*(const Vector2& v) const noexcept
 {
 	return Vector2(x * v.x, y * v.y);
 }
 
-FORCEINLINE Vector2 Vector2::operator/(const Vector2& v) const
+FORCEINLINE Vector2 Vector2::operator/(const Vector2& v) const noexcept
 {
+	assert(math::CompareApproximately(v.x, 0.0F));
+	assert(math::CompareApproximately(v.y, 0.0F));
 	return Vector2(x / v.x, y / v.y);
 }
 
-FORCEINLINE float Vector2::operator|(const Vector2& v) const
+FORCEINLINE float Vector2::operator|(const Vector2& v) const noexcept
 {
 	return x * v.x + y * v.y;
 }
 
-FORCEINLINE float Vector2::operator^(const Vector2& v) const
+FORCEINLINE float Vector2::operator^(const Vector2& v) const noexcept
 {
 	return x * v.y - y * v.x;
 }
 
-FORCEINLINE float Vector2::DotProduct(const Vector2& a, const Vector2& b)
+FORCEINLINE float Vector2::DotProduct(const Vector2& a, const Vector2& b) noexcept
 {
 	return a | b;
 }
 
-FORCEINLINE float Vector2::DistSquared(const Vector2& v1, const Vector2& v2)
+FORCEINLINE float Vector2::DistSquared(const Vector2& v1, const Vector2& v2) noexcept
 {
 	return math::Square(v2.x - v1.x) + math::Square(v2.y - v1.y);
 }
 
-FORCEINLINE float Vector2::Distance(const Vector2& v1, const Vector2& v2)
+FORCEINLINE float Vector2::Distance(const Vector2& v1, const Vector2& v2) noexcept
 {
 	return math::Sqrt(Vector2::DistSquared(v1, v2));
 }
 
-FORCEINLINE float Vector2::CrossProduct(const Vector2& a, const Vector2& b)
+FORCEINLINE float Vector2::CrossProduct(const Vector2& a, const Vector2& b) noexcept
 {
 	return a ^ b;
 }
 
-FORCEINLINE bool Vector2::operator==(const Vector2& v) const
+FORCEINLINE bool Vector2::operator==(const Vector2& v) const noexcept
 {
 	return x == v.x && y == v.y;
 }
 
-FORCEINLINE bool Vector2::operator!=(const Vector2& v) const
+FORCEINLINE bool Vector2::operator!=(const Vector2& v) const noexcept
 {
 	return x != v.x || y != v.y;
 }
 
-FORCEINLINE bool Vector2::operator<(const Vector2& other) const
+FORCEINLINE bool Vector2::operator<(const Vector2& other) const noexcept
 {
 	return x < other.x&& y < other.y;
 }
 
-FORCEINLINE bool Vector2::operator>(const Vector2& other) const
+FORCEINLINE bool Vector2::operator>(const Vector2& other) const noexcept
 {
 	return x > other.x && y > other.y;
 }
 
-FORCEINLINE bool Vector2::operator<=(const Vector2& other) const
+FORCEINLINE bool Vector2::operator<=(const Vector2& other) const noexcept
 {
 	return x <= other.x && y <= other.y;
 }
 
-FORCEINLINE bool Vector2::operator>=(const Vector2& other) const
+FORCEINLINE bool Vector2::operator>=(const Vector2& other) const noexcept
 {
 	return x >= other.x && y >= other.y;
 }
 
-FORCEINLINE bool Vector2::Equals(const Vector2& v, float tolerance) const
+FORCEINLINE bool Vector2::Equals(const Vector2& v, float tolerance) const noexcept
 {
 	return math::Abs(x - v.x) <= tolerance && math::Abs(y - v.y) <= tolerance;
 }
 
-FORCEINLINE Vector2 Vector2::operator-() const
+FORCEINLINE Vector2 Vector2::operator-() const noexcept
 {
 	return Vector2(-x, -y);
 }
 
-FORCEINLINE Vector2 Vector2::operator+=(const Vector2& v)
+FORCEINLINE Vector2 Vector2::operator+=(const Vector2& v) noexcept
 {
 	x += v.x;
 	y += v.y;
 	return *this;
 }
 
-FORCEINLINE Vector2 Vector2::operator-=(const Vector2& v)
+FORCEINLINE Vector2 Vector2::operator-=(const Vector2& v) noexcept
 {
 	x -= v.x;
 	y -= v.y;
 	return *this;
 }
 
-FORCEINLINE Vector2 Vector2::operator*=(float scale)
+FORCEINLINE Vector2 Vector2::operator*=(float scale) noexcept
 {
 	x *= scale;
 	y *= scale;
 	return *this;
 }
 
-FORCEINLINE Vector2 Vector2::operator/=(float v)
+FORCEINLINE Vector2 Vector2::operator/=(float v) noexcept
 {
+	assert(math::CompareApproximately(v, 0.0F));
 	const float invF = 1.f / v;
 	x *= invF;
 	y *= invF;
 	return *this;
 }
 
-FORCEINLINE Vector2 Vector2::operator*=(const Vector2& v)
+FORCEINLINE Vector2 Vector2::operator*=(const Vector2& v) noexcept
 {
 	x *= v.x;
 	y *= v.y;
 	return *this;
 }
 
-FORCEINLINE Vector2 Vector2::operator/=(const Vector2& v)
+FORCEINLINE Vector2 Vector2::operator/=(const Vector2& v) noexcept
 {
+	assert(math::CompareApproximately(v.x, 0.0F));
+	assert(math::CompareApproximately(v.y, 0.0F));
 	x /= v.x;
 	y /= v.y;
 	return *this;
 }
 
-FORCEINLINE float& Vector2::operator[](int32_t index)
+FORCEINLINE float& Vector2::operator[](int32_t index) noexcept
 {
+	assert(index < 0 || index > 1);
 	return ((index == 0) ? x : y);
 }
 
-FORCEINLINE float Vector2::operator[](int32_t index) const
+FORCEINLINE const float& Vector2::operator[](int32_t index) const noexcept
 {
+	assert(index < 0 || index > 1);
 	return ((index == 0) ? x : y);
 }
 
-FORCEINLINE void Vector2::Set(float inX, float inY)
+FORCEINLINE void Vector2::Set(float inX, float inY) noexcept
 {
 	x = inX;
 	y = inY;
 }
 
-FORCEINLINE float Vector2::GetMax() const
+inline Vector2& Vector2::Scale(const Vector2& inV) noexcept
+{
+	x *= inV.x; 
+	y *= inV.y; 
+	return *this;
+}
+
+FORCEINLINE float Vector2::GetMax() const noexcept
 {
 	return math::Max(x, y);
 }
 
-FORCEINLINE float Vector2::GetAbsMax() const
+FORCEINLINE float Vector2::GetAbsMax() const noexcept
 {
 	return math::Max(math::Abs(x), math::Abs(y));
 }
 
-FORCEINLINE float Vector2::GetMin() const
+FORCEINLINE float Vector2::GetMin() const noexcept
 {
 	return math::Min(x, y);
 }
 
-FORCEINLINE float Vector2::Size() const
+FORCEINLINE float Vector2::Size() const noexcept
 {
 	return math::Sqrt(x * x + y * y);
 }
 
-FORCEINLINE float Vector2::SizeSquared() const
+FORCEINLINE float Vector2::SizeSquared() const noexcept
 {
 	return x * x + y * y;
 }
 
-FORCEINLINE Vector2 Vector2::GetRotated(const float angleDeg) const
+FORCEINLINE Vector2 Vector2::GetRotated(const float angleDeg) const noexcept
 {
 	float s, c;
 	math::SinCos(&s, &c, math::DegreesToRadians(angleDeg));
 	return Vector2(c * x - s * y, s * x + c * y);
 }
 
-FORCEINLINE Vector2 Vector2::GetSafeNormal(float tolerance) const
+FORCEINLINE Vector2 Vector2::GetSafeNormal(float tolerance) const noexcept
 {
 	const float squareSum = x * x + y * y;
 	if (squareSum > tolerance)
@@ -369,7 +377,7 @@ FORCEINLINE Vector2 Vector2::GetSafeNormal(float tolerance) const
 	return Vector2(0.f, 0.f);
 }
 
-FORCEINLINE void Vector2::Normalize(float tolerance)
+FORCEINLINE void Vector2::Normalize(float tolerance) noexcept
 {
 	const float squareSum = x * x + y * y;
 	if (squareSum > tolerance)
@@ -383,7 +391,7 @@ FORCEINLINE void Vector2::Normalize(float tolerance)
 	y = 0.0f;
 }
 
-FORCEINLINE void Vector2::ToDirectionAndLength(Vector2& outDir, float& outLength) const
+FORCEINLINE void Vector2::ToDirectionAndLength(Vector2& outDir, float& outLength) const noexcept
 {
 	outLength = Size();
 	if (outLength > SMALL_NUMBER)
@@ -393,46 +401,36 @@ FORCEINLINE void Vector2::ToDirectionAndLength(Vector2& outDir, float& outLength
 	}
 	else
 	{
-		outDir = Vector2::ZeroVector;
+		outDir = Vector2::Zero;
 	}
 }
 
-FORCEINLINE bool Vector2::IsNearlyZero(float tolerance) const
+FORCEINLINE bool Vector2::IsNearlyZero(float tolerance) const noexcept
 {
 	return math::Abs(x) <= tolerance && math::Abs(y) <= tolerance;
 }
 
-FORCEINLINE bool Vector2::IsZero() const
+FORCEINLINE bool Vector2::IsZero() const noexcept
 {
 	return x == 0.f && y == 0.f;
 }
 
-FORCEINLINE float& Vector2::Component(int32_t index)
-{
-	return (&x)[index];
-}
-
-FORCEINLINE float Vector2::Component(int32_t index) const
-{
-	return (&x)[index];
-}
-
-FORCEINLINE IntPoint Vector2::GetIntPoint() const
+FORCEINLINE IntPoint Vector2::GetIntPoint() const noexcept
 {
 	return IntPoint(math::RoundToInt(x), math::RoundToInt(y));
 }
 
-FORCEINLINE Vector2 Vector2::RoundToVector() const
+FORCEINLINE Vector2 Vector2::RoundToVector() const noexcept
 {
 	return Vector2((float)math::RoundToInt(x), (float)math::RoundToInt(y));
 }
 
-FORCEINLINE Vector2 Vector2::ClampAxes(float minAxisVal, float maxAxisVal) const
+FORCEINLINE Vector2 Vector2::ClampAxes(float minAxisVal, float maxAxisVal) const noexcept
 {
 	return Vector2(math::Clamp(x, minAxisVal, maxAxisVal), math::Clamp(y, minAxisVal, maxAxisVal));
 }
 
-FORCEINLINE Vector2 Vector2::GetSignVector() const
+FORCEINLINE Vector2 Vector2::GetSignVector() const noexcept
 {
 	return Vector2
 	(
@@ -441,12 +439,12 @@ FORCEINLINE Vector2 Vector2::GetSignVector() const
 	);
 }
 
-FORCEINLINE Vector2 Vector2::GetAbs() const
+FORCEINLINE Vector2 Vector2::GetAbs() const noexcept
 {
 	return Vector2(math::Abs(x), math::Abs(y));
 }
 
-FORCEINLINE std::string Vector2::ToString() const
+FORCEINLINE std::string Vector2::ToString() const noexcept
 {
 	return StringUtils::Printf("x=%3.3f y=%3.3f", x, y);
 }

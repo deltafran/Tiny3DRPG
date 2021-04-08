@@ -25,8 +25,6 @@
 #if LILI_VULKAN
 #	pragma comment(lib, "vulkan-1.lib")
 #endif
-роглайк
-посмотреть в yo - там много интересного - например аабб и пересечения, или структура рендера или dynamic_array(аналог векторв).в TimeManager есть сглаженная дельтатайм
 //-----------------------------------------------------------------------------
 int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv)
 {

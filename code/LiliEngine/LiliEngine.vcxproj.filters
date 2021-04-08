@@ -140,9 +140,6 @@
     <ClInclude Include="ImageGUIContext.h">
       <Filter>Renderer\VulkanObject\Lesson</Filter>
     </ClInclude>
-    <ClInclude Include="DVKBuffer.h">
-      <Filter>Renderer\VulkanObject\Lesson</Filter>
-    </ClInclude>
     <ClInclude Include="VKCamera.h">
       <Filter>Renderer\VulkanObject\Lesson</Filter>
     </ClInclude>
@@ -187,6 +184,18 @@
     </ClInclude>
     <ClInclude Include="NonCopyable.h">
       <Filter>Core\Pattern</Filter>
+    </ClInclude>
+    <ClInclude Include="AutoDelete.h">
+      <Filter>Core\Pattern</Filter>
+    </ClInclude>
+    <ClInclude Include="DVKBuffer.h">
+      <Filter>Renderer\VulkanObject\Lesson\delete</Filter>
+    </ClInclude>
+    <ClInclude Include="FloatConversion.h">
+      <Filter>Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="MathPodTypes.h">
+      <Filter>Core\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -269,9 +278,6 @@
     <ClCompile Include="ImageGUIContext.cpp">
       <Filter>Renderer\VulkanObject\Lesson</Filter>
     </ClCompile>
-    <ClCompile Include="DVKBuffer.cpp">
-      <Filter>Renderer\VulkanObject\Lesson</Filter>
-    </ClCompile>
     <ClCompile Include="VKCamera.cpp">
       <Filter>Renderer\VulkanObject\Lesson</Filter>
     </ClCompile>
@@ -313,6 +319,12 @@
     </ClCompile>
     <ClCompile Include="VKBuffer.cpp">
       <Filter>Renderer\VulkanObject</Filter>
+    </ClCompile>
+    <ClCompile Include="DVKBuffer.cpp">
+      <Filter>Renderer\VulkanObject\Lesson\delete</Filter>
+    </ClCompile>
+    <ClCompile Include="FloatConversion.cpp">
+      <Filter>Core\Math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -378,6 +390,9 @@
     </Filter>
     <Filter Include="Core\Pattern">
       <UniqueIdentifier>{729b2fb1-9f88-4c02-a538-934cc39a0b74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\VulkanObject\Lesson\delete">
+      <UniqueIdentifier>{bd6f27c2-aa42-4cc5-81d9-cec311727e88}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

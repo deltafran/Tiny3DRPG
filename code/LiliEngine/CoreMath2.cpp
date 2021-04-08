@@ -17,8 +17,8 @@ const IntPoint IntPoint::NoneValue(-1, -1);
 const IntVector IntVector::ZeroValue(0, 0, 0);
 const IntVector IntVector::NoneValue(-1, -1, -1);
 // Vector2
-const Vector2 Vector2::ZeroVector(0.0f, 0.0f);
-const Vector2 Vector2::UnitVector(1.0f, 1.0f);
+const Vector2 Vector2::Zero(0.0f, 0.0f);
+const Vector2 Vector2::Unit(1.0f, 1.0f);
 // Vector3
 const Vector3 Vector3::ZeroVector(0.0f, 0.0f, 0.0f);
 const Vector3 Vector3::OneVector(1.0f, 1.0f, 1.0f);

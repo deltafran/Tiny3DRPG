@@ -15,8 +15,9 @@
 #pragma warning(disable : 4625)
 #pragma warning(disable : 4626)
 #pragma warning(disable : 4820) // C4820 padding added after data member
+#pragma warning(disable : 5026)
+#pragma warning(disable : 5027)
 #pragma warning(disable : 5045) // C5045 Spectre mitigation warning
-
 
 //=============================================================================
 // Standart header

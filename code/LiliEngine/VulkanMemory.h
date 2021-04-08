@@ -206,7 +206,7 @@ public:
 
     inline VulkanDeviceMemoryAllocation* Alloc(bool canFail, VkDeviceSize allocationSize, uint32_t memoryTypeBits, VkMemoryPropertyFlags memoryPropertyFlags, void* dedicatedAllocateInfo, const char* file, uint32_t line)
     {
-        uint32_t memoryTypeIndex = ~0;
+        uint32_t memoryTypeIndex = ~0u;
         VERIFYVULKANRESULT(this->GetMemoryTypeFromProperties(memoryTypeBits, memoryPropertyFlags, &memoryTypeIndex));
         return Alloc(canFail, allocationSize, memoryTypeIndex, dedicatedAllocateInfo, file, line);
     }
@@ -615,7 +615,7 @@ protected:
         2 * 1024 * 1024,
     };
 
-    PoolSizes GetPoolTypeForAlloc(uint32_t size, uint32_t alignment)
+    PoolSizes GetPoolTypeForAlloc(uint32_t size, uint32_t /*alignment*/)
     {
         PoolSizes poolSize = PoolSizes::SizesCount;
         for (int32_t i = 0; i < (int32_t)PoolSizes::SizesCount; ++i)
