@@ -197,6 +197,21 @@
     <ClInclude Include="MathPodTypes.h">
       <Filter>Core\Math</Filter>
     </ClInclude>
+    <ClInclude Include="Span.h">
+      <Filter>Core\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="Path.h">
+      <Filter>Core\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="crc32.h">
+      <Filter>Core\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Delegate.h">
+      <Filter>Core\Pattern</Filter>
+    </ClInclude>
+    <ClInclude Include="FileSystem.h">
+      <Filter>Core\IO</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
@@ -326,6 +341,15 @@
     <ClCompile Include="FloatConversion.cpp">
       <Filter>Core\Math</Filter>
     </ClCompile>
+    <ClCompile Include="Path.cpp">
+      <Filter>Core\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="crc32.cpp">
+      <Filter>Core\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="FileSystem.cpp">
+      <Filter>Core\IO</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Audio">
@@ -393,6 +417,9 @@
     </Filter>
     <Filter Include="Renderer\VulkanObject\Lesson\delete">
       <UniqueIdentifier>{bd6f27c2-aa42-4cc5-81d9-cec311727e88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Container">
+      <UniqueIdentifier>{75746c95-53f4-4c90-9bf2-d5f2d227bc17}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -182,9 +182,12 @@
     <ClInclude Include="Configuration.h" />
     <ClInclude Include="CoreMath.h" />
     <ClInclude Include="CoreMath2.h" />
+    <ClInclude Include="crc32.h" />
+    <ClInclude Include="Delegate.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="EngineConfig.h" />
     <ClInclude Include="FileManager.h" />
+    <ClInclude Include="FileSystem.h" />
     <ClInclude Include="FloatConversion.h" />
     <ClInclude Include="ImageGUIContext.h" />
     <ClInclude Include="ImageLoader.h" />
@@ -195,6 +198,7 @@
     <ClInclude Include="MathPodTypes.h" />
     <ClInclude Include="Matrix4x4.h" />
     <ClInclude Include="NonCopyable.h" />
+    <ClInclude Include="Path.h" />
     <ClInclude Include="PixelFormat.h" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="PlatformAtomics.h" />
@@ -204,6 +208,7 @@
     <ClInclude Include="RendererSystem.h" />
     <ClInclude Include="RHIDefinitions.h" />
     <ClInclude Include="Rotator.h" />
+    <ClInclude Include="Span.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="StringUtils.h" />
     <ClInclude Include="ThreadSafeCounter.h" />
@@ -244,13 +249,16 @@
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="CoreMath.cpp" />
     <ClCompile Include="CoreMath2.cpp" />
+    <ClCompile Include="crc32.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="FileManager.cpp" />
+    <ClCompile Include="FileSystem.cpp" />
     <ClCompile Include="FloatConversion.cpp" />
     <ClCompile Include="ImageGUIContext.cpp" />
     <ClCompile Include="ImageLoader.cpp" />
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="Log.cpp" />
+    <ClCompile Include="Path.cpp" />
     <ClCompile Include="PixelFormat.cpp" />
     <ClCompile Include="PlatformSystem.cpp" />
     <ClCompile Include="RendererSystem.cpp" />

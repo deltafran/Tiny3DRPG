@@ -1,5 +1,21 @@
 #pragma once
 
+#include "Span.h"
+
+namespace str
+{
+
+	int StringLength(const char* str);
+
+	bool CopyString(Span<char> output, const char* source);
+	bool CopyString(Span<char> output, Span<const char> source);
+
+	bool MakeLowercase(Span<char> output, const char* source);
+
+	bool EqualStrings(const char* lhs, const char* rhs);
+	bool EqualStrings(Span<const char> lhs, Span<const char> rhs);
+} // namespace str
+
 #define STARTING_BUFFER_SIZE 512
 
 static FORCEINLINE int32_t GetVarArgs(char* dest, SIZE_T destSize, int32_t count, const char*& fmt, va_list argPtr)
@@ -61,6 +77,10 @@ static FORCEINLINE int32_t GetVarArgs(char* dest, SIZE_T destSize, int32_t count
 
 namespace Str
 {
+
+
+
+
 	static std::string Space(size_t Count, char Ascii = ' ')
 	{
 		return std::string(Count, Ascii);
